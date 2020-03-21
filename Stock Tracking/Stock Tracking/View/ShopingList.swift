@@ -8,11 +8,10 @@
 
 import SwiftUI
 
-
-
 struct ShopingList: View {
 	@ObservedObject var shopList: ShopListModel
 	@ObservedObject var categorys: Categorys
+	@State var showSheet = false
 
     var body: some View {
 		NavigationView() {
@@ -39,9 +38,14 @@ struct ShopingList: View {
 				}.padding()
 			}
 			.navigationBarTitle("Einkaufsliste")
-			.navigationBarItems(trailing: Button(action: { }) {
+			.navigationBarItems(trailing: Button(action: {
+				self.showSheet.toggle()
+			}) {
 				Image(systemName: "plus.circle.fill").imageScale(.large)
             })
+			.sheet(isPresented: $showSheet, content: {
+				 AddToShopingList()
+			})
 		}
     }
 }
