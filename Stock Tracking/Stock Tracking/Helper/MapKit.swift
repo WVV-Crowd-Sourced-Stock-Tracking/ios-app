@@ -25,6 +25,6 @@ extension MKCoordinateSpan: Equatable {
 
 extension MKCoordinateSpan {
     var radius: CLLocationDegrees {
-        return max(self.latitudeDelta, self.longitudeDelta) * 111 // https://stackoverflow.com/a/5798913
+        return max(self.latitudeDelta, self.longitudeDelta) * 111 * 1000 // https://stackoverflow.com/a/5798913
     }
 }

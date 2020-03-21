@@ -2,9 +2,12 @@ import SwiftUI
 import Foundation
 
 class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
-    private static let distanceFormatter: LengthFormatter = {
-        let formatter = LengthFormatter()
-        formatter.unitStyle = .short
+    private static let distanceFormatter: MeasurementFormatter = {
+        let formatter = MeasurementFormatter()
+        formatter.unitStyle = .medium
+        formatter.unitOptions = .naturalScale
+        formatter.numberFormatter = NumberFormatter()
+        formatter.numberFormatter.maximumFractionDigits = 1
         return formatter
     }()
     
@@ -21,7 +24,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
     var title: String { self.name }
 
     var distanceString: String {
-        ShopModel.distanceFormatter.string(fromMeters: distance)
+        ShopModel.distanceFormatter.string(from: Measurement(value: self.distance, unit: UnitLength.meters))
     }
     
     init(name: String,
@@ -47,7 +50,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
                   isClose: shop.distance <= 100,
                   location: Location(latitude: shop.latitude, longitude: shop.longitude),
                   address: shop.vicinity,
-                  distance: shop.distance,
+                  distance: round(shop.distance),
                   isOpen: shop.openNow,
                   shopAvailability: .full,
                   products: [])

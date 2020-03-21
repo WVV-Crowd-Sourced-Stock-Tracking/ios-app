@@ -48,6 +48,9 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func fetchLocation() {
+        guard self.region == nil else {
+            return
+        }
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location Servics not enabled!!1")
             return
