@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ShopingList: View {
-	@EnvironmentObject var shopList: ShopListModel
+	@EnvironmentObject var shopList: ShopsModel
 	@EnvironmentObject var categorys: Categorys
 
 	@State var showSheet = false
@@ -54,6 +54,6 @@ struct ShopingList: View {
 struct ShopingList_Previews: PreviewProvider {
     static var previews: some View {
         ShopingList()
-		 .environmentObject(ShopListModel(shops: .preview))
+		 .environmentObject(ShopsModel(shops: .preview))
     }
 }

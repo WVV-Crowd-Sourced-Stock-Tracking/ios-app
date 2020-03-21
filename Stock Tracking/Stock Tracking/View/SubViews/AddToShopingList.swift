@@ -16,21 +16,7 @@ struct AddToShopingList: View {
 			ForEach(allCategory.list) { category in
 				Section(header: Text(category.name).bold()) {
 					ForEach(category.products) { product in
-						VStack() {
-							HStack() {
-								Image(systemName: product.selected ? "largecircle.fill.circle" : "circle")
-								Text(product.product.name)
-									.frame(minWidth: 0,
-										   maxWidth: .infinity,
-										   minHeight: 0,
-										   maxHeight: 30,
-										   alignment: .leading)
-							}.onTapGesture {
-								product.selected.toggle()
-								print(product.selected)
-							}
-							Divider()
-						}
+					AddToShoppingCell(product: product)
 					}
 				}
 			}
@@ -39,6 +25,27 @@ struct AddToShopingList: View {
 	}
 }
 
+struct AddToShoppingCell: View {
+    @ObservedObject var product: CategoryProduct
+    
+    var body: some View {
+        VStack() {
+            HStack() {
+                Image(systemName: product.selected ? "largecircle.fill.circle" : "circle")
+                Text(product.product.name)
+                    .frame(minWidth: 0,
+                           maxWidth: .infinity,
+                           minHeight: 0,
+                           maxHeight: 30,
+                           alignment: .leading)
+            }.onTapGesture {
+                self.product.selected.toggle()
+                print(self.product.selected)
+            }
+            Divider()
+        }
+    }
+}
 struct AddToShopingList_Previews: PreviewProvider {
     static var previews: some View {
 		AddToShopingList(allCategory: Categorys(list: [

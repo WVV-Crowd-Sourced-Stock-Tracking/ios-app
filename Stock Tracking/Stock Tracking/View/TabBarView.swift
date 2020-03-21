@@ -20,7 +20,7 @@ struct TabBarView: View {
 
 			VStack() {
 				ShopingList()
-					.environmentObject(ShopListModel())
+					.environmentObject(ShopsModel())
 			}.tabItem({
 				TabLabel(imageName: "list.bullet", label: "Einkaufsliste")
 			})
