@@ -22,6 +22,9 @@ struct AddToShopingList: View {
 			}
 		}.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
 		.padding()
+		.onDisappear(perform: {
+			self.allCategory.updateShopingList()
+		})
 	}
 }
 
@@ -42,7 +45,6 @@ struct AddToShoppingCell: View {
                 self.product.selected.toggle()
                 print(self.product.selected)
             }
-            Divider()
         }
     }
 }

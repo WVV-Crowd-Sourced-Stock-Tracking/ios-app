@@ -12,40 +12,57 @@ struct ShopingList: View {
 	@EnvironmentObject var shopList: ShopsModel
 	@EnvironmentObject var categorys: Categorys
 
-	@State var showSheet = false
+//	@State var showSheet = false
 
     var body: some View {
 		NavigationView() {
-			VStack() {
-				List() {
-					ForEach(categorys.list) { category in
-						Section(header: Text(category.name).bold()) {
-							ForEach(category.products) { product in
-								Text(product.product.name)
-							}
+//			VStack() {
+//				List() {
+//					ForEach(categorys.list) { category in
+//						Section(header: Text(category.name).bold()) {
+//							ForEach(category.products) { product in
+//								if product.selected {
+//									Text(product.product.name)
+//								}
+//							}
+//						}
+//					}
+//				}
+//				VStack() {
+//					Divider()
+//					ScrollView(.horizontal, showsIndicators: true) {
+//						HStack() {
+//							ForEach(shopList.shops) { shop in
+//								ShopCell(model: shop)
+//								Divider()
+//							}
+//						}
+//					}
+//				}.padding()
+//			}
+			List() {
+				ForEach(categorys.list) { category in
+					Section(header: Text(category.name).bold()) {
+						ForEach(category.products) { product in
+						AddToShoppingCell(product: product)
 						}
 					}
 				}
-				VStack() {
-					Divider()
-					ScrollView(.horizontal, showsIndicators: true) {
-						HStack() {
-							ForEach(shopList.shops) { shop in
-								ShopCell(model: shop)
-								Divider()
-							}
-						}
-					}
-				}.padding()
-			}
+			}.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
+			.onDisappear(perform: {
+				self.categorys.updateShopingList()
+			})
 			.navigationBarTitle("Einkaufsliste")
-			.navigationBarItems(trailing: Button(action: {
-				self.showSheet.toggle()
-			}) {
-				Image(systemName: "plus.circle.fill").imageScale(.large)
-            })
-			.sheet(isPresented: $showSheet, content: {
-				AddToShopingList(allCategory: self.categorys)
+//			.navigationBarItems(trailing: Button(action: {
+//				self.showSheet.toggle()
+//			}) {
+//				Image(systemName: "plus.circle.fill").imageScale(.large)
+//            })
+//			.sheet(isPresented: $showSheet, content: {
+//				AddToShopingList(allCategory: self.categorys)
+//			})
+			.onAppear(perform: {
+				self.categorys.list = self.categorys.getShopingList()
 			})
 		}
     }
