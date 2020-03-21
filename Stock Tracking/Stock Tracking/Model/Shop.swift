@@ -1,5 +1,6 @@
 
 struct Shop: Codable, Equatable {
+    let id: String
     let name: String
     let latitude: Double
     let longitude: Double

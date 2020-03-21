@@ -28,20 +28,9 @@ struct MapCell: View {
                 .padding(.top)
                 ZStack {
                     MapView(self.$model.shops,
-                            selected: self.$model.selectedShop,
-                            region: self.$model.cellRegion) { shop in
-                                HStack(spacing: 12) {
-                                    ForEach(shop.products.prefix(5)) { product in
-                                        HStack(spacing: 6) {
-                                            AvailabilityView(availability: product.availability)
-                                                .frame(height: 16)
-                                            Text(product.emoji)
-                                                .font(.footnote)
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                                .padding(.vertical, 4)
+                            selected: .constant(nil),
+                            region: self.$model.cellRegion) { _ in
+                                EmptyView()
                     }
                     .allowsHitTesting(false)
                     Color.white.opacity(0.0001)

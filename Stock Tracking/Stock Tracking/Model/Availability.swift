@@ -28,4 +28,17 @@ enum Availability {
                 return .unknown
             }
     }
+    
+    var text: String {
+           switch self {
+           case .full:
+               return "available"
+           case .middle:
+               return "almost sold out"
+           case .empty:
+               return "sold out"
+           case .unknown:
+               return "unknown"
+           }
+       }
 }

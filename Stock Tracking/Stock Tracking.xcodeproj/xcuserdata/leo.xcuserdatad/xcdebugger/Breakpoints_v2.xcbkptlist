@@ -180,5 +180,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0BFF8624-F60D-45CD-A14F-539B2CC3AF9D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stock Tracking/View/ShopDetailView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0BFF8624-F60D-45CD-A14F-539B2CC3AF9D - d7093a24bc484011"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stock_Tracking.ShopDetailView.map.getter : some"
+                  moduleName = "Stock Tracking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leo/Developer/ios-app/Stock%20Tracking/Stock%20Tracking/View/ShopDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "0BFF8624-F60D-45CD-A14F-539B2CC3AF9D - 6d8315f587ce8dd0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.allowsHitTesting(Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.Color)&gt; in Stock_Tracking.ShopDetailView.map.getter : some"
+                  moduleName = "Stock Tracking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leo/Developer/ios-app/Stock%20Tracking/Stock%20Tracking/View/ShopDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

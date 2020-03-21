@@ -1,8 +1,9 @@
 import SwiftUI
 import Foundation
+import MapKit
 
 class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
-    private static let distanceFormatter: MeasurementFormatter = {
+    static let distanceFormatter: MeasurementFormatter = {
         let formatter = MeasurementFormatter()
         formatter.unitStyle = .medium
         formatter.unitOptions = .naturalScale
@@ -11,7 +12,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         return formatter
     }()
     
-    @Published var id: String = UUID().uuidString
+    
     @Published var products: [ProductModel]
     @Published var isClose: Bool
     @Published var location: Location
@@ -20,14 +21,19 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
     @Published var distance: Double
     @Published var address: String
     @Published var isOpen: Bool?
+        
+    let id: String
     
     var title: String { self.name }
 
+    let shop: Shop
+    
     var distanceString: String {
         ShopModel.distanceFormatter.string(from: Measurement(value: self.distance, unit: UnitLength.meters))
     }
     
-    init(name: String,
+    init(id: String = "",
+         name: String,
          isClose: Bool = false,
          location: Location,
          address: String,
@@ -35,6 +41,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
          isOpen: Bool? = nil,
          shopAvailability: Availability,
          products: [ProductModel])  {
+        self.id = id
         self.products = products
         self.location = location
         self.shopAvailability = shopAvailability
@@ -43,17 +50,20 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         self.address = address
         self.isOpen = isOpen
         self.name = name
+        self.shop = Shop(id: id, name: name, latitude: location.latitude, longitude: location.longitude, vicinity: address, distance: distance, openNow: isOpen)
     }
     
     convenience init(shop: Shop) {
-        self.init(name: shop.name,
-                  isClose: shop.distance <= 100,
-                  location: Location(latitude: shop.latitude, longitude: shop.longitude),
-                  address: shop.vicinity,
-                  distance: round(shop.distance),
-                  isOpen: shop.openNow,
-                  shopAvailability: .full,
-                  products: [])
+        self.init(
+            id: shop.id,
+            name: shop.name,
+            isClose: shop.distance <= 100,
+            location: Location(latitude: shop.latitude, longitude: shop.longitude),
+            address: shop.vicinity,
+            distance: round(shop.distance),
+            isOpen: shop.openNow,
+            shopAvailability: .full,
+            products: [])
     }
     
     var color: UIColor { self.shopAvailability.uiColor }

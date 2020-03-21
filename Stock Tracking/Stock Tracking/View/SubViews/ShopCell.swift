@@ -8,12 +8,28 @@
 
 import SwiftUI
 
+
+struct LazyView<Content: View>: View {
+    let build: () -> Content
+    init(_ build: @escaping () -> Content) {
+        self.build = build
+    }
+    var body: Content {
+        build()
+    }
+}
 struct ShopCell: View {
     @ObservedObject
     var model: ShopModel
     
+    var detail: some View {
+        LazyView {
+            ShopDetailView(model: DetailModel(shop: self.model.shop))
+        }
+    }
+    
     var body: some View {
-        NavigationLink(destination: EmptyView()) {
+        NavigationLink(destination: self.detail) {
             VStack(spacing: 20) {
                 VStack(spacing: 16) {
                     VStack(spacing: 8) {
