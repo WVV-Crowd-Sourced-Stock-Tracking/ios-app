@@ -15,7 +15,6 @@
 		56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3024261BF70088F434 /* LandmarkModel.swift */; };
 		56850D3324262C5A0088F434 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3224262C5A0088F434 /* CategoryModel.swift */; };
 		56850D35242635F30088F434 /* AddToShopingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D34242635F30088F434 /* AddToShopingList.swift */; };
-		56850D37242645F30088F434 /* QGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D36242645F30088F434 /* QGrid.swift */; };
 		B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA62425F8F200002D6F /* AppDelegate.swift */; };
 		B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA82425F8F200002D6F /* SceneDelegate.swift */; };
 		B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEAA2425F8F200002D6F /* ContentView.swift */; };
@@ -58,7 +57,6 @@
 		56850D3024261BF70088F434 /* LandmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkModel.swift; sourceTree = "<group>"; };
 		56850D3224262C5A0088F434 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		56850D34242635F30088F434 /* AddToShopingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShopingList.swift; sourceTree = "<group>"; };
-		56850D36242645F30088F434 /* QGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QGrid.swift; sourceTree = "<group>"; };
 		B357BEA32425F8F200002D6F /* Stock Tracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Tracking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B357BEA62425F8F200002D6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B357BEA82425F8F200002D6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -211,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				B357BECB2426217300002D6F /* Colors.swift */,
-				56850D36242645F30088F434 /* QGrid.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -337,7 +334,6 @@
 				B357BED2242625BE00002D6F /* ShopModel.swift in Sources */,
 				B357BECE2426255400002D6F /* ShopCell.swift in Sources */,
 				B357BEC92426063700002D6F /* ShopList.swift in Sources */,
-				56850D37242645F30088F434 /* QGrid.swift in Sources */,
 				56850D2A242616810088F434 /* TabBarView.swift in Sources */,
 				56850D26242616630088F434 /* Model.swift in Sources */,
 				56850D35242635F30088F434 /* AddToShopingList.swift in Sources */,

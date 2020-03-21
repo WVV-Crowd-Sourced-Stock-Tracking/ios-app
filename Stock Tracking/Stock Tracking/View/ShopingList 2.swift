@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct ShopingList: View {
-	@EnvironmentObject var shopList: ShopListModel
-	@EnvironmentObject var categorys: Categorys
-
+	@ObservedObject var shopList: ShopListModel
+	@ObservedObject var categorys: Categorys
 	@State var showSheet = false
 
     var body: some View {
@@ -21,7 +20,7 @@ struct ShopingList: View {
 					ForEach(categorys.list) { category in
 						Section(header: Text(category.name).bold()) {
 							ForEach(category.products) { product in
-								Text(product.product.name)
+								Text(product.name)
 							}
 						}
 					}
@@ -45,7 +44,7 @@ struct ShopingList: View {
 				Image(systemName: "plus.circle.fill").imageScale(.large)
             })
 			.sheet(isPresented: $showSheet, content: {
-				AddToShopingList(allCategory: self.categorys)
+				 AddToShopingList()
 			})
 		}
     }
@@ -53,7 +52,18 @@ struct ShopingList: View {
 
 struct ShopingList_Previews: PreviewProvider {
     static var previews: some View {
-        ShopingList()
-		 .environmentObject(ShopListModel(shops: .preview))
+        ShopingList(shopList: ShopListModel(shops: .preview),
+                    categorys: Categorys(list: [
+				CategoryModel(name: "Lebensmittel", products: [
+					ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
+					ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
+					ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty)
+				]),
+				CategoryModel(name: "Produkte", products: [
+					ProductModel(name: "Klopapier", emoji: "🥛", availability: .empty),
+					ProductModel(name: "Seifen", emoji: "🍞", availability: .empty)
+				])
+			])
+		)
     }
 }

@@ -9,17 +9,7 @@
 import SwiftUI
 
 struct AddToShopingList: View {
-	@State var allCategory = Categorys(list: [
-		CategoryModel(name: "Lebensmittel", products: [
-			ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
-			ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
-			ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty)
-		]),
-		CategoryModel(name: "Produkte", products: [
-			ProductModel(name: "Klopapier", emoji: "🥛", availability: .empty),
-			ProductModel(name: "Seifen", emoji: "🍞", availability: .empty)
-		])
-	])
+	@ObservedObject var allCategory: Categorys
 
     var body: some View {
 		VStack() {
@@ -28,13 +18,16 @@ struct AddToShopingList: View {
 					ForEach(category.products) { product in
 						VStack() {
 							HStack() {
-								Image(systemName: "circle")
-								Text(product.name)
+								Image(systemName: product.selected ? "largecircle.fill.circle" : "circle")
+								Text(product.product.name)
 									.frame(minWidth: 0,
 										   maxWidth: .infinity,
 										   minHeight: 0,
 										   maxHeight: 30,
 										   alignment: .leading)
+							}.onTapGesture {
+								product.selected.toggle()
+								print(product.selected)
 							}
 							Divider()
 						}
@@ -48,7 +41,17 @@ struct AddToShopingList: View {
 
 struct AddToShopingList_Previews: PreviewProvider {
     static var previews: some View {
-        AddToShopingList()
+		AddToShopingList(allCategory: Categorys(list: [
+			CategoryModel(name: "Lebensmittel", products: [
+				CategoryProduct(product: ProductModel(name: "Milch", emoji: "🥛", availability: .empty), selected: false),
+				CategoryProduct(product: ProductModel(name: "Bread", emoji: "🍞", availability: .empty), selected: false),
+				CategoryProduct(product: ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty), selected: false)
+			]),
+			CategoryModel(name: "Produkte", products: [
+				CategoryProduct(product: ProductModel(name: "Klopapier", emoji: "🥛", availability: .empty), selected: false),
+				CategoryProduct(product: ProductModel(name: "Seifen", emoji: "🍞", availability: .empty), selected: false)
+			])
+		]))
     }
 }
 
