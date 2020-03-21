@@ -26,20 +26,23 @@ struct AddToShopingList: View {
 			ForEach(allCategory.list) { category in
 				Section(header: Text(category.name).bold()) {
 					ForEach(category.products) { product in
-						HStack() {
-							Image(systemName: "")
-							Text(product.name)
-								.frame(minWidth: 0,
-									   maxWidth: .infinity,
-									   minHeight: 0,
-									   maxHeight: 30,
-									   alignment: .leading)
+						VStack() {
+							HStack() {
+								Image(systemName: "circle")
+								Text(product.name)
+									.frame(minWidth: 0,
+										   maxWidth: .infinity,
+										   minHeight: 0,
+										   maxHeight: 30,
+										   alignment: .leading)
+							}
+							Divider()
 						}
 					}
 				}
-				
 			}
 		}.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
+		.padding()
 	}
 }
 

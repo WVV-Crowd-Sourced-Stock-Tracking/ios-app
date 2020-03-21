@@ -23,10 +23,10 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-​
+
 import SwiftUI
-​
-​
+
+
 /// A container that presents rows of data arranged in multiple columns.
 @available(iOS 13.0, OSX 10.15, *)
 public struct QGrid<Data, Content>: View
@@ -137,3 +137,5 @@ where Data : RandomAccessCollection, Content : View, Data.Element : Identifiable
         let width = geometry.size.width - hSpacings - hPadding * 2
         return width / CGFloat(self.cols)
     }
+}
+
