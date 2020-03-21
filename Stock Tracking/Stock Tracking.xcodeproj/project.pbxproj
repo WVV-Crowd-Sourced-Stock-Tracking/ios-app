@@ -14,6 +14,7 @@
 		B357BEB02425F8F600002D6F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B357BEAF2425F8F600002D6F /* Preview Assets.xcassets */; };
 		B357BEB32425F8F600002D6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B357BEB12425F8F600002D6F /* LaunchScreen.storyboard */; };
 		B357BEBE2425F8F700002D6F /* Stock_TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEBD2425F8F700002D6F /* Stock_TrackingTests.swift */; };
+		B357BEC92426063700002D6F /* ShopList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEC82426063700002D6F /* ShopList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		B357BEB92425F8F700002D6F /* Stock TrackingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stock TrackingTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B357BEBD2425F8F700002D6F /* Stock_TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_TrackingTests.swift; sourceTree = "<group>"; };
 		B357BEBF2425F8F700002D6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B357BEC82426063700002D6F /* ShopList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				B357BEA62425F8F200002D6F /* AppDelegate.swift */,
 				B357BEA82425F8F200002D6F /* SceneDelegate.swift */,
 				B357BEAA2425F8F200002D6F /* ContentView.swift */,
+				B357BEC82426063700002D6F /* ShopList.swift */,
 				B357BEAC2425F8F600002D6F /* Assets.xcassets */,
 				B357BEB12425F8F600002D6F /* LaunchScreen.storyboard */,
 				B357BEB42425F8F600002D6F /* Info.plist */,
@@ -211,6 +214,7 @@
 				B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */,
 				B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */,
 				B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */,
+				B357BEC92426063700002D6F /* ShopList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
