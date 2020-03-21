@@ -12,15 +12,15 @@ struct TabBarView: View {
     var body: some View {
 		TabView {
 			VStack() {
-				Text("Suche")
+                ShopList_Previews.previews
 			}.tabItem({
-				TabLabel(imageName: "house.fill", label: "Suche")
+				TabLabel(imageName: "cart.fill", label: "Shops")
 			})
 
 			VStack() {
 				ShopingList()
 			}.tabItem({
-				TabLabel(imageName: "house.fill", label: "Einkaufsliste")
+				TabLabel(imageName: "list.bullet", label: "Einkaufsliste")
 			})
 		}
     }
