@@ -4,7 +4,7 @@ import SwiftUI
 
 struct API {
     
-    static func fetchStores(at location: Location) -> AnyPublisher<[Shop], Error> {
+    static func fetchStores(at location: Location, with radius: Double) -> AnyPublisher<[Shop], Error> {
         print("start")
         let url = URL(string: "http://3.120.206.89/markets?latitude=\(location.latitude)&longitude=\(location.longitude)")!
 

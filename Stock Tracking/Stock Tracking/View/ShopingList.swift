@@ -11,7 +11,7 @@ import SwiftUI
 
 
 struct ShopingList: View {
-	@ObservedObject var shopList: ShopListModel
+	@ObservedObject var shopList: ShopsModel
 	@ObservedObject var categorys: Categorys
 
     var body: some View {
@@ -48,7 +48,7 @@ struct ShopingList: View {
 
 struct ShopingList_Previews: PreviewProvider {
     static var previews: some View {
-        ShopingList(shopList: ShopListModel(shops: .preview),
+        ShopingList(shopList: ShopsModel(shops: .preview),
                     categorys: Categorys(list: [
 				CategoryModel(name: "Lebensmittel", products: [
 					ProductModel(name: "Milch", emoji: "🥛", availability: .empty),

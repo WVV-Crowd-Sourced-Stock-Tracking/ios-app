@@ -54,6 +54,12 @@ extension MKCoordinateSpan: Equatable {
     }
 }
 
+extension MKCoordinateSpan {
+    var radius: CLLocationDegrees {
+        return max(self.latitudeDelta, self.longitudeDelta)
+    }
+}
+
 struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentable {
     @Binding var landmarks: [Landmark]
     @Binding var selectedLandmark: Landmark?

@@ -13,8 +13,7 @@ struct TabBarView: View {
 		TabView {
 			VStack() {
                 ShopsView()
-                .environmentObject(ShopListModel())
-                .environmentObject(ShopMapModel())
+                .environmentObject(ShopsModel())
 			}.tabItem({
 				TabLabel(imageName: "cart.fill", label: "Shops")
 			})

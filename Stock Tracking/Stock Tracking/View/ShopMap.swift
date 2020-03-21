@@ -13,7 +13,7 @@ import Combine
 
 struct ShopMap: View {
     @ObservedObject
-    var model: ShopMapModel
+    var model: ShopsModel
     
     var body: some View {
         MapView(self.$model.shops,
@@ -42,6 +42,6 @@ struct ShopMap: View {
 
 struct ShopMap_Previews: PreviewProvider {
     static var previews: some View {
-        ShopMap(model: ShopMapModel(shops: .preview))
+        ShopMap(model: ShopsModel(shops: .preview))
     }
 }

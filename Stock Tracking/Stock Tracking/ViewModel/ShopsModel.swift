@@ -1,28 +1,33 @@
 import Combine
 import SwiftUI
 import CoreLocation
+import MapKit
 
 class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var shops: [ShopModel] = []
 
-    @Published var coordinate: CLLocationCoordinate2D? {
-        didSet {
-            self.shopTask?.cancel()
-            if let coordinate = coordinate {
-                self.shopTask = API.fetchStores(at: Location(coordinate: coordinate))
-                    .assertNoFailure()
-                    .map { $0.map { ShopModel(shop: $0) } }
-                    .receive(on: RunLoop.main)
-                    .assign(to: \ShopMapModel.shops, on: self)
-            }
-        }
-    }
+    @Published var region: MKCoordinateRegion?
+    
+    @Published var selectedShop: ShopModel?
+    
+    @Published var error: Error?
     
     private var locationManager = CLLocationManager()
     private var shopTask: AnyCancellable?
     
     init(shops: [ShopModel] = []) {
+        super.init()
         self.shops = shops
+        self.shopTask = $region.debounce(for: 2,
+                                             scheduler: RunLoop.main,
+                                             options: nil)
+            .filterNil()
+            .setFailureType(to: Error.self)
+            .flatMap { API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius) }
+            .assignError(to: \ShopsModel.error, on: self)
+            .map { $0.map { ShopModel(shop: $0) } }
+            .receive(on: RunLoop.main)
+            .assignWeak(to: \ShopsModel.shops, on: self)
     }
 
     func fetchLocation() {
@@ -43,7 +48,9 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         self.locationManager.stopUpdatingLocation()
         
-        self.coordinate = location.coordinate
+        self.region = MKCoordinateRegion(center: location.coordinate,
+                                         latitudinalMeters: 1000,
+                                         longitudinalMeters: 1000)
     }
     
 }

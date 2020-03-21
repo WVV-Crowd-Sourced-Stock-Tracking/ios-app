@@ -4,7 +4,7 @@ import UIKit
 struct ShopList: View {
     
     @ObservedObject
-    var model: ShopListModel
+    var model: ShopsModel
     
     var body: some View {
         List(self.model.shops) { shop in
@@ -19,6 +19,6 @@ struct ShopList: View {
 
 struct ShopList_Previews: PreviewProvider {
     static var previews: some View {
-        ShopList(model: ShopListModel(shops: .preview))
+        ShopList(model: ShopsModel(shops: .preview))
     }
 }
