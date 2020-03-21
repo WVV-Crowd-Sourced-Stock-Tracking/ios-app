@@ -71,11 +71,13 @@ class CategoryProduct: ObservableObject, Identifiable {
 	@Published var product: ProductModel
 	@Published var selected: Bool
 	@Published var bought: Bool
+	@Published var filter: Bool
 	
-	init(product: ProductModel, selected: Bool, bought: Bool = false)  {
+	init(product: ProductModel, selected: Bool, bought: Bool = false, filter: Bool = false)  {
         self.product = product
         self.selected = selected
 		self.bought = bought
+		self.filter = filter
     }
 }
 
