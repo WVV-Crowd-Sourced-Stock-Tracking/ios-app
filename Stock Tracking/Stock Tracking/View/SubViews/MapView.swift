@@ -12,22 +12,65 @@ import MapKit
 final class LandmarkAnnotation: NSObject, MKAnnotation {
     let id: String
     let title: String?
+    let subtitle: String? = "Closing 19:00"
     let coordinate: CLLocationCoordinate2D
+    let color: UIColor
 
-    init(landmark: Landmark) {
+    init(landmark: LandmarkConvertible) {
         self.id = landmark.id
         self.title = landmark.name
-        self.coordinate = landmark.location
+        self.coordinate = CLLocationCoordinate2D(location: landmark.location)
+        self.color = landmark.color
     }
 }
 
-struct MapView: UIViewRepresentable {
-    @Binding var landmarks: [Landmark]
+protocol LandmarkConvertible {
+    var id: String { get }
+    var name: String { get }
+    var location: Location { get }
+    var color: UIColor { get }
+}
+
+extension MKCoordinateRegion: Equatable {
+    public static func == (lhs: MKCoordinateRegion, rhs: MKCoordinateRegion) -> Bool {
+        return lhs.center == rhs.center
+            && lhs.span == rhs.span
+    }
+}
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D,
+                           rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude
+            && lhs.longitude == rhs.longitude
+    }
+}
+
+extension MKCoordinateSpan: Equatable {
+    public static func == (lhs: MKCoordinateSpan,
+                           rhs: MKCoordinateSpan) -> Bool {
+        return lhs.latitudeDelta == rhs.latitudeDelta
+            && lhs.longitudeDelta == rhs.latitudeDelta
+    }
+}
+
+struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentable {
+    var landmarks: [Landmark]
     @Binding var selectedLandmark: Landmark?
+    @Binding var region: MKCoordinateRegion?
+    var content: (Landmark) -> Content
+    
+    init(_ landmarks: [Landmark], selected: Binding<Landmark?>, region: Binding<MKCoordinateRegion?>, content: @escaping (Landmark) -> Content) {
+        self.landmarks = landmarks
+        self._selectedLandmark = selected
+        self._region = region
+        self.content = content
+    }
     
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
         map.delegate = context.coordinator
+        map.showsUserLocation = true
         return map
     }
     
@@ -35,36 +78,9 @@ struct MapView: UIViewRepresentable {
         updateAnnotations(from: uiView)
     }
     
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    final class Coordinator: NSObject, MKMapViewDelegate {
-        var control: MapView
-
-        init(_ control: MapView) {
-            self.control = control
-        }
-        
-        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-            guard let coordinates = view.annotation?.coordinate else { return }
-            let span = mapView.region.span
-            let region = MKCoordinateRegion(center: coordinates, span: span)
+    private func updateRegion(from mapView: MKMapView) {
+        if let region = self.region, region != mapView.region {
             mapView.setRegion(region, animated: true)
-        }
-        
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            guard let annotation = annotation as? LandmarkAnnotation else { return nil }
-            let identifier = "Annotation"
-            var annotationView: MKMarkerAnnotationView? = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
-            if annotationView == nil {
-                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView?.canShowCallout = true
-                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            } else {
-                annotationView?.annotation = annotation
-            }
-            return annotationView
         }
     }
     
@@ -74,6 +90,68 @@ struct MapView: UIViewRepresentable {
         mapView.addAnnotations(newAnnotations)
         if let selectedAnnotation = newAnnotations.filter({ $0.id == selectedLandmark?.id }).first {
             mapView.selectAnnotation(selectedAnnotation, animated: true)
+        }
+    }
+    
+    func makeCoordinator() -> MapCoordinator {
+        MapCoordinator(self)
+    }
+    
+    final class MapCoordinator: NSObject, MKMapViewDelegate {
+        var control: MapView
+
+        init(_ control: MapView) {
+            self.control = control
+        }
+        
+        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+            self.control.region = mapView.region
+        }
+        
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            if let annotation = view.annotation as? LandmarkAnnotation {
+                self.control.selectedLandmark = self.control.landmarks.first(where: { $0.id == annotation.id })
+            }
+        }
+        
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard let annotation = annotation as? LandmarkAnnotation,
+                let landmark = self.control.landmarks.first(where: { $0.id == annotation.id }) else { return nil }
+            let identifier = "landmark.annotation"
+            let annotationView = (mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView)
+                ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView.canShowCallout = true
+            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            annotationView.glyphImage = UIImage(systemName: "cart.fill")
+            annotationView.annotation = annotation
+            annotationView.markerTintColor = annotation.color
+            annotationView.detailCalloutAccessoryView = {
+                let view = UIHostingController(rootView: self.control.content(landmark)).view
+                view?.backgroundColor = .clear
+                return view
+            }()
+            return annotationView
+        }
+    }
+}
+
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView([ShopModel].preview,
+                selected: .constant(nil),
+                region: .constant(nil)) { shop in
+                    HStack(spacing: 12) {
+                        ForEach(shop.products.prefix(5)) { product in
+                            HStack(spacing: 6) {
+                                AvailabilityView(availability: product.availability)
+                                    .frame(height: 16)
+                                Text(product.emoji)
+                                    .font(.footnote)
+                            }
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical, 4)
         }
     }
 }

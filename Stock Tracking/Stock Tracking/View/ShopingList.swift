@@ -21,8 +21,8 @@ struct ShopingList: View {
 			List() {
 				Section(header: Text("Store")) {
 					HStack() {
-						MapView(landmarks: $landmarks, selectedLandmark: $selectedLandmark)
-							.frame(width: 200, height: 200)
+//						MapView(landmarks: $landmarks, selectedLandmark: $selectedLandmark)
+//							.frame(width: 200, height: 200)
 						VStack() {
 							Text("Shop Name").font(Font.headline).bold()
 						}

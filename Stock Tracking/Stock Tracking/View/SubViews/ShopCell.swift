@@ -87,7 +87,10 @@ struct ShopCell_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Spacer()
-            ShopCell(model:  ShopModel(name: "Rewe", products: [
+            ShopCell(model:  ShopModel(name: "Rewe",
+                                       location: Location(latitude: 52.481998, longitude: 13.432388),
+                                       shopAvailability: .middle,
+                                       products: [
                 ProductModel(name: "Milch", emoji: "🥛", availability: .full),
                 ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
                 ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),

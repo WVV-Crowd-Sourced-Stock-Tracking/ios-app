@@ -27,6 +27,8 @@
 		B357BED2242625BE00002D6F /* ShopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED1242625BE00002D6F /* ShopModel.swift */; };
 		B357BED4242625CD00002D6F /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED3242625CD00002D6F /* ProductModel.swift */; };
 		B357BED6242625EB00002D6F /* Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED5242625EB00002D6F /* Availability.swift */; };
+		B357BED82426274F00002D6F /* ShopMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED72426274F00002D6F /* ShopMap.swift */; };
+		B357BEDA242629CB00002D6F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED9242629CB00002D6F /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		B357BED1242625BE00002D6F /* ShopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopModel.swift; sourceTree = "<group>"; };
 		B357BED3242625CD00002D6F /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		B357BED5242625EB00002D6F /* Availability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Availability.swift; sourceTree = "<group>"; };
+		B357BED72426274F00002D6F /* ShopMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMap.swift; sourceTree = "<group>"; };
+		B357BED9242629CB00002D6F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 				56850D29242616810088F434 /* TabBarView.swift */,
 				56850D2B242616D70088F434 /* ShopingList.swift */,
 				B357BEC82426063700002D6F /* ShopList.swift */,
+				B357BED72426274F00002D6F /* ShopMap.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 				56850D25242616630088F434 /* Model.swift */,
 				56850D3024261BF70088F434 /* LandmarkModel.swift */,
 				B357BED5242625EB00002D6F /* Availability.swift */,
+				B357BED9242629CB00002D6F /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,8 +297,10 @@
 				B357BECC2426217300002D6F /* Colors.swift in Sources */,
 				56850D2F24261B690088F434 /* MapView.swift in Sources */,
 				B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */,
+				B357BEDA242629CB00002D6F /* Location.swift in Sources */,
 				B357BED4242625CD00002D6F /* ProductModel.swift in Sources */,
 				B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */,
+				B357BED82426274F00002D6F /* ShopMap.swift in Sources */,
 				56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */,
 				B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */,
 				B357BED6242625EB00002D6F /* Availability.swift in Sources */,

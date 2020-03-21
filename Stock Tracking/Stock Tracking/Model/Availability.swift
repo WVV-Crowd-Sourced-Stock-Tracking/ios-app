@@ -15,4 +15,17 @@ enum Availability {
             return .unknown
         }
     }
+    
+    var uiColor: UIColor {
+        switch self {
+            case .full:
+                return .full
+            case .middle:
+                return .mid
+            case .empty:
+                return .empty
+            case .unknown:
+                return .unknown
+            }
+    }
 }
