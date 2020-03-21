@@ -10,7 +10,8 @@ import SwiftUI
 
 struct AddToShopingList: View {
 	@ObservedObject var allCategory: Categorys
-
+	@State var customItemText = ""
+	
     var body: some View {
 		NavigationView() {
 			VStack() {
@@ -20,6 +21,17 @@ struct AddToShopingList: View {
 							AddToShoppingCell(product: product)
 							Divider()
 						}
+					}
+				}
+				HStack() {
+					TextField("Custom Item", text: self.$customItemText)
+						.textFieldStyle(RoundedBorderTextFieldStyle())
+					Button(action: {
+						self.allCategory.customItems.append(CustomItemModel(name: self.customItemText, bought: false))
+						self.customItemText = ""
+					}) {
+						Text("send")
+							.foregroundColor(Color.blue)
 					}
 				}
 				Spacer()

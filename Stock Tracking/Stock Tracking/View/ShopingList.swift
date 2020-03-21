@@ -27,6 +27,9 @@ struct ShopingList: View {
 						}
 					}
 				}
+				ForEach(categorys.customItems) { item in
+					Text(item.name)
+				}
 				Spacer()
 			}
 			.padding()

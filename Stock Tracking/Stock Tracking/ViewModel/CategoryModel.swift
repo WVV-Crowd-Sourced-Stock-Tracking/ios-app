@@ -10,6 +10,7 @@ import SwiftUI
 
 class Categorys: ObservableObject {
 	@Published var list: [CategoryModel]
+	@Published var customItems: [CustomItemModel]
 	
 	let defaults = UserDefaults.standard
 
@@ -27,7 +28,9 @@ class Categorys: ObservableObject {
 	
 	init(list: [CategoryModel]) {
 		self.list = defaultList
+		self.customItems = []
 		self.list = getShopingList()
+		self.customItems = getCustomItems()
     }
 
 	func updateShopingList() {
@@ -63,6 +66,52 @@ class Categorys: ObservableObject {
 			}
 		}
 		return defaultList
+	}
+	
+	func getCustomItems() -> [CustomItemModel] {
+		let items =  defaults.array(forKey: "customItems")
+		if items != nil {
+			return items as! [CustomItemModel]
+		} else {
+			return []
+		}
+	}
+	
+	func updateCustomItems(){
+		defaults.set(customItems, forKey: "customItems")
+	}
+}
+
+class CustomItemModel: ObservableObject, Codable, Identifiable {
+	@Published var id: UUID = .init()
+	@Published var name: String
+	@Published var bought: Bool
+	
+	init(name: String, bought: Bool) {
+		self.name = name
+		self.bought = bought
+	}
+	
+	enum CodingKeys: CodingKey {
+		case id
+		case name
+		case bought
+	}
+	
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+
+		try container.encode(id, forKey: .id)
+		try container.encode(name, forKey: .name)
+		try container.encode(bought, forKey: .bought)
+	}
+	
+	required init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		id = try container.decode(UUID.self, forKey: .id)
+		name = try container.decode(String.self, forKey: .name)
+		bought = try container.decode(Bool.self, forKey: .bought)
 	}
 }
 
