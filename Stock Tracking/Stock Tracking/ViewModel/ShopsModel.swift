@@ -6,7 +6,17 @@ import MapKit
 class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var shops: [ShopModel] = []
 
-    @Published var region: MKCoordinateRegion?
+    @Published var region: MKCoordinateRegion? {
+        didSet {
+            if let region = self.region {
+                self.cellRegion = MKCoordinateRegion(center: region.center,
+                                                     latitudinalMeters: 1000,
+                                                     longitudinalMeters: 1000)
+            }
+        }
+    }
+    
+    @Published var cellRegion: MKCoordinateRegion?
     
     @Published var selectedShop: ShopModel?
     
@@ -58,6 +68,10 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.region = MKCoordinateRegion(center: location.coordinate,
                                          latitudinalMeters: 1000,
                                          longitudinalMeters: 1000)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
     
 }

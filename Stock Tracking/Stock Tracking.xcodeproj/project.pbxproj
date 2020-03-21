@@ -15,6 +15,7 @@
 		56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3024261BF70088F434 /* LandmarkModel.swift */; };
 		56850D3324262C5A0088F434 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3224262C5A0088F434 /* CategoryModel.swift */; };
 		56850D35242635F30088F434 /* AddToShopingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D34242635F30088F434 /* AddToShopingList.swift */; };
+		B31E0EE52426967B00B61480 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31E0EE42426967A00B61480 /* MapCell.swift */; };
 		B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA62425F8F200002D6F /* AppDelegate.swift */; };
 		B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA82425F8F200002D6F /* SceneDelegate.swift */; };
 		B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEAA2425F8F200002D6F /* ContentView.swift */; };
@@ -57,6 +58,7 @@
 		56850D3024261BF70088F434 /* LandmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkModel.swift; sourceTree = "<group>"; };
 		56850D3224262C5A0088F434 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		56850D34242635F30088F434 /* AddToShopingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShopingList.swift; sourceTree = "<group>"; };
+		B31E0EE42426967A00B61480 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		B357BEA32425F8F200002D6F /* Stock Tracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Tracking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B357BEA62425F8F200002D6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B357BEA82425F8F200002D6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,9 +121,9 @@
 			isa = PBXGroup;
 			children = (
 				56850D272426166C0088F434 /* ViewModel.swift */,
-				B357BED1242625BE00002D6F /* ShopModel.swift */,
 				B357BED3242625CD00002D6F /* ProductModel.swift */,
 				56850D3224262C5A0088F434 /* CategoryModel.swift */,
+				B357BED1242625BE00002D6F /* ShopModel.swift */,
 				B3EBBEB724264E27007D5C36 /* ShopsModel.swift */,
 			);
 			path = ViewModel;
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				56850D2E24261B690088F434 /* MapView.swift */,
+				B31E0EE42426967A00B61480 /* MapCell.swift */,
 				B357BECD2426255400002D6F /* ShopCell.swift */,
 				56850D34242635F30088F434 /* AddToShopingList.swift */,
 			);
@@ -336,6 +339,7 @@
 				B357BEC92426063700002D6F /* ShopList.swift in Sources */,
 				56850D2A242616810088F434 /* TabBarView.swift in Sources */,
 				B37445612426712400A25159 /* MapKit.swift in Sources */,
+				B31E0EE52426967B00B61480 /* MapCell.swift in Sources */,
 				56850D26242616630088F434 /* Model.swift in Sources */,
 				56850D35242635F30088F434 /* AddToShopingList.swift in Sources */,
 				56850D2C242616D70088F434 /* ShopingList.swift in Sources */,
@@ -490,17 +494,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Tracking/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RPD69GC7T;
+				DEVELOPMENT_TEAM = P459Y32P65;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Stock Tracking/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wirvsvirushackathon.Stock-Tracking";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wirvsvirushackathon.corna-store";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -510,17 +516,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Tracking/Preview Content\"";
-				DEVELOPMENT_TEAM = 7RPD69GC7T;
+				DEVELOPMENT_TEAM = P459Y32P65;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Stock Tracking/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wirvsvirushackathon.Stock-Tracking";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wirvsvirushackathon.corna-store";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -531,6 +539,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P459Y32P65;
 				INFOPLIST_FILE = "Stock TrackingTests/Info.plist";
@@ -553,6 +562,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P459Y32P65;
 				INFOPLIST_FILE = "Stock TrackingTests/Info.plist";

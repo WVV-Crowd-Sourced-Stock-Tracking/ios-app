@@ -33,7 +33,15 @@ struct API {
 
 		return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
-			.decode(type: [Shop].self, decoder: JSONDecoder())
+            .decode(type: [Shop].self, decoder: JSONDecoder.standard)
 			.eraseToAnyPublisher()
 	}
+}
+
+extension JSONDecoder {
+    static var standard: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }
 }

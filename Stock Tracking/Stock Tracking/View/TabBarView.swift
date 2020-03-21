@@ -10,21 +10,23 @@ import SwiftUI
 
 struct TabBarView: View {
     var body: some View {
-		TabView {
-			VStack() {
-                ShopsView()
-                .environmentObject(ShopsModel())
-			}.tabItem({
-				TabLabel(imageName: "cart.fill", label: "Shops")
-			})
-
-			VStack() {
-				ShopingList()
-					.environmentObject(ShopsModel())
-			}.tabItem({
-				TabLabel(imageName: "list.bullet", label: "Einkaufsliste")
-			})
-		}
+        ShopsView()
+                 .environmentObject(ShopsModel(shops: .preview))
+//		TabView {
+//			VStack() {
+//                ShopsView()
+//                    .environmentObject(ShopsModel(shops: .preview))
+//			}.tabItem({
+//				TabLabel(imageName: "cart.fill", label: "Shops")
+//			})
+//
+//			VStack() {
+//				ShopingList()
+//					.environmentObject(ShopsModel())
+//			}.tabItem({
+//				TabLabel(imageName: "list.bullet", label: "Einkaufsliste")
+//			})
+//		}
     }
 	
 	struct TabLabel: View {

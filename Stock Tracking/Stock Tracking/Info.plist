@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We use your location to provide you with shops close to you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to provide you with shops close to you.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -56,9 +60,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We use your location to provide you with shops close to you.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We use your location to provide you with shops close to you.</string>
 </dict>
 </plist>

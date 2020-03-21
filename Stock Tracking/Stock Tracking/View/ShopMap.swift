@@ -32,6 +32,7 @@ struct ShopMap: View {
                     }
                     .padding(.vertical, 4)
         }
+        .edgesIgnoringSafeArea(.all)
         .onAppear {
             self.model.fetchLocation()
         }

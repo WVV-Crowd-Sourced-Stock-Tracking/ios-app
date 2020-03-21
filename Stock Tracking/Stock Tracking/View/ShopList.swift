@@ -7,11 +7,20 @@ struct ShopList: View {
     var model: ShopsModel
     
     var body: some View {
-        List(self.model.shops) { shop in
-            ShopCell(model: shop)
+        ScrollView {
+            VStack {
+                MapCell(model: self.model)
+                ForEach(self.model.shops) { shop in
+                    ShopCell(model: shop)
+                }
+                Spacer()
+                    .frame(maxHeight: .infinity)
+                
+            }
         }
         .onAppear {
             self.model.fetchLocation()
+            UIScrollView.appearance().backgroundColor = UIColor.systemGroupedBackground
         }
     }
 }
