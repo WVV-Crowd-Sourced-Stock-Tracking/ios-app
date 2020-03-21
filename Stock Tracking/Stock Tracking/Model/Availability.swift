@@ -1,13 +1,13 @@
 import SwiftUI
 
 enum Availability {
-    case full, middle, empty, unknown
+    case full, mid, empty, unknown
     
     var color: Color {
         switch self {
         case .full:
             return .full
-        case .middle:
+        case .mid:
             return .mid
         case .empty:
             return .empty
@@ -20,7 +20,7 @@ enum Availability {
         switch self {
             case .full:
                 return .full
-            case .middle:
+            case .mid:
                 return .mid
             case .empty:
                 return .empty
@@ -33,7 +33,7 @@ enum Availability {
            switch self {
            case .full:
                return "available"
-           case .middle:
+           case .mid:
                return "almost sold out"
            case .empty:
                return "sold out"

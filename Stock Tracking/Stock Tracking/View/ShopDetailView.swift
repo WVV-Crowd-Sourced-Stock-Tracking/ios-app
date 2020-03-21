@@ -51,6 +51,8 @@ struct ShopDetailView: View {
     @ObservedObject
     var model: DetailModel
     
+    @State var isEditing: Bool = true
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -72,30 +74,45 @@ struct ShopDetailView: View {
                 .padding()
                 
                 VStack(spacing: 12) {
-                    HStack {
+                    HStack(spacing: 12) {
                         Text("Products")
                             .font(.system(size: 21, weight: .bold, design: .default))
                         Spacer()
                         Text("Availability")
                             .font(.headline)
                             .foregroundColor(.secondary)
-                            .padding(.trailing)
                     }
                     .padding(.horizontal)
-
+                    .padding(.trailing)
+                    
                     VStack {
                         ForEach(self.model.products) { product in
                             VStack(spacing: 0) {
                                 HStack(spacing: 12) {
-                                    AvailabilityView(availability: product.availability)
-                                        .frame(height: 16)
+                                    Text(product.emoji)
+                                        .font(.headline)
                                     Text(product.name)
                                         .font(.headline)
                                     Spacer()
-                                    Text(product.availability.text)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                        .padding(.trailing)
+                                    if !self.isEditing {
+                                        Text(product.availability.text)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                            .transition(.opacity)
+                                    }
+                                    if self.isEditing {
+                                        HStack {
+                                            AvailabilityButton(product: product, availability: .empty)
+                                            AvailabilityButton(product: product, availability: .mid)
+                                            AvailabilityButton(product: product, availability: .full)
+                                        }
+                                        .frame(width: 140, height: 20)
+                                        
+                                    }
+                                    if !self.isEditing {
+                                        AvailabilityView(availability: product.availability)
+                                            .frame(height: 20)
+                                    }
                                     
                                 }
                                 .padding()
@@ -108,8 +125,10 @@ struct ShopDetailView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .padding(.horizontal)
-
-                    Button(action: { }) {
+                    
+                    Button(action: {
+                        self.isEditing.toggle()
+                    }) {
                         Text("Enter Stock")
                             .font(.headline)
                             .foregroundColor(.white)
@@ -123,11 +142,11 @@ struct ShopDetailView: View {
                 }
                 
             }
-            .navigationBarTitle(self.model.name)
             .onAppear {
                 UIScrollView.appearance().backgroundColor = UIColor.systemGroupedBackground
             }
         }
+        .navigationBarTitle(self.model.name)
     }
     
     
@@ -142,6 +161,31 @@ struct ShopDetailView: View {
             Color.white.opacity(0.0001)
         }
         .frame(height: 150)
+    }
+}
+
+struct AvailabilityButton: View {
+    @ObservedObject
+    var product: ProductModel
+    
+    let availability: Availability
+    
+    var body: some View {
+        Button(action: {
+            self.product.selectedAvailability = self.availability
+        }) {
+            Circle()
+                .stroke(self.availability.color, lineWidth: 2)
+                .modifier(GlowModifier())
+                .overlay(
+                    Circle()
+                        .fill(self.availability.color)
+                        .modifier(GlowModifier())
+                        .padding(3)
+                        .opacity(product.selectedAvailability == self.availability ? 1 : 0)
+                    
+            )
+        }
     }
 }
 

@@ -77,7 +77,7 @@ extension Array where Element == ShopModel {
                       location: Location(latitude: 52.478419, longitude: 13.429619),
                       address: "Herrfurtplatz 12, Berlin",
                       distance: 500,
-                      shopAvailability: .middle,
+                      shopAvailability: .mid,
                       products: [
                         ProductModel(name: "Milch", emoji: "🥛", availability: .full),
                         ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
@@ -100,7 +100,7 @@ extension Array where Element == ShopModel {
                       shopAvailability: .full,
                       products: [
                         ProductModel(name: "Milch", emoji: "🥛", availability: .full),
-                        ProductModel(name: "Bread", emoji: "🍞", availability: .middle),
+                        ProductModel(name: "Bread", emoji: "🍞", availability: .mid),
                         ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .full),
             ]),
         ]

@@ -98,6 +98,20 @@ struct ShopCell: View {
     }
 }
 
+struct GlowModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .shadow(radius: 2)
+            .overlay(
+                content
+                    .blur(radius: 0.7)
+        )
+    }
+    
+    
+    
+}
+
 struct AvailabilityView: View {
     let availability: Availability
     
@@ -105,12 +119,7 @@ struct AvailabilityView: View {
         Circle()
             .foregroundColor(self.availability.color)
             .aspectRatio(1, contentMode: .fit)
-            .shadow(radius: 2)
-            .overlay(
-                Circle()
-                    .foregroundColor(self.availability.color)
-                    .blur(radius: 0.7)
-        )
+            .modifier(GlowModifier())
     }
 }
 
@@ -122,7 +131,7 @@ struct ShopCell_Previews: PreviewProvider {
                                        location: Location(latitude: 52.481998, longitude: 13.432388),
                                        address: "Herrfurtplatz 12, Berlin",
                                        distance: 500,
-                                       shopAvailability: .middle,
+                                       shopAvailability: .mid,
                                        products: [
                                         ProductModel(name: "Milch", emoji: "🥛", availability: .full),
                                         ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
