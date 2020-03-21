@@ -28,7 +28,7 @@ struct ShopsView: View {
 					Button(action: {
 						self.showShowingList.toggle()
 					}) {
-						Image(systemName: "bag.fill")
+						Image(systemName: "bag.fill").imageScale(.large)
 					}
 				})
 				.sheet(isPresented: self.$showShowingList, content: {
@@ -37,7 +37,6 @@ struct ShopsView: View {
 					}
 				})
         }
-        
     }
 }
 

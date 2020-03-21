@@ -12,40 +12,18 @@ struct ShopingList: View {
 	@ObservedObject var shopList: ShopsModel
 	@ObservedObject var categorys: Categorys
 
-//	@State var showSheet = false
+	@State var showSheet = false
 
     var body: some View {
 		NavigationView() {
-//			VStack() {
-//				List() {
-//					ForEach(categorys.list) { category in
-//						Section(header: Text(category.name).bold()) {
-//							ForEach(category.products) { product in
-//								if product.selected {
-//									Text(product.product.name)
-//								}
-//							}
-//						}
-//					}
-//				}
-//				VStack() {
-//					Divider()
-//					ScrollView(.horizontal, showsIndicators: true) {
-//						HStack() {
-//							ForEach(shopList.shops) { shop in
-//								ShopCell(model: shop)
-//								Divider()
-//							}
-//						}
-//					}
-//				}.padding()
-//			}
 			VStack() {
 				ForEach(categorys.list) { category in
 					Section(header: Text(category.name).bold().frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)) {
 						ForEach(category.products) { product in
-							AddToShoppingCell(product: product)
-							Divider()
+							if product.selected {
+								ShoppingCell(product: product)
+								Divider()
+							}
 						}
 					}
 				}
@@ -57,14 +35,14 @@ struct ShopingList: View {
 				self.categorys.updateShopingList()
 			})
 			.navigationBarTitle("Einkaufsliste")
-//			.navigationBarItems(trailing: Button(action: {
-//				self.showSheet.toggle()
-//			}) {
-//				Image(systemName: "plus.circle.fill").imageScale(.large)
-//            })
-//			.sheet(isPresented: $showSheet, content: {
-//				AddToShopingList(allCategory: self.categorys)
-//			})
+			.navigationBarItems(trailing: Button(action: {
+				self.showSheet.toggle()
+			}) {
+				Image(systemName: "plus.circle.fill").imageScale(.large)
+            })
+			.sheet(isPresented: $showSheet, content: {
+				AddToShopingList(allCategory: self.categorys)
+			})
 			.onAppear(perform: {
 				self.categorys.list = self.categorys.getShopingList()
 			})
@@ -72,9 +50,22 @@ struct ShopingList: View {
     }
 }
 
-//struct ShopingList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ShopingList()
-//		 .environmentObject(ShopsModel(shops: .preview))
-//    }
-//}
+struct ShoppingCell: View {
+    @ObservedObject var product: CategoryProduct
+    
+    var body: some View {
+        VStack() {
+            HStack() {
+				Image(systemName: product.bought ? "largecircle.fill.circle" : "circle")
+                Text(product.product.name)
+                    .frame(minWidth: 0,
+                           maxWidth: .infinity,
+                           minHeight: 0,
+                           maxHeight: 30,
+                           alignment: .leading)
+            }.onTapGesture {
+				self.product.bought.toggle()
+            }
+        }
+    }
+}
