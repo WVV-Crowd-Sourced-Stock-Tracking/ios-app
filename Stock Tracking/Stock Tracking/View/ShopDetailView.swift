@@ -51,7 +51,7 @@ struct ShopDetailView: View {
     @ObservedObject
     var model: DetailModel
     
-    @State var isEditing: Bool = true
+    @State var isEditing: Bool = false
     
     var body: some View {
         ScrollView {
@@ -78,8 +78,8 @@ struct ShopDetailView: View {
                         Text("Products")
                             .font(.system(size: 21, weight: .bold, design: .default))
                         Spacer()
-                        Text("Availability")
-                            .font(.headline)
+                        Text("tap to update stock")
+                            .font(.subheadline)
                             .foregroundColor(.secondary)
                     }
                     .padding(.horizontal)
@@ -89,8 +89,10 @@ struct ShopDetailView: View {
                         ForEach(self.model.products) { product in
                             VStack(spacing: 0) {
                                 HStack(spacing: 12) {
-                                    Text(product.emoji)
-                                        .font(.headline)
+                                    AvailabilityView(availability: product.availability)
+                                        .frame(height: 16)
+//                                    Text(product.emoji)
+//                                        .font(.headline)
                                     Text(product.name)
                                         .font(.headline)
                                     Spacer()
@@ -109,10 +111,15 @@ struct ShopDetailView: View {
                                         .frame(width: 140, height: 20)
                                         
                                     }
-                                    if !self.isEditing {
-                                        AvailabilityView(availability: product.availability)
-                                            .frame(height: 20)
-                                    }
+//                                    if !self.isEditing {
+//                                        AvailabilityView(availability: product.availability)
+//                                            .frame(height: 24)
+//                                    }
+                                    
+                                    Image(systemName: "pencil")
+                                        .font(.system(size: 18, weight: Font.Weight.black, design: .rounded))
+                                        .padding(.leading, 6)
+
                                     
                                 }
                                 .padding()
@@ -126,18 +133,18 @@ struct ShopDetailView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                     
-                    Button(action: {
-                        self.isEditing.toggle()
-                    }) {
-                        Text("Enter Stock")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal)
+//                    Button(action: {
+//                        self.isEditing.toggle()
+//                    }) {
+//                        Text("Enter Stock")
+//                            .font(.headline)
+//                            .foregroundColor(.white)
+//                            .padding()
+//                            .frame(maxWidth: .infinity)
+//                            .background(Color.blue)
+//                            .cornerRadius(10)
+//                    }
+//                    .padding(.horizontal)
                     
                 }
                 
