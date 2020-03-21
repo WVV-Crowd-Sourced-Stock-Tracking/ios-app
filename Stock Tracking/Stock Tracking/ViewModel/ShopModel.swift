@@ -3,22 +3,33 @@ import SwiftUI
 class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
     
     @Published var id: String = UUID().uuidString
-    @Published var name: String
     @Published var products: [ProductModel]
     @Published var isClose: Bool
     @Published var location: Location
     @Published var shopAvailability: Availability
+//    @Published var title: String
+    @Published var name: String
     
+    var title: String { self.name }
+
     init(name: String,
          isClose: Bool = false,
          location: Location,
          shopAvailability: Availability,
          products: [ProductModel])  {
-        self.name = name
         self.products = products
         self.location = location
         self.shopAvailability = shopAvailability
         self.isClose = isClose
+//        self.title = name
+        self.name = name
+    }
+    
+    convenience init(shop: Shop) {
+        self.init(name: shop.name,
+                  location: Location(latitude: shop.latitude, longitude: shop.longitude),
+                  shopAvailability: .full,
+                  products: [])
     }
     
     var color: UIColor { self.shopAvailability.uiColor }

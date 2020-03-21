@@ -1,9 +1,7 @@
 import SwiftUI
 
-class ShopListModel: ObservableObject {
-    @Published var shops: [ShopModel]
-    
-    init(shops: [ShopModel]) {
-        self.shops = shops
+class ShopListModel: ShopsModel {   
+    override init(shops: [ShopModel] = []) {
+        super.init(shops: shops)
     }
 }

@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct ShopsView: View {
-    @ObservedObject
+    @EnvironmentObject
     var listModel: ShopListModel
     
-    @ObservedObject
+    @EnvironmentObject
     var mapModel: ShopMapModel
     
     @State private var showList = true
@@ -30,7 +30,14 @@ struct ShopsView: View {
             .navigationBarItems(trailing: Button(action: {
                 self.showList.toggle()
             }) {
-                Image(systemName: "map.fill")
+                Group {
+                    if showList {
+                        Image(systemName: "map.fill")
+                    } else {
+                        Image(systemName: "list.bullet")
+                    }
+                }
+                    .font(.title)
             })
         }
     }
@@ -38,7 +45,8 @@ struct ShopsView: View {
 
 struct ShopsView_Previews: PreviewProvider {
     static var previews: some View {
-        ShopsView(listModel: ShopListModel(shops: .preview),
-                  mapModel: ShopMapModel(shops: .preview))
+        ShopsView()
+            .environmentObject(ShopListModel(shops: .preview))
+            .environmentObject(ShopMapModel(shops: .preview))
     }
 }

@@ -18,7 +18,7 @@ final class LandmarkAnnotation: NSObject, MKAnnotation {
 
     init(landmark: LandmarkConvertible) {
         self.id = landmark.id
-        self.title = landmark.name
+        self.title = landmark.title
         self.coordinate = CLLocationCoordinate2D(location: landmark.location)
         self.color = landmark.color
     }
@@ -26,7 +26,7 @@ final class LandmarkAnnotation: NSObject, MKAnnotation {
 
 protocol LandmarkConvertible {
     var id: String { get }
-    var name: String { get }
+    var title: String { get }
     var location: Location { get }
     var color: UIColor { get }
 }
@@ -55,13 +55,13 @@ extension MKCoordinateSpan: Equatable {
 }
 
 struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentable {
-    var landmarks: [Landmark]
+    @Binding var landmarks: [Landmark]
     @Binding var selectedLandmark: Landmark?
     @Binding var region: MKCoordinateRegion?
     var content: (Landmark) -> Content
     
-    init(_ landmarks: [Landmark], selected: Binding<Landmark?>, region: Binding<MKCoordinateRegion?>, content: @escaping (Landmark) -> Content) {
-        self.landmarks = landmarks
+    init(_ landmarks: Binding<[Landmark]>, selected: Binding<Landmark?>, region: Binding<MKCoordinateRegion?>, content: @escaping (Landmark) -> Content) {
+        self._landmarks = landmarks
         self._selectedLandmark = selected
         self._region = region
         self.content = content
@@ -144,7 +144,7 @@ struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentabl
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView([ShopModel].preview,
+        MapView(.constant([ShopModel].preview),
                 selected: .constant(nil),
                 region: .constant(nil)) { shop in
                     HStack(spacing: 12) {

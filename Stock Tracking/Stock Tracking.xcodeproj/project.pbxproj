@@ -31,6 +31,10 @@
 		B357BED82426274F00002D6F /* ShopMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED72426274F00002D6F /* ShopMap.swift */; };
 		B357BEDA242629CB00002D6F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED9242629CB00002D6F /* Location.swift */; };
 		B3EBBEB0242638F4007D5C36 /* ShopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEAF242638F4007D5C36 /* ShopsView.swift */; };
+		B3EBBEB2242645B6007D5C36 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB1242645B5007D5C36 /* API.swift */; };
+		B3EBBEB424264639007D5C36 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB324264639007D5C36 /* Shop.swift */; };
+		B3EBBEB624264DFE007D5C36 /* ShopMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB524264DFE007D5C36 /* ShopMapModel.swift */; };
+		B3EBBEB824264E27007D5C36 /* ShopsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB724264E27007D5C36 /* ShopsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,10 @@
 		B357BED72426274F00002D6F /* ShopMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMap.swift; sourceTree = "<group>"; };
 		B357BED9242629CB00002D6F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		B3EBBEAF242638F4007D5C36 /* ShopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsView.swift; sourceTree = "<group>"; };
+		B3EBBEB1242645B5007D5C36 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		B3EBBEB324264639007D5C36 /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
+		B3EBBEB524264DFE007D5C36 /* ShopMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMapModel.swift; sourceTree = "<group>"; };
+		B3EBBEB724264E27007D5C36 /* ShopsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,10 +117,12 @@
 			isa = PBXGroup;
 			children = (
 				56850D272426166C0088F434 /* ViewModel.swift */,
-				B357BECF242625AD00002D6F /* ShopListModel.swift */,
 				B357BED1242625BE00002D6F /* ShopModel.swift */,
 				B357BED3242625CD00002D6F /* ProductModel.swift */,
 				56850D3224262C5A0088F434 /* CategoryModel.swift */,
+				B357BECF242625AD00002D6F /* ShopListModel.swift */,
+				B3EBBEB524264DFE007D5C36 /* ShopMapModel.swift */,
+				B3EBBEB724264E27007D5C36 /* ShopsModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -124,6 +134,7 @@
 				56850D3024261BF70088F434 /* LandmarkModel.swift */,
 				B357BED5242625EB00002D6F /* Availability.swift */,
 				B357BED9242629CB00002D6F /* Location.swift */,
+				B3EBBEB324264639007D5C36 /* Shop.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,6 +169,7 @@
 		B357BEA52425F8F200002D6F /* Stock Tracking */ = {
 			isa = PBXGroup;
 			children = (
+				B3EBBEB1242645B5007D5C36 /* API.swift */,
 				56850D24242616580088F434 /* Model */,
 				56850D232426164F0088F434 /* ViewModel */,
 				56850D22242616400088F434 /* View */,
@@ -300,15 +312,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				56850D282426166C0088F434 /* ViewModel.swift in Sources */,
+				B3EBBEB824264E27007D5C36 /* ShopsModel.swift in Sources */,
 				B357BECC2426217300002D6F /* Colors.swift in Sources */,
 				56850D2F24261B690088F434 /* MapView.swift in Sources */,
+				B3EBBEB424264639007D5C36 /* Shop.swift in Sources */,
 				B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */,
 				B357BEDA242629CB00002D6F /* Location.swift in Sources */,
 				56850D3324262C5A0088F434 /* CategoryModel.swift in Sources */,
 				B357BED4242625CD00002D6F /* ProductModel.swift in Sources */,
 				B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */,
+				B3EBBEB2242645B6007D5C36 /* API.swift in Sources */,
 				B357BED82426274F00002D6F /* ShopMap.swift in Sources */,
 				56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */,
+				B3EBBEB624264DFE007D5C36 /* ShopMapModel.swift in Sources */,
 				B3EBBEB0242638F4007D5C36 /* ShopsView.swift in Sources */,
 				B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */,
 				B357BED6242625EB00002D6F /* Availability.swift in Sources */,

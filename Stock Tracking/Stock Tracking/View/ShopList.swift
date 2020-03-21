@@ -10,6 +10,9 @@ struct ShopList: View {
         List(self.model.shops) { shop in
             ShopCell(model: shop)
         }
+        .onAppear {
+            self.model.fetchLocation()
+        }
     }
 }
 
