@@ -48,23 +48,8 @@ struct ShopingList: View {
 
 struct ShopingList_Previews: PreviewProvider {
     static var previews: some View {
-        ShopingList(shopList: ShopListModel(shops: [
-            ShopModel(name: "Rewe", isClose: true, products: [
-                ProductModel(name: "Milch", emoji: "🥛", availability: .full),
-                ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
-                ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
-            ]),
-            ShopModel(name: "Lidl", products: [
-                ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
-                ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
-                ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
-            ]),
-            ShopModel(name: "Aldi", products: [
-                ProductModel(name: "Milch", emoji: "🥛", availability: .full),
-                ProductModel(name: "Bread", emoji: "🍞", availability: .middle),
-                ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .full),
-            ]),
-		]), categorys: Categorys(list: [
+        ShopingList(shopList: ShopListModel(shops: .preview),
+                    categorys: Categorys(list: [
 				CategoryModel(name: "Lebensmittel", products: [
 					ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
 					ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
