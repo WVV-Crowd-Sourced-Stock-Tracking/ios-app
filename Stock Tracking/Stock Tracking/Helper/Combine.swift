@@ -16,6 +16,14 @@ extension Publisher {
         }
         .eraseToAnyPublisher()
     }
+    public func assignError<Root>(to keyPath: ReferenceWritableKeyPath<Root, Self.Failure?>, on object: Root, replaceWith replacement: Self.Output) -> AnyPublisher<Self.Output, Never> where Root: AnyObject {
+        return self.mapError { [weak object] error -> Self.Failure in
+            object?[keyPath: keyPath] = error
+            return error
+        }
+        .replaceError(with: replacement)
+        .eraseToAnyPublisher()
+    }
 }
 
 extension Publisher {

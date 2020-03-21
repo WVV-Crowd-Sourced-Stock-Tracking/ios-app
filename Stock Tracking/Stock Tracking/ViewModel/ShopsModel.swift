@@ -10,7 +10,7 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var selectedShop: ShopModel?
     
-    @Published var error: Error?
+    @Published var error: API.Error?
     
     private var locationManager = CLLocationManager()
     private var shopTask: AnyCancellable?
@@ -18,16 +18,23 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     init(shops: [ShopModel] = []) {
         super.init()
         self.shops = shops
-        self.shopTask = $region.debounce(for: 2,
-                                             scheduler: RunLoop.main,
-                                             options: nil)
+        self.shopTask = $region
+            .debounce(for: 1,
+                      scheduler: RunLoop.main,
+                      options: nil)
             .filterNil()
-            .setFailureType(to: Error.self)
-            .flatMap { API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius) }
-            .assignError(to: \ShopsModel.error, on: self)
-            .map { $0.map { ShopModel(shop: $0) } }
-            .receive(on: RunLoop.main)
-            .assignWeak(to: \ShopsModel.shops, on: self)
+            .flatMap {
+                API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius)
+                    .map { $0.map { ShopModel(shop: $0) } }
+                    .receive(on: RunLoop.main)
+                    .mapError(API.Error.from(error:))
+                    .assignError(to: \ShopsModel.error, on: self, replaceWith: [])
+                
+        }
+            
+        .receive(on: RunLoop.main)
+        .assignWeak(to: \ShopsModel.shops, on: self)
+        
     }
 
     func fetchLocation() {
