@@ -8,35 +8,73 @@
 
 import SwiftUI
 
+
+
 struct ShopingList: View {
-	@State var landmarks: [Landmark] = [
-		   Landmark(name: "Sydney Harbour Bridge", location: .init(latitude: -33.852222, longitude: 151.210556)),
-		   Landmark(name: "Brooklyn Bridge", location: .init(latitude: 40.706, longitude: -73.997)),
-		   Landmark(name: "Golden Gate Bridge", location: .init(latitude: 37.819722, longitude: -122.478611))
-	   ]
-	@State var selectedLandmark: Landmark? = nil
-	
+	@ObservedObject var shopList: ShopListModel
+	@ObservedObject var categorys: Categorys
+
     var body: some View {
 		NavigationView() {
-			List() {
-				Section(header: Text("Store")) {
-					HStack() {
-//						MapView(landmarks: $landmarks, selectedLandmark: $selectedLandmark)
-//							.frame(width: 200, height: 200)
-						VStack() {
-							Text("Shop Name").font(Font.headline).bold()
+			VStack() {
+				List() {
+					ForEach(categorys.list) { category in
+						Section(header: Text(category.name).bold()) {
+							ForEach(category.products) { product in
+								Text(product.name)
+							}
 						}
 					}
 				}
+				VStack() {
+					Divider()
+					ScrollView(.horizontal, showsIndicators: true) {
+						HStack() {
+							ForEach(shopList.shops) { shop in
+								ShopCell(model: shop)
+								Divider()
+							}
+						}
+					}
+				}.padding()
 			}
 			.navigationBarTitle("Einkaufsliste")
-			.listStyle(GroupedListStyle())
+			.navigationBarItems(trailing: Button(action: { }) {
+				Image(systemName: "plus.circle.fill").imageScale(.large)
+            })
 		}
     }
 }
 
 struct ShopingList_Previews: PreviewProvider {
     static var previews: some View {
-        ShopingList()
+        ShopingList(shopList: ShopListModel(shops: [
+            ShopModel(name: "Rewe", isClose: true, products: [
+                ProductModel(name: "Milch", emoji: "🥛", availability: .full),
+                ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
+                ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
+            ]),
+            ShopModel(name: "Lidl", products: [
+                ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
+                ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
+                ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
+            ]),
+            ShopModel(name: "Aldi", products: [
+                ProductModel(name: "Milch", emoji: "🥛", availability: .full),
+                ProductModel(name: "Bread", emoji: "🍞", availability: .middle),
+                ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .full),
+            ]),
+		]), categorys: Categorys(list: [
+				CategoryModel(name: "Lebensmittel", products: [
+					ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
+					ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
+					ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty)
+				]),
+				CategoryModel(name: "Produkte", products: [
+					ProductModel(name: "Klopapier", emoji: "🥛", availability: .empty),
+					ProductModel(name: "Seifen", emoji: "🍞", availability: .empty)
+				])
+			])
+		)
     }
 }

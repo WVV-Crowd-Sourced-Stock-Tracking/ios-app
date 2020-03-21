@@ -18,7 +18,7 @@ struct TabBarView: View {
 			})
 
 			VStack() {
-				ShopingList()
+				ShopingList_Previews.previews
 			}.tabItem({
 				TabLabel(imageName: "list.bullet", label: "Einkaufsliste")
 			})
