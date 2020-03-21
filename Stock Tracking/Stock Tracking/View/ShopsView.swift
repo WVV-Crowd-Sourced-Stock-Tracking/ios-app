@@ -9,8 +9,12 @@
 import SwiftUI
 
 struct ShopsView: View {
-    @EnvironmentObject
-    var model: ShopsModel
+    @EnvironmentObject var model: ShopsModel
+	@EnvironmentObject var categorys: Categorys
+	
+	@State var showShowingList = false
+	@State var showFilter = false
+	
     var body: some View {
         NavigationView {
                 ShopList(model: self.model)
@@ -20,6 +24,18 @@ struct ShopsView: View {
                               dismissButton: .cancel())
                 }
                 .navigationBarTitle("Shops")
+				.navigationBarItems(trailing: VStack() {
+					Button(action: {
+						self.showShowingList.toggle()
+					}) {
+						Image(systemName: "bag.fill")
+					}
+				})
+				.sheet(isPresented: self.$showShowingList, content: {
+					VStack() {
+						ShopingList(shopList: self.model, categorys: self.categorys)
+					}
+				})
         }
         
     }

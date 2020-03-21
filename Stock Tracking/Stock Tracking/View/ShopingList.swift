@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ShopingList: View {
-	@EnvironmentObject var shopList: ShopsModel
-	@EnvironmentObject var categorys: Categorys
+	@ObservedObject var shopList: ShopsModel
+	@ObservedObject var categorys: Categorys
 
 //	@State var showSheet = false
 
@@ -40,15 +40,19 @@ struct ShopingList: View {
 //					}
 //				}.padding()
 //			}
-			List() {
+			VStack() {
 				ForEach(categorys.list) { category in
-					Section(header: Text(category.name).bold()) {
+					Section(header: Text(category.name).bold().frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)) {
 						ForEach(category.products) { product in
-						AddToShoppingCell(product: product)
+							AddToShoppingCell(product: product)
+							Divider()
 						}
 					}
 				}
-			}.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
+				Spacer()
+			}
+			.padding()
+			.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
 			.onDisappear(perform: {
 				self.categorys.updateShopingList()
 			})
@@ -68,9 +72,9 @@ struct ShopingList: View {
     }
 }
 
-struct ShopingList_Previews: PreviewProvider {
-    static var previews: some View {
-        ShopingList()
-		 .environmentObject(ShopsModel(shops: .preview))
-    }
-}
+//struct ShopingList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ShopingList()
+//		 .environmentObject(ShopsModel(shops: .preview))
+//    }
+//}
