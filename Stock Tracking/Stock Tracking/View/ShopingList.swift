@@ -21,7 +21,9 @@ struct ShopingList: View {
 					ForEach(categorys.list) { category in
 						Section(header: Text(category.name).bold()) {
 							ForEach(category.products) { product in
-								Text(product.product.name)
+								if product.selected {
+									Text(product.product.name)
+								}
 							}
 						}
 					}
