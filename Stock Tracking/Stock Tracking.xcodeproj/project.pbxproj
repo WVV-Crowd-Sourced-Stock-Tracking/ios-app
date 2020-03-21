@@ -10,6 +10,9 @@
 		56850D26242616630088F434 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D25242616630088F434 /* Model.swift */; };
 		56850D282426166C0088F434 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D272426166C0088F434 /* ViewModel.swift */; };
 		56850D2A242616810088F434 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D29242616810088F434 /* TabBarView.swift */; };
+		56850D2C242616D70088F434 /* ShopingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D2B242616D70088F434 /* ShopingList.swift */; };
+		56850D2F24261B690088F434 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D2E24261B690088F434 /* MapView.swift */; };
+		56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3024261BF70088F434 /* LandmarkModel.swift */; };
 		B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA62425F8F200002D6F /* AppDelegate.swift */; };
 		B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA82425F8F200002D6F /* SceneDelegate.swift */; };
 		B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEAA2425F8F200002D6F /* ContentView.swift */; };
@@ -33,6 +36,9 @@
 		56850D25242616630088F434 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		56850D272426166C0088F434 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		56850D29242616810088F434 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		56850D2B242616D70088F434 /* ShopingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopingList.swift; sourceTree = "<group>"; };
+		56850D2E24261B690088F434 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		56850D3024261BF70088F434 /* LandmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkModel.swift; sourceTree = "<group>"; };
 		B357BEA32425F8F200002D6F /* Stock Tracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Tracking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B357BEA62425F8F200002D6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B357BEA82425F8F200002D6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +73,9 @@
 		56850D22242616400088F434 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				56850D2D24261B250088F434 /* SubViews */,
 				56850D29242616810088F434 /* TabBarView.swift */,
+				56850D2B242616D70088F434 /* ShopingList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -84,8 +92,17 @@
 			isa = PBXGroup;
 			children = (
 				56850D25242616630088F434 /* Model.swift */,
+				56850D3024261BF70088F434 /* LandmarkModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		56850D2D24261B250088F434 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				56850D2E24261B690088F434 /* MapView.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		B357BE9A2425F8F200002D6F = {
@@ -242,11 +259,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				56850D282426166C0088F434 /* ViewModel.swift in Sources */,
+				56850D2F24261B690088F434 /* MapView.swift in Sources */,
 				B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */,
 				B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */,
+				56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */,
 				B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */,
 				56850D2A242616810088F434 /* TabBarView.swift in Sources */,
 				56850D26242616630088F434 /* Model.swift in Sources */,
+				56850D2C242616D70088F434 /* ShopingList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
