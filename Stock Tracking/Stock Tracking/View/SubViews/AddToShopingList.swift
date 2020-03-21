@@ -12,19 +12,25 @@ struct AddToShopingList: View {
 	@ObservedObject var allCategory: Categorys
 
     var body: some View {
-		VStack() {
-			ForEach(allCategory.list) { category in
-				Section(header: Text(category.name).bold()) {
-					ForEach(category.products) { product in
-					AddToShoppingCell(product: product)
+		NavigationView() {
+			VStack() {
+				ForEach(allCategory.list) { category in
+					Section(header: Text(category.name).bold().frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)) {
+						ForEach(category.products) { product in
+							AddToShoppingCell(product: product)
+							Divider()
+						}
 					}
 				}
+				Spacer()
 			}
-		}.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
-		.padding()
-		.onDisappear(perform: {
-			self.allCategory.updateShopingList()
-		})
+			.padding()
+			.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
+			.onDisappear(perform: {
+				self.allCategory.updateShopingList()
+			})
+			.navigationBarTitle("Füge zu liste hinzu")
+		}
 	}
 }
 
@@ -48,6 +54,7 @@ struct AddToShoppingCell: View {
         }
     }
 }
+
 struct AddToShopingList_Previews: PreviewProvider {
     static var previews: some View {
 		AddToShopingList(allCategory: Categorys(list: [

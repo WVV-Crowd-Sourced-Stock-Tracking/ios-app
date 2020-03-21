@@ -9,19 +9,43 @@
 import SwiftUI
 
 struct ShopsView: View {
-    @EnvironmentObject
-    var model: ShopsModel
+    @EnvironmentObject var model: ShopsModel
+	@EnvironmentObject var categorys: Categorys
+	
+	@State var showShowingList = false
+	@State var showFilter = false
+	
     var body: some View {
         NavigationView {
-                ShopList(model: self.model)
-                    .alert(item: self.$model.error) { error in
-                        Alert(title: Text("Something went wrong..."),
-                              message: Text(error.localizedDescription),
-                              dismissButton: .cancel())
-                }
-                .navigationBarTitle("Shops")
+			ShopList(model: self.model)
+				.alert(item: self.$model.error) { error in
+					Alert(title: Text("Something went wrong..."),
+						  message: Text(error.localizedDescription),
+						  dismissButton: .cancel())
+				}
+				.navigationBarTitle("Shops")
+				.navigationBarItems(trailing: HStack(spacing: 15) {
+					Button(action: {
+						self.showFilter.toggle()
+					}) {
+						Image(systemName: "line.horizontal.3.decrease.circle").imageScale(.large)
+					}.sheet(isPresented: self.$showFilter, content: {
+						VStack() {
+							FilterView(allCategory: self.categorys)
+						}
+					})
+
+					Button(action: {
+						self.showShowingList.toggle()
+					}) {
+						Image(systemName: "bag.fill").imageScale(.large)
+					}.sheet(isPresented: self.$showShowingList, content: {
+						VStack() {
+							ShopingList(shopList: self.model, categorys: self.categorys)
+						}
+					})
+				})
         }
-        
     }
 }
 

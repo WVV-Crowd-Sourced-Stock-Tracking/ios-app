@@ -1,5 +1,5 @@
 //
-//  ShopingList.swift
+//  FilterView.swift
 //  Stock Tracking
 //
 //  Created by Veit Progl on 21.03.20.
@@ -8,22 +8,17 @@
 
 import SwiftUI
 
-struct ShopingList: View {
-	@ObservedObject var shopList: ShopsModel
-	@ObservedObject var categorys: Categorys
-
-	@State var showSheet = false
+struct FilterView: View {
+	@ObservedObject var allCategory: Categorys
 
     var body: some View {
 		NavigationView() {
 			VStack() {
-				ForEach(categorys.list) { category in
+				ForEach(allCategory.list) { category in
 					Section(header: Text(category.name).bold().frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)) {
 						ForEach(category.products) { product in
-							if product.selected {
-								ShoppingCell(product: product)
-								Divider()
-							}
+							FilterCell(product: product)
+							Divider()
 						}
 					}
 				}
@@ -32,31 +27,20 @@ struct ShopingList: View {
 			.padding()
 			.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
 			.onDisappear(perform: {
-				self.categorys.updateShopingList()
+				self.allCategory.updateShopingList()
 			})
-			.navigationBarTitle("Einkaufsliste")
-			.navigationBarItems(trailing: Button(action: {
-				self.showSheet.toggle()
-			}) {
-				Image(systemName: "plus.circle.fill").imageScale(.large)
-            })
-			.sheet(isPresented: $showSheet, content: {
-				AddToShopingList(allCategory: self.categorys)
-			})
-			.onAppear(perform: {
-				self.categorys.list = self.categorys.getShopingList()
-			})
+			.navigationBarTitle("Filter")
 		}
-    }
+	}
 }
 
-struct ShoppingCell: View {
+struct FilterCell: View {
     @ObservedObject var product: CategoryProduct
     
     var body: some View {
         VStack() {
             HStack() {
-				Image(systemName: product.bought ? "checkmark.circle.fill" : "circle")
+                Image(systemName: product.filter ? "largecircle.fill.circle" : "circle")
                 Text(product.product.name)
                     .frame(minWidth: 0,
                            maxWidth: .infinity,
@@ -64,7 +48,7 @@ struct ShoppingCell: View {
                            maxHeight: 30,
                            alignment: .leading)
             }.onTapGesture {
-				self.product.bought.toggle()
+                self.product.filter.toggle()
             }
         }
     }

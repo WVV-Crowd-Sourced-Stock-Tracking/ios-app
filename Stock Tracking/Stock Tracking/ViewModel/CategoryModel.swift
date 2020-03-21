@@ -26,10 +26,8 @@ class Categorys: ObservableObject {
 	]
 	
 	init(list: [CategoryModel]) {
-		let categorys = defaults.array(forKey: "categorys")
-		print(categorys ?? "")
-//		self.list = categorys != nil ? categorys as! [CategoryModel] : defaultList
 		self.list = defaultList
+		self.list = getShopingList()
     }
 
 	func updateShopingList() {
@@ -39,7 +37,11 @@ class Categorys: ObservableObject {
 			var productID = 0
 			for product in categorie.products {
 				if product.selected {
-					selectedItemsID.append([categorieID, productID])
+					if product.bought {
+						selectedItemsID.append([categorieID, productID, 1])
+					} else {
+						selectedItemsID.append([categorieID, productID, 0])
+					}
 				}
 				productID += 1
 			}
@@ -50,11 +52,14 @@ class Categorys: ObservableObject {
 
 	func getShopingList() -> [CategoryModel] {
 		let categorys = defaults.array(forKey: "categorys")
-//		return categorys != nil ? categorys as! [CategoryModel] : defaultList
 		if categorys != nil {
 			let selectedItemsID = categorys as! [[Int]]
 			for product in selectedItemsID {
 				defaultList[product[0]].products[product[1]].selected = true
+				print(defaultList.endIndex)
+				if defaultList.endIndex == 2 {
+					defaultList[product[0]].products[product[1]].bought = product[2] == 1 ? true : false
+				}
 			}
 		}
 		return defaultList
@@ -65,10 +70,14 @@ class CategoryProduct: ObservableObject, Identifiable {
 	@Published var id: UUID = .init()
 	@Published var product: ProductModel
 	@Published var selected: Bool
+	@Published var bought: Bool
+	@Published var filter: Bool
 	
-	init(product: ProductModel, selected: Bool)  {
+	init(product: ProductModel, selected: Bool, bought: Bool = false, filter: Bool = false)  {
         self.product = product
         self.selected = selected
+		self.bought = bought
+		self.filter = filter
     }
 }
 
