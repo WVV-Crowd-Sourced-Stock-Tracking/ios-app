@@ -50,7 +50,7 @@ extension MKCoordinateSpan: Equatable {
     public static func == (lhs: MKCoordinateSpan,
                            rhs: MKCoordinateSpan) -> Bool {
         return lhs.latitudeDelta == rhs.latitudeDelta
-            && lhs.longitudeDelta == rhs.latitudeDelta
+            && lhs.longitudeDelta == rhs.longitudeDelta
     }
 }
 
@@ -76,6 +76,7 @@ struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentabl
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         updateAnnotations(from: uiView)
+        updateRegion(from: uiView)
     }
     
     private func updateRegion(from mapView: MKMapView) {
@@ -85,11 +86,16 @@ struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentabl
     }
     
     private func updateAnnotations(from mapView: MKMapView) {
-        mapView.removeAnnotations(mapView.annotations)
-        let newAnnotations = landmarks.map { LandmarkAnnotation(landmark: $0) }
-        mapView.addAnnotations(newAnnotations)
-        if let selectedAnnotation = newAnnotations.filter({ $0.id == selectedLandmark?.id }).first {
-            mapView.selectAnnotation(selectedAnnotation, animated: true)
+        let ids = Set(mapView.annotations.compactMap { ($0 as? LandmarkAnnotation)?.id })
+        if ids != Set(landmarks.map { $0.id }) {
+            mapView.removeAnnotations(mapView.annotations)
+            let newAnnotations = landmarks.map { LandmarkAnnotation(landmark: $0) }
+            mapView.addAnnotations(newAnnotations)
+        }
+        if (mapView.selectedAnnotations.first as? LandmarkAnnotation)?.id != selectedLandmark?.id,
+            let selected = mapView.annotations.first(where: { ($0 as? LandmarkAnnotation)?.id == selectedLandmark?.id })
+        {
+            mapView.selectAnnotation(selected, animated: true)
         }
     }
     
@@ -125,6 +131,7 @@ struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentabl
             annotationView.glyphImage = UIImage(systemName: "cart.fill")
             annotationView.annotation = annotation
             annotationView.markerTintColor = annotation.color
+            annotationView.displayPriority = .required
             annotationView.detailCalloutAccessoryView = {
                 let view = UIHostingController(rootView: self.control.content(landmark)).view
                 view?.backgroundColor = .clear

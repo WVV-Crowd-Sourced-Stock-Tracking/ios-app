@@ -18,7 +18,7 @@ struct ShopCell: View {
                 VStack(spacing: 16) {
                     VStack(spacing: 4) {
                         HStack {
-                            Text(self.model.name)
+                            Text("self.model.name")
                                 .font(.system(size: 21, weight: .bold, design: .default))
                                 .foregroundColor(.primary)
                             Spacer()

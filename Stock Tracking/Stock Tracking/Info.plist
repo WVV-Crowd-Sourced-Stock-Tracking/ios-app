@@ -56,5 +56,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We use your location to provide you with shops close to you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to provide you with shops close to you.</string>
 </dict>
 </plist>

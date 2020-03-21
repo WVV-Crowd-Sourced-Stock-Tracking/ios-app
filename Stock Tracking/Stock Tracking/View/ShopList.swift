@@ -7,14 +7,8 @@ struct ShopList: View {
     var model: ShopListModel
     
     var body: some View {
-        NavigationView {
-            List(self.model.shops) { shop in
-                ShopCell(model: shop)
-            }
-            .navigationBarTitle("Shops")
-            .navigationBarItems(trailing: Button(action: { }) {
-                Image(systemName: "map.fill")
-            })
+        List(self.model.shops) { shop in
+            ShopCell(model: shop)
         }
     }
 }

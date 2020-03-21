@@ -30,6 +30,7 @@
 		B357BED6242625EB00002D6F /* Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED5242625EB00002D6F /* Availability.swift */; };
 		B357BED82426274F00002D6F /* ShopMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED72426274F00002D6F /* ShopMap.swift */; };
 		B357BEDA242629CB00002D6F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED9242629CB00002D6F /* Location.swift */; };
+		B3EBBEB0242638F4007D5C36 /* ShopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEAF242638F4007D5C36 /* ShopsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		B357BED5242625EB00002D6F /* Availability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Availability.swift; sourceTree = "<group>"; };
 		B357BED72426274F00002D6F /* ShopMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMap.swift; sourceTree = "<group>"; };
 		B357BED9242629CB00002D6F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		B3EBBEAF242638F4007D5C36 /* ShopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				56850D2B242616D70088F434 /* ShopingList.swift */,
 				B357BEC82426063700002D6F /* ShopList.swift */,
 				B357BED72426274F00002D6F /* ShopMap.swift */,
+				B3EBBEAF242638F4007D5C36 /* ShopsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */,
 				B357BED82426274F00002D6F /* ShopMap.swift in Sources */,
 				56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */,
+				B3EBBEB0242638F4007D5C36 /* ShopsView.swift in Sources */,
 				B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */,
 				B357BED6242625EB00002D6F /* Availability.swift in Sources */,
 				B357BED2242625BE00002D6F /* ShopModel.swift in Sources */,

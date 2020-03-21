@@ -12,7 +12,7 @@ struct TabBarView: View {
     var body: some View {
 		TabView {
 			VStack() {
-                ShopList_Previews.previews
+                ShopsView_Previews.previews
 			}.tabItem({
 				TabLabel(imageName: "cart.fill", label: "Shops")
 			})
