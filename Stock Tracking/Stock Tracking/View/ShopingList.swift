@@ -49,6 +49,9 @@ struct ShopingList: View {
 			.sheet(isPresented: $showSheet, content: {
 				AddToShopingList(allCategory: self.categorys)
 			})
+			.onAppear(perform: {
+				self.categorys.list = self.categorys.getShopingList()
+			})
 		}
     }
 }

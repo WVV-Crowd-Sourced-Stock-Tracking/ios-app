@@ -15,7 +15,6 @@
 		56850D3124261BF70088F434 /* LandmarkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3024261BF70088F434 /* LandmarkModel.swift */; };
 		56850D3324262C5A0088F434 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D3224262C5A0088F434 /* CategoryModel.swift */; };
 		56850D35242635F30088F434 /* AddToShopingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56850D34242635F30088F434 /* AddToShopingList.swift */; };
-		56E21C0224266D7100EE9422 /* ShopingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E21C0124266D7100EE9422 /* ShopingListModel.swift */; };
 		B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA62425F8F200002D6F /* AppDelegate.swift */; };
 		B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA82425F8F200002D6F /* SceneDelegate.swift */; };
 		B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEAA2425F8F200002D6F /* ContentView.swift */; };
@@ -58,7 +57,6 @@
 		56850D3024261BF70088F434 /* LandmarkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkModel.swift; sourceTree = "<group>"; };
 		56850D3224262C5A0088F434 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		56850D34242635F30088F434 /* AddToShopingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShopingList.swift; sourceTree = "<group>"; };
-		56E21C0124266D7100EE9422 /* ShopingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopingListModel.swift; sourceTree = "<group>"; };
 		B357BEA32425F8F200002D6F /* Stock Tracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Tracking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B357BEA62425F8F200002D6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B357BEA82425F8F200002D6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 				B357BED3242625CD00002D6F /* ProductModel.swift */,
 				56850D3224262C5A0088F434 /* CategoryModel.swift */,
 				B3EBBEB724264E27007D5C36 /* ShopsModel.swift */,
-				56E21C0124266D7100EE9422 /* ShopingListModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -323,7 +320,6 @@
 				56850D2F24261B690088F434 /* MapView.swift in Sources */,
 				B3EBBEB424264639007D5C36 /* Shop.swift in Sources */,
 				B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */,
-				56E21C0224266D7100EE9422 /* ShopingListModel.swift in Sources */,
 				B357BEDA242629CB00002D6F /* Location.swift in Sources */,
 				56850D3324262C5A0088F434 /* CategoryModel.swift in Sources */,
 				B357BED4242625CD00002D6F /* ProductModel.swift in Sources */,
