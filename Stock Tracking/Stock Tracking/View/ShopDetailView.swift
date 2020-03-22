@@ -78,9 +78,19 @@ struct ShopDetailView: View {
                         Text("Products")
                             .font(.system(size: 21, weight: .bold, design: .default))
                         Spacer()
-                        Text("Availability")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
+                        if self.isEditing {
+                                HStack(spacing: 4) {
+                                    AvailabilityLegend(availability: .empty)
+                                    AvailabilityLegend(availability: .mid)
+                                    AvailabilityLegend(availability: .full)
+                                }
+                                .frame(width: 180)
+                        }
+                        if !self.isEditing {
+                            Text("Availability")
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.trailing)
@@ -89,8 +99,10 @@ struct ShopDetailView: View {
                         ForEach(self.model.products) { product in
                             VStack(spacing: 0) {
                                 HStack(spacing: 12) {
-                                    Text(product.emoji)
-                                        .font(.headline)
+                                    if !self.isEditing {
+                                        Text(product.emoji)
+                                            .font(.headline)
+                                    }
                                     Text(product.name)
                                         .font(.headline)
                                     Spacer()
@@ -100,19 +112,19 @@ struct ShopDetailView: View {
                                             .foregroundColor(.secondary)
                                             .transition(.opacity)
                                     }
-                                    if self.isEditing {
-                                        HStack {
+//                                    if self.isEditing {
+                                        HStack(spacing: 4) {
                                             AvailabilityButton(product: product, availability: .empty)
                                             AvailabilityButton(product: product, availability: .mid)
                                             AvailabilityButton(product: product, availability: .full)
                                         }
-                                        .frame(width: 140, height: 20)
+                                        .frame(width: 180)
                                         
-                                    }
-                                    if !self.isEditing {
-                                        AvailabilityView(availability: product.availability)
-                                            .frame(height: 20)
-                                    }
+//                                    }
+//                                    if !self.isEditing {
+//                                        AvailabilityView(availability: product.availability)
+//                                            .frame(height: 20)
+//                                    }
                                     
                                 }
                                 .padding()
@@ -174,18 +186,42 @@ struct AvailabilityButton: View {
         Button(action: {
             self.product.selectedAvailability = self.availability
         }) {
-            Circle()
-                .stroke(self.availability.color, lineWidth: 2)
-                .modifier(GlowModifier())
-                .overlay(
-                    Circle()
-                        .fill(self.availability.color)
-                        .modifier(GlowModifier())
-                        .padding(3)
-                        .opacity(product.selectedAvailability == self.availability ? 1 : 0)
-                    
-            )
+            ZStack {
+                self.availability.color
+                    .opacity(0.3)
+                    .cornerRadius(4)
+                    .frame(height: 36)
+                Circle()
+                    .stroke(self.availability.color, lineWidth: 2)
+                    .modifier(GlowModifier())
+                    .overlay(
+                        Circle()
+                            .fill(self.availability.color)
+                            .modifier(GlowModifier())
+                            .padding(3)
+                            .opacity(product.selectedAvailability == self.availability ? 1 : 0)
+                        
+                )
+                    .frame(height: 16)
+            }
         }
+    }
+}
+
+struct AvailabilityLegend: View {
+   
+    let availability: Availability
+    
+    var body: some View {
+            ZStack {
+                self.availability.color
+                    .opacity(0.3)
+                    .cornerRadius(4)
+                    .frame(height: 28)
+                Text(self.availability.shortText)
+                    .font(.system(size: 11, weight: .bold, design: .default))
+                    .multilineTextAlignment(.center)
+            }
     }
 }
 

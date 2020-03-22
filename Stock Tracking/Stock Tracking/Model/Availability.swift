@@ -41,4 +41,17 @@ enum Availability {
                return "unknown"
            }
        }
+    
+    var shortText: String {
+            switch self {
+            case .full:
+                return "available"
+            case .mid:
+                return "few left"
+            case .empty:
+                return "sold out"
+            case .unknown:
+                return "unknown"
+            }
+        }
 }
