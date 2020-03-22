@@ -52,7 +52,6 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         self.isOpen = isOpen
         self.name = name
         self.shop = Shop(id: id, name: name, lat: location.latitude.description, lng: location.longitude.description, street: address, distance: distance.description, open: isOpen, products: products.map { $0.product })
-		self.sendNotification()
     }
     
     init(shop: Shop) {
@@ -74,28 +73,25 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
 	let NotificationCenter = UNUserNotificationCenter.current()
 	let NotificationContent = UNMutableNotificationContent()
 	
-	func sendNotification() {
-		let notificationContent = UNMutableNotificationContent()
-		notificationContent.title = name
-		notificationContent.body = "Test body"
-		notificationContent.badge = NSNumber(value: 3)
-
-		let center = CLLocationCoordinate2D.init(location: location)
-		let region = CLCircularRegion(center: center, radius: 2000.0, identifier: name)
-		region.notifyOnEntry = true
-		region.notifyOnExit = false
-		let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
-		
-		let request = UNNotificationRequest(identifier: "testNotification",
-											content: notificationContent,
-											trigger: trigger)
-		
-		NotificationCenter.add(request) { (error) in
-			if let error = error {
-				print("Notification Error: ", error)
-			}
-		}
-	}
+	func registerGeofence() {
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = self.name
+        content.body = "Run! This zone is dangerous! :o"
+        content.categoryIdentifier = "alarm"
+        
+        let centerLoc = CLLocationCoordinate2D.init(location: location)
+        let region = CLCircularRegion(center: centerLoc, radius: 2000.0, identifier: self.id)
+        region.notifyOnEntry = true
+        region.notifyOnExit = true
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: self.id,
+                                            content: content,
+                                            trigger: trigger)
+        center.add(request)
+    }
 }
 
 extension Array where Element == ShopModel {

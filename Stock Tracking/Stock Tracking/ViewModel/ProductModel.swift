@@ -73,6 +73,7 @@ extension Array where Element == ProductModel {
             .reversed()
             .map { $0.product }
     }
+    
     static var all: [ProductModel] {
         [
             ProductModel(id: 47, name: "Klopapier", emoji: "🧻", availability: .unknown),

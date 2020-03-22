@@ -8,7 +8,12 @@ extension Notification.Name {
 }
 
 class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var shops: [ShopModel] = []
+    @Published var shops: [ShopModel] = [] {
+        didSet {
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            self.shops.forEach { $0.registerGeofence() }
+        }
+    }
 
     @Published var region: MKCoordinateRegion? {
         didSet {
@@ -71,7 +76,7 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             return
         }
         self.locationManager.delegate = self
-        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
         
         self.locationManager.startUpdatingLocation()
     }
