@@ -51,6 +51,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         self.isOpen = isOpen
         self.name = name
         self.shop = Shop(id: id, name: name, latitude: location.latitude, longitude: location.longitude, vicinity: address, distance: distance, openNow: isOpen)
+		self.sendNotification()
     }
     
     convenience init(shop: Shop) {
@@ -67,6 +68,33 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
     }
     
     var color: UIColor { self.shopAvailability.uiColor }
+	
+	// Notification
+	let NotificationCenter = UNUserNotificationCenter.current()
+	let NotificationContent = UNMutableNotificationContent()
+	
+	func sendNotification() {
+		let notificationContent = UNMutableNotificationContent()
+		notificationContent.title = name
+		notificationContent.body = "Test body"
+		notificationContent.badge = NSNumber(value: 3)
+
+		let center = CLLocationCoordinate2D.init(location: location)
+		let region = CLCircularRegion(center: center, radius: 2000.0, identifier: name)
+		region.notifyOnEntry = true
+		region.notifyOnExit = false
+		let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+		
+		let request = UNNotificationRequest(identifier: "testNotification",
+											content: notificationContent,
+											trigger: trigger)
+		
+		NotificationCenter.add(request) { (error) in
+			if let error = error {
+				print("Notification Error: ", error)
+			}
+		}
+	}
 }
 
 extension Array where Element == ShopModel {
