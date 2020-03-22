@@ -108,7 +108,7 @@ struct ShopCell: View {
 struct GlowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-			.shadow(color: Color.black.opacity(0.22), radius: 2)
+			.shadow(color: Color.black.opacity(0.1), radius: 2)
             .overlay(
                 content
                     .blur(radius: 0.7)
@@ -146,6 +146,14 @@ struct ShopCell_Previews: PreviewProvider {
                                         ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
                                         ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
             ]))
+            
+            HStack {
+                Spacer()
+                AvailabilityButton(product: [ProductModel].all.first!,
+                                   availability: .mid)
+                    .frame(width: 60, height: 36)
+                Spacer()
+            }
             Spacer()
         }
         

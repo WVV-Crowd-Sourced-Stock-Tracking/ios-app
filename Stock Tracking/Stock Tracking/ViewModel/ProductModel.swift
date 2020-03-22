@@ -69,7 +69,8 @@ extension Array where Element == ProductModel {
     static var sorted: [ProductModel] {
         [ProductModel].all
             .map { FilterProduct(product: $0) }
-            .sorted { $0.isSelected || !$1.isSelected }
+            .sorted { !$0.isSelected || $0.isSelected == $1.isSelected }
+            .reversed()
             .map { $0.product }
     }
     static var all: [ProductModel] {
