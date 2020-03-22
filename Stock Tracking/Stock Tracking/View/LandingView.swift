@@ -85,7 +85,7 @@ struct LandingView: View {
         
         return Text(title)
             .foregroundColor(.accent)
-            .font(.system(size: 45, weight: .bold, design: .rounded))
+            .font(.system(size: 45, weight: .bold, design: .default))
             .transition(.opacity)
     }
 }
