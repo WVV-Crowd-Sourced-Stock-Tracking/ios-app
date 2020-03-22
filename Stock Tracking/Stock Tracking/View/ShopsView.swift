@@ -17,9 +17,7 @@ struct ShopsView: View {
 	
 	let center = UNUserNotificationCenter.current()
 	let content = UNMutableNotificationContent()
-	
-	let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
-	
+		
     var body: some View {
         NavigationView {
 			ShopList(model: self.model)

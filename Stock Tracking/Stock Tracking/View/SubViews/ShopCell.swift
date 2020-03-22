@@ -111,7 +111,7 @@ struct ShopCell: View {
 struct GlowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .shadow(radius: 2)
+			.shadow(color: Color.black.opacity(0.22), radius: 2)
             .overlay(
                 content
                     .blur(radius: 0.7)
