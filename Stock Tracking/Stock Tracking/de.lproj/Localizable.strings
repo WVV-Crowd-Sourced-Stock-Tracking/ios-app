@@ -59,3 +59,11 @@
 "empty.short" = "leer";
 
 "unknown.short" = "unbekannt";
+
+"location.error.title" = "Ortungsdienste sind deaktiviert";
+
+"location.error.body" = "Um Supermärkte in deiner Nähe zu finde müssen Ortungsdieste aktiviert sein. Wir werden niemals deinen Ort speicher!";
+
+"location.error.button" = "Ortungsdienste aktivieren";
+
+"filter.title" = "Was brauchst du?";

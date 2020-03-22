@@ -39,5 +39,5 @@ extension LocalizedStringKey {
     static var locationErrorTitle: LocalizedStringKey = "location.error.title"
     static var locationErrorBody: LocalizedStringKey = "location.error.body"
     static var locationErrorButton: LocalizedStringKey = "location.error.button"
-
+    static var filterTitle: LocalizedStringKey = "filter.title"
 }

@@ -36,7 +36,9 @@ extension Publisher {
     
     public func set<Value, Root>(_ keyPath: ReferenceWritableKeyPath<Root, Value>, on object: Root, to value: Value) -> AnyPublisher<Output, Failure> {
         map {
-            object[keyPath: keyPath] = value
+            withAnimation {
+                object[keyPath: keyPath] = value
+            }
             return $0
         }
         .eraseToAnyPublisher()

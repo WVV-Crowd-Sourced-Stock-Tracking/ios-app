@@ -4,6 +4,7 @@ class ProductModel: ObservableObject, Identifiable {
     let id: Int
     @Published var name: String
     @Published var emoji: String
+    @Published var quantity: Int
     @Published var availability: Availability
     @Published var selectedAvailability: Availability?
     
@@ -14,31 +15,63 @@ class ProductModel: ObservableObject, Identifiable {
         self.name = name
         self.emoji = emoji
         self.availability = availability
+        self.quantity = availability.quantity
         self.product = Product(id: id, name: name, availability: availability.quantity)
     }
     
     init(product: Product) {
         self.id = product.id
         self.name = product.name
+        self.quantity = product.availability
         self.availability = .from(quantity: Int(product.availability))
         self.product = product
-        self.emoji = "🧻"
+        self.emoji = ""
     }
     
 }
 
 
 extension Array where Element == ProductModel {
-    static func models(from products: [Product]) -> [ProductModel] {
-        let models = [ProductModel].all
+    static func models(from products: [Product], with models: [ProductModel] = .sorted) -> [ProductModel] {
         for model in models {
             if let product = products.first(where: { $0.id == model.id }) {
+                model.quantity = product.availability
                 model.availability = .from(quantity: product.availability)
             }
         }
         return models
     }
     
+    static func shopScore(for products: [Product]) -> Double {
+        let filtered = [ProductModel].models(from: products, with: .filterd)
+            .filter { $0.availability != .unknown }
+            .map { $0.product.availability }
+        if filtered.isEmpty {
+            return -1
+        } else {
+            let value = Double(filtered.reduce(0, +)) / Double(filtered.count)
+            return Swift.min(100, Swift.max(0, value))
+        }
+    }
+    
+    static var filterd: [ProductModel] {
+        let filtered = [ProductModel].all
+            .map { FilterProduct(product: $0) }
+            .filter { $0.isSelected }
+            .map { $0.product }
+        if filtered.isEmpty {
+            return .all
+        } else {
+            return filtered
+        }
+    }
+    
+    static var sorted: [ProductModel] {
+        [ProductModel].all
+            .map { FilterProduct(product: $0) }
+            .sorted { $0.isSelected || !$1.isSelected }
+            .map { $0.product }
+    }
     static var all: [ProductModel] {
         [
             ProductModel(id: 47, name: "Klopapier", emoji: "🧻", availability: .unknown),

@@ -60,3 +60,11 @@
 "empty.short" = "sold out";
 
 "unknown.short" = "unknown";
+
+"location.error.title" = "Location Services are Disabled";
+
+"location.error.body" = "In order to find shops near you, you'll have to enable location services. We do not store or sell you location, ever!";
+
+"location.error.button" = "Enable Location Service";
+
+"filter.title" = "What do you need?";

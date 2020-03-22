@@ -59,11 +59,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         self.id = shop.id.description
         self.products = .models(from: shop.products)
         self.location = Location(latitude: Double(shop.lat)!, longitude: Double(shop.lng)!)
-        if shop.products.isEmpty {
-            self.shopAvailability = -1
-        } else {
-            self.shopAvailability = min(100, max(0, Double(shop.products.map { $0.availability }.reduce(0, +)) / Double(shop.products.count)))
-        }
+        self.shopAvailability = [ProductModel].shopScore(for: shop.products)
         self.isClose =  Double(shop.distance)! <= 100
         self.distance = round(Double(shop.distance)!)
         self.address = shop.street

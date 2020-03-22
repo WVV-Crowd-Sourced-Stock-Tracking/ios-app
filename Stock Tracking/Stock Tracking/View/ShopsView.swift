@@ -13,7 +13,7 @@ struct ShopsView: View {
     @EnvironmentObject var model: ShopsModel
     @EnvironmentObject var categorys: Categorys
     
-    @State var showShowingList = false
+    @State var showShowingList: Bool = false
     @State var showFilter = false
     
     let center = UNUserNotificationCenter.current()
@@ -29,22 +29,22 @@ struct ShopsView: View {
             }
             .navigationBarTitle(.shopsTitle)
             .navigationBarItems(trailing:
-                HStack(spacing: 26) {
+                HStack(spacing: 36) {
                     Button(action: {
                         self.showFilter = true
                     }) {
                         Image(systemName: "line.horizontal.3.decrease.circle")
-                            .font(.system(size: 26, weight: .bold, design: .rounded))
+                            .font(.system(size: 26, weight: .medium, design: .rounded))
                     }
                     .sheet(isPresented: self.$showFilter) {
-                        FilterView(allCategory: self.categorys)
+                        FilterView()
                     }
                     
                     Button(action: {
                         self.showShowingList = true
                     }) {
                         Image(systemName: "cart")
-                            .font(.system(size: 26, weight: .bold, design: .rounded))
+                            .font(.system(size: 26, weight: .medium, design: .rounded))
                     }
                     .sheet(isPresented: self.$showShowingList) {
                         ShopingList(shopList: self.model,
