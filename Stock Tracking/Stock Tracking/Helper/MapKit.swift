@@ -28,3 +28,12 @@ extension MKCoordinateSpan {
         return max(self.latitudeDelta, self.longitudeDelta) * 111 * 1000 // https://stackoverflow.com/a/5798913
     }
 }
+
+extension MKCoordinateRegion {
+    func open(with name: String) {
+        let placemark = MKPlacemark(coordinate: self.center, addressDictionary: nil)
+        let item = MKMapItem(placemark: placemark)
+        item.name = name
+        item.openInMaps(launchOptions: nil)
+    }
+}

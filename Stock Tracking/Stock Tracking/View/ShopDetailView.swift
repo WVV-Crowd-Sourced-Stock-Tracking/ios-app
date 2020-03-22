@@ -51,11 +51,62 @@ struct ShopDetailView: View {
     @ObservedObject
     var model: DetailModel
     
-    @State var isEditing: Bool = true
+    @State var isEditing: Bool = false
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
+        VStack {
+            GeometryReader { proxy in
+                ScrollView {
+                    self.content
+                        .frame(minHeight: proxy.size.height)
+                        .padding(.bottom, 40)
+                }
+                .onAppear {
+                    UIScrollView.appearance().backgroundColor = UIColor.systemGroupedBackground
+                }
+                .padding(.bottom, -40)
+            }
+            Button(action: {
+                withAnimation {
+                    self.isEditing.toggle()
+                }
+            }) {
+                HStack {
+                    Image(systemName: self.isEditing ? "icloud.and.arrow.up.fill" : "tray.full.fill")
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                    Text(self.isEditing ? "Send Update" : "Update Stock")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.accent)
+                .cornerRadius(10)
+                .animation(nil)
+            }
+            .padding(.horizontal)
+            .padding()
+            .padding(.top, 10)
+            .background(
+                VStack(spacing: 0) {
+                    LinearGradient(gradient: Gradient(colors: [Color.grouped.opacity(0), .grouped]),
+                                   startPoint: .top,
+                                   endPoint: .bottom)
+                        .frame(height: 20)
+                    Color.grouped
+                }
+            )
+        }
+        .navigationBarTitle(self.model.name)
+    }
+    
+    var content: some View {
+        VStack(spacing: 20) {
+            Button(action: {
+                self.model.region?.open(with: self.model.name)
+            }) {
                 VStack(spacing: 0) {
                     HStack {
                         Text(self.model.address + " • " + self.model.distanceString)
@@ -64,101 +115,83 @@ struct ShopDetailView: View {
                         Spacer()
                         Image(systemName: "map.fill")
                             .font(.headline)
-                            .foregroundColor(.blue)
+                            .foregroundColor(.accent)
                     }
                     .padding()
                     self.map
                 }
-                .background(Color.white)
-                .cornerRadius(10)
-                .padding()
-                
-                VStack(spacing: 12) {
-                    HStack(spacing: 12) {
-                        Text("Products")
-                            .font(.system(size: 21, weight: .bold, design: .default))
-                        Spacer()
-                        if self.isEditing {
-                                HStack(spacing: 4) {
-                                    AvailabilityLegend(availability: .empty)
-                                    AvailabilityLegend(availability: .mid)
-                                    AvailabilityLegend(availability: .full)
-                                }
-                                .frame(width: 180)
+            }
+            .background(Color.white)
+            .cornerRadius(10)
+            .padding()
+            
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    Text("Products")
+                        .font(.system(size: 21, weight: .bold, design: .default))
+                    Spacer()
+                    if self.isEditing {
+                        HStack(spacing: 6) {
+                            AvailabilityLegend(availability: .empty)
+                            AvailabilityLegend(availability: .mid)
+                            AvailabilityLegend(availability: .full)
                         }
-                        if !self.isEditing {
-                            Text("Availability")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                        }
+                        .frame(width: 180)
                     }
-                    .padding(.horizontal)
-                    .padding(.trailing)
-                    
-                    VStack {
-                        ForEach(self.model.products) { product in
-                            VStack(spacing: 0) {
-                                HStack(spacing: 12) {
-                                    if !self.isEditing {
-                                        Text(product.emoji)
-                                            .font(.headline)
-                                    }
-                                    Text(product.name)
+                    if !self.isEditing {
+                        Text("Availability")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .frame(height: 28)
+                .padding(.horizontal)
+                .padding(.trailing)
+                
+                VStack {
+                    ForEach(self.model.products) { product in
+                        VStack(spacing: 0) {
+                            HStack(spacing: 12) {
+                                if !self.isEditing {
+                                    Text(product.emoji)
                                         .font(.headline)
-                                    Spacer()
-                                    if !self.isEditing {
-                                        Text(product.availability.text)
-                                            .font(.subheadline)
-                                            .foregroundColor(.secondary)
-                                            .transition(.opacity)
+                                }
+                                Text(product.name)
+                                    .font(.headline)
+                                Spacer()
+                                if !self.isEditing {
+                                    Text(product.availability.text)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                        .transition(.opacity)
+                                    AvailabilityView(availability: product.availability)
+                                        .frame(height: 20)
+                                }
+                                if self.isEditing {
+                                    HStack(spacing: 4) {
+                                        AvailabilityButton(product: product, availability: .empty)
+                                        AvailabilityButton(product: product, availability: .mid)
+                                        AvailabilityButton(product: product, availability: .full)
                                     }
-//                                    if self.isEditing {
-                                        HStack(spacing: 4) {
-                                            AvailabilityButton(product: product, availability: .empty)
-                                            AvailabilityButton(product: product, availability: .mid)
-                                            AvailabilityButton(product: product, availability: .full)
-                                        }
-                                        .frame(width: 180)
-                                        
-//                                    }
-//                                    if !self.isEditing {
-//                                        AvailabilityView(availability: product.availability)
-//                                            .frame(height: 20)
-//                                    }
+                                    .frame(width: 180)
                                     
                                 }
-                                .padding()
-                                if self.model.products.last !== product {
-                                    Divider()
-                                }
+                                
+                            }
+                            .frame(height: 36)
+                            .padding()
+                            if self.model.products.last !== product {
+                                Divider()
                             }
                         }
                     }
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .padding(.horizontal)
-                    
-                    Button(action: {
-                        self.isEditing.toggle()
-                    }) {
-                        Text("Enter Stock")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal)
-                    
                 }
-                
+                .background(Color.white)
+                .cornerRadius(10)
+                .padding(.horizontal)
             }
-            .onAppear {
-                UIScrollView.appearance().backgroundColor = UIColor.systemGroupedBackground
-            }
+            
         }
-        .navigationBarTitle(self.model.name)
     }
     
     
@@ -190,7 +223,7 @@ struct AvailabilityButton: View {
                 self.availability.color
                     .opacity(0.3)
                     .cornerRadius(4)
-                    .frame(height: 36)
+//                    .frame(height: 36)
                 Circle()
                     .stroke(self.availability.color, lineWidth: 2)
                     .modifier(GlowModifier())
@@ -209,19 +242,18 @@ struct AvailabilityButton: View {
 }
 
 struct AvailabilityLegend: View {
-   
+    
     let availability: Availability
     
     var body: some View {
-            ZStack {
-                self.availability.color
-                    .opacity(0.3)
-                    .cornerRadius(4)
-                    .frame(height: 28)
-                Text(self.availability.shortText)
-                    .font(.system(size: 11, weight: .bold, design: .default))
-                    .multilineTextAlignment(.center)
-            }
+        ZStack {
+            self.availability.color
+                .opacity(0.3)
+                .cornerRadius(4)
+            Text(self.availability.shortText)
+                .font(.system(size: 11, weight: .bold, design: .default))
+                .multilineTextAlignment(.center)
+        }
     }
 }
 

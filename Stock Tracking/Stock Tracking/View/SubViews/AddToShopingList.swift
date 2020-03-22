@@ -31,7 +31,7 @@ struct AddToShopingList: View {
 						self.customItemText = ""
 					}) {
 						Text("send")
-							.foregroundColor(Color.blue)
+							.foregroundColor(Color.accent)
 					}
 				}
 				Spacer()

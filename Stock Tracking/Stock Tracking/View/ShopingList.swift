@@ -33,7 +33,7 @@ struct ShopingList: View {
 						Button(action: {
 							self.categorys.deleteCustomItem(item: item)
 						}) {
-							Image(systemName: "trash.fill").foregroundColor(Color.blue)
+							Image(systemName: "trash.fill").foregroundColor(Color.accent)
 						}
 					}
 				}

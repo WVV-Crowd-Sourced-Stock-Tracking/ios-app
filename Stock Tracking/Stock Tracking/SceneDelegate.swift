@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
     
     func showMain() {
         self.show(view: ContentView()
-            .environmentObject(category)
+            .environmentObject(self.category)
         )
     }
     

@@ -43,6 +43,7 @@ struct LandingView: View {
                         self.index += 1
                     }
                 } else {
+                    UserDefaults.standard.set(true, forKey: "isOnboardingCompleted")
                     self.sceneDelegate.showMain()
                 }
             }) {

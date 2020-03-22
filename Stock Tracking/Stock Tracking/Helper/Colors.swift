@@ -6,7 +6,7 @@ extension Color {
     static var empty = Color("empty")
     static var unknown = Color("unknown")
     static var accent = Color("accent")
-
+    static var grouped = Color(UIColor.systemGroupedBackground)
 }
 
 extension UIColor {

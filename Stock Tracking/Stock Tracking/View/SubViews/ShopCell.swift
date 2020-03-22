@@ -27,10 +27,15 @@ struct ShopCell: View {
             ShopDetailView(model: DetailModel(shop: self.model.shop))
         }
     }
+    var editDetail: some View {
+        LazyView {
+            ShopDetailView(model: DetailModel(shop: self.model.shop), isEditing: true)
+        }
+    }
     
     var body: some View {
-        NavigationLink(destination: self.detail) {
-            VStack(spacing: 20) {
+        VStack(spacing: 20) {
+            NavigationLink(destination: self.detail) {
                 VStack(spacing: 16) {
                     VStack(spacing: 8) {
                         HStack {
@@ -57,7 +62,7 @@ struct ShopCell: View {
                                     }
                                 }
                             }
-                           
+                            
                             Spacer()
                         }
                     }
@@ -77,24 +82,29 @@ struct ShopCell: View {
                         .foregroundColor(.secondary)
                 }
                 .padding(.trailing)
-                
-                if self.model.isClose {
-                    Button(action: { }) {
-                        Text("Enter Stock")
+            }
+            if self.model.isClose {
+                NavigationLink(destination: self.editDetail) {
+                    HStack {
+                        Image(systemName: "tray.full.fill")
                             .font(.headline)
                             .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .cornerRadius(10)
+                        
+                        Text("Update Stock")
+                            .font(.headline)
+                            .foregroundColor(.white)
                     }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.accent)
+                    .cornerRadius(10)
                 }
             }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(10)
-            .padding()
         }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .padding()
     }
 }
 
@@ -130,7 +140,7 @@ struct ShopCell_Previews: PreviewProvider {
             ShopCell(model:  ShopModel(name: "Rewe",
                                        location: Location(latitude: 52.481998, longitude: 13.432388),
                                        address: "Herrfurtplatz 12, Berlin",
-                                       distance: 500,
+                                       distance: 100,
                                        shopAvailability: .mid,
                                        products: [
                                         ProductModel(name: "Milch", emoji: "🥛", availability: .full),
