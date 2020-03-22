@@ -28,7 +28,14 @@ struct ShopingList: View {
 					}
 				}
 				ForEach(categorys.customItems) { item in
-					Text(item.name)
+					HStack() {
+						CustomItemCell(item: item)
+						Button(action: {
+							self.categorys.deleteCustomItem(item: item)
+						}) {
+							Image(systemName: "trash.fill").foregroundColor(Color.blue)
+						}
+					}
 				}
 				Spacer()
 			}
@@ -69,6 +76,23 @@ struct ShoppingCell: View {
             }.onTapGesture {
 				self.product.bought.toggle()
             }
+        }
+    }
+}
+
+struct CustomItemCell: View {
+	@ObservedObject var item: CustomItemModel
+    
+    var body: some View {
+        HStack() {
+            HStack() {
+				Image(systemName: item.bought ? "checkmark.circle.fill" : "circle")
+				Text(item.name)
+				Spacer()
+				
+			}.onTapGesture {
+				self.item.bought.toggle()
+			}
         }
     }
 }

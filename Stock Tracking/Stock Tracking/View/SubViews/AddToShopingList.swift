@@ -40,6 +40,7 @@ struct AddToShopingList: View {
 			.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0,  maxHeight: .infinity, alignment: .leading)
 			.onDisappear(perform: {
 				self.allCategory.updateShopingList()
+				self.allCategory.updateCustomItems()
 			})
 			.navigationBarTitle("Füge zu liste hinzu")
 		}

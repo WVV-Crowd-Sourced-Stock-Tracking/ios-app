@@ -69,20 +69,38 @@ class Categorys: ObservableObject {
 	}
 	
 	func getCustomItems() -> [CustomItemModel] {
-		let items =  defaults.array(forKey: "customItems")
+		let items =  defaults.array(forKey: "customItems") as? [[String]]
 		if items != nil {
-			return items as! [CustomItemModel]
+			var savedItems = [CustomItemModel]()
+			for item in items! {
+				savedItems.append(CustomItemModel(name: item[0], bought: item[1] == "true" ? true : false))
+			}
+			return savedItems
 		} else {
 			return []
 		}
 	}
 	
 	func updateCustomItems(){
-		defaults.set(customItems, forKey: "customItems")
+		var saveItems = [[String]]()
+		for item in customItems {
+			saveItems.append([item.name, "\(item.bought)"])
+		}
+		defaults.set(saveItems, forKey: "customItems")
+	}
+	
+	func deleteCustomItem(item: CustomItemModel) {
+		if let index = customItems.firstIndex(of: item) {
+			customItems.remove(at: index)
+		}
 	}
 }
 
-class CustomItemModel: ObservableObject, Codable, Identifiable {
+class CustomItemModel: ObservableObject, Codable, Identifiable, Equatable {
+	static func == (lhs: CustomItemModel, rhs: CustomItemModel) -> Bool {
+		return lhs.id == rhs.id
+	}
+	
 	@Published var id: UUID = .init()
 	@Published var name: String
 	@Published var bought: Bool
