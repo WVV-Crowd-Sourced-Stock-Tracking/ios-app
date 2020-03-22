@@ -15,6 +15,11 @@ struct ShopsView: View {
 	@State var showShowingList = false
 	@State var showFilter = false
 	
+	let center = UNUserNotificationCenter.current()
+	let content = UNMutableNotificationContent()
+	
+	let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+	
     var body: some View {
         NavigationView {
 			ShopList(model: self.model)
@@ -44,9 +49,34 @@ struct ShopsView: View {
 							ShopingList(shopList: self.model, categorys: self.categorys)
 						}
 					})
+					
+					Button(action: {
+						self.sendNotification()
+					}) {
+						Text("Notification")
+					}
 				})
         }
     }
+	
+	func sendNotification() {
+		let notificationContent = UNMutableNotificationContent()
+		notificationContent.title = "Test"
+		notificationContent.body = "Test body"
+		notificationContent.badge = NSNumber(value: 3)
+
+		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,
+														repeats: false)
+		let request = UNNotificationRequest(identifier: "testNotification",
+											content: notificationContent,
+											trigger: trigger)
+		
+		center.add(request) { (error) in
+			if let error = error {
+				print("Notification Error: ", error)
+			}
+		}
+	}
 }
 
 struct ShopsView_Previews: PreviewProvider {
