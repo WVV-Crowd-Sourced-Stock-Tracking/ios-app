@@ -17,7 +17,7 @@ final class LandmarkAnnotation: NSObject, MKAnnotation {
     let color: UIColor
 
     init(landmark: LandmarkConvertible) {
-        self.id = landmark.id
+        self.id = "\(landmark.id)"
         self.title = landmark.title
         self.coordinate = CLLocationCoordinate2D(location: landmark.location)
         self.color = landmark.color

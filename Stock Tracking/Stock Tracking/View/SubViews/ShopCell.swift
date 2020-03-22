@@ -67,12 +67,12 @@ struct ShopCell: View {
                         }
                     }
                     HStack(spacing: 20) {
-                        ForEach(self.model.products.prefix(5)) { product in
+                        ForEach(self.model.products.prefix(3)) { product in
                             HStack(spacing: 4) {
                                 AvailabilityView(availability: product.availability)
                                     .frame(height: 12)
                                 Text(product.name)
-                                    .font(.system(size: 12, weight: .bold, design: .default))
+                                    .font(.system(size: 11, weight: .bold, design: .default))
                             }
                         }
                         Spacer()
@@ -141,7 +141,7 @@ struct ShopCell_Previews: PreviewProvider {
                                        location: Location(latitude: 52.481998, longitude: 13.432388),
                                        address: "Herrfurtplatz 12, Berlin",
                                        distance: 100,
-                                       shopAvailability: .mid,
+                                       shopAvailability: 44,
                                        products: [
                                         ProductModel(name: "Milch", emoji: "🥛", availability: .full),
                                         ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),

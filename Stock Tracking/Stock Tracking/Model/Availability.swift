@@ -3,6 +3,19 @@ import SwiftUI
 enum Availability {
     case full, mid, empty, unknown
     
+    static func from(quantity: Int) -> Availability {
+        switch quantity {
+        case 0..<33:
+            return .empty
+        case 33..<66:
+            return .mid
+        case 66...100:
+            return .full
+        default:
+            return .unknown
+        }
+    }
+    
     var color: Color {
         switch self {
         case .full:

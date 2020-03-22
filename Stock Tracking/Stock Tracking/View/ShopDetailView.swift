@@ -45,15 +45,15 @@ class DetailModel: ObservableObject, LandmarkConvertible {
     
     init(shop: Shop) {
         self.shop = shop
-        self.id = shop.id
+        self.id = shop.id.description
         self.name = shop.name
-        self.distance = shop.distance
-        self.address = shop.vicinity
-        self.isOpen = shop.openNow
-        self.location = Location(latitude: shop.latitude, longitude: shop.longitude)
+        self.distance = round(Double(shop.distance)!)
+        self.address = shop.street
+        self.isOpen = shop.open
+        self.location = Location(latitude: Double(shop.lat)!, longitude: Double(shop.lng)!)
         self.region = MKCoordinateRegion(center: .init(location: self.location), latitudinalMeters: 1000, longitudinalMeters: 1000)
-        self.products = [ShopModel].preview.first!.products
-        self.isClose = shop.distance <= 100
+        self.products = .models(from: shop.products)
+        self.isClose = Double(shop.distance)! <= 100
     }
     
     func sendUpdate() {
@@ -65,6 +65,7 @@ class DetailModel: ObservableObject, LandmarkConvertible {
             .mapError { API.Error.from(error: $0) }
             .receive(on: RunLoop.main)
             .assignError(to: \DetailModel.error, on: self, replaceWith: false)
+            .handleEvents(receiveCompletion: { _ in NotificationCenter.default.post(name: .reloadShops, object: nil) })
             .assignWeak(to: \DetailModel.isLoading, on: self)
     }
 }

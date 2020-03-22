@@ -3,6 +3,10 @@ import SwiftUI
 import CoreLocation
 import MapKit
 
+extension Notification.Name {
+    static let reloadShops = Notification.Name("reload.shops")
+}
+
 class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var shops: [ShopModel] = []
 
@@ -32,6 +36,10 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             .debounce(for: 1,
                       scheduler: RunLoop.main,
                       options: nil)
+            .merge(with: NotificationCenter.default.publisher(for: .reloadShops)
+                .compactMap { _ in
+                    self.region
+            })
             .filterNil()
             .flatMap {
                 API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius)
@@ -43,8 +51,10 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
             
         .receive(on: RunLoop.main)
-        .assignWeak(to: \ShopsModel.shops, on: self)
-        
+        .map {
+            $0.sorted(by: { $0.shopAvailability > $1.shopAvailability })
+        }
+        .assignWeak(to: \ShopsModel.shops, on: self)        
     }
 
     func fetchLocation() {
