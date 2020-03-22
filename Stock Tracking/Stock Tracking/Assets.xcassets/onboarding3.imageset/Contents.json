@@ -3,6 +3,11 @@
     {
       "idiom" : "universal",
       "filename" : "onboarding3.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "onboarding3-de.pdf",
+      "locale" : "de"
     }
   ],
   "info" : {
@@ -10,6 +15,7 @@
     "author" : "xcode"
   },
   "properties" : {
-    "preserves-vector-representation" : true
+    "preserves-vector-representation" : true,
+    "localizable" : true
   }
 }
