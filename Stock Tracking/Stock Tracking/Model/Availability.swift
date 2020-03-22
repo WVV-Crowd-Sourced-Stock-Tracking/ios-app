@@ -18,40 +18,53 @@ enum Availability {
     
     var uiColor: UIColor {
         switch self {
-            case .full:
-                return .full
-            case .mid:
-                return .mid
-            case .empty:
-                return .empty
-            case .unknown:
-                return .unknown
-            }
+        case .full:
+            return .full
+        case .mid:
+            return .mid
+        case .empty:
+            return .empty
+        case .unknown:
+            return .unknown
+        }
     }
     
     var text: String {
-           switch self {
-           case .full:
-               return "available"
-           case .mid:
-               return "almost sold out"
-           case .empty:
-               return "sold out"
-           case .unknown:
-               return "unknown"
-           }
-       }
+        switch self {
+        case .full:
+            return "available"
+        case .mid:
+            return "almost sold out"
+        case .empty:
+            return "sold out"
+        case .unknown:
+            return "unknown"
+        }
+    }
     
     var shortText: String {
-            switch self {
-            case .full:
-                return "available"
-            case .mid:
-                return "few left"
-            case .empty:
-                return "sold out"
-            case .unknown:
-                return "unknown"
-            }
+        switch self {
+        case .full:
+            return "available"
+        case .mid:
+            return "few left"
+        case .empty:
+            return "sold out"
+        case .unknown:
+            return "unknown"
         }
+    }
+    
+    var quantity: Int {
+        switch self {
+        case .full:
+            return 100
+        case .mid:
+            return 50
+        case .empty:
+            return 0
+        case .unknown:
+            return 0
+        }
+    }
 }

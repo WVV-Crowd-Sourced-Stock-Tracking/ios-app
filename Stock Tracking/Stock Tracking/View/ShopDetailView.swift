@@ -8,6 +8,8 @@
 
 import SwiftUI
 import MapKit
+import Combine
+import SwiftUIX
 
 class DetailModel: ObservableObject, LandmarkConvertible {
     var title: String {
@@ -29,12 +31,20 @@ class DetailModel: ObservableObject, LandmarkConvertible {
     
     @Published var isClose: Bool
     
+    @Published var isLoading: Bool = false
+    
+    @Published var error: API.Error?
+    
+    let shop: Shop
+    
+    private var updateTask: AnyCancellable?
     
     var distanceString: String {
         ShopModel.distanceFormatter.string(from: Measurement(value: self.distance, unit: UnitLength.meters))
     }
     
     init(shop: Shop) {
+        self.shop = shop
         self.id = shop.id
         self.name = shop.name
         self.distance = shop.distance
@@ -44,6 +54,18 @@ class DetailModel: ObservableObject, LandmarkConvertible {
         self.region = MKCoordinateRegion(center: .init(location: self.location), latitudinalMeters: 1000, longitudinalMeters: 1000)
         self.products = [ShopModel].preview.first!.products
         self.isClose = shop.distance <= 100
+    }
+    
+    func sendUpdate() {
+        self.updateTask?.cancel()
+
+        self.isLoading = true
+        self.updateTask = API.sendUpdate(for: self.products, in: self.shop)
+            .map { _ in false }
+            .mapError { API.Error.from(error: $0) }
+            .receive(on: RunLoop.main)
+            .assignError(to: \DetailModel.error, on: self, replaceWith: false)
+            .assignWeak(to: \DetailModel.isLoading, on: self)
     }
 }
 struct ShopDetailView: View {
@@ -67,16 +89,27 @@ struct ShopDetailView: View {
                 .padding(.bottom, -40)
             }
             Button(action: {
+                if self.isEditing {
+                    self.model.sendUpdate()
+                }
                 withAnimation {
                     self.isEditing.toggle()
                 }
             }) {
                 HStack {
-                    Image(systemName: self.isEditing ? "icloud.and.arrow.up.fill" : "tray.full.fill")
-                    .font(.headline)
-                    .foregroundColor(.white)
+                    if !self.model.isLoading {
+                        Image(systemName: self.isEditing ? "icloud.and.arrow.up.fill" : "tray.full.fill")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
+                    
+                    if self.model.isLoading {
+                        ActivityIndicator()
+                            .animated(self.model.isLoading)
+                            .tintColor(.white)
+                    }
 
-                    Text(self.isEditing ? "Send Update" : "Update Stock")
+                    Text(self.buttonTitle)
                         .font(.headline)
                         .foregroundColor(.white)
                 }
@@ -84,6 +117,7 @@ struct ShopDetailView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.accent)
                 .cornerRadius(10)
+                .disabled(self.model.isLoading)
                 .animation(nil)
             }
             .padding(.horizontal)
@@ -99,7 +133,22 @@ struct ShopDetailView: View {
                 }
             )
         }
+        .alert(item: self.$model.error) { error in
+            Alert(title: Text("Something went wrong..."),
+                  message: Text(error.localizedDescription),
+                  dismissButton: .cancel())
+        }
         .navigationBarTitle(self.model.name)
+    }
+    
+    var buttonTitle: String {
+        if self.model.isLoading {
+            return "Sending Update..."
+        } else if self.isEditing {
+            return "Send Update"
+        } else {
+            return "Update Stock"
+        }
     }
     
     var content: some View {

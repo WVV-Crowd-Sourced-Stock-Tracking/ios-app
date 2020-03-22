@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,7 @@
 		B3A8666A24276CBF006D49FB /* PageDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8666824276CBF006D49FB /* PageDots.swift */; };
 		B3A8666B24276CBF006D49FB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8666924276CBF006D49FB /* PageView.swift */; };
 		B3A8666D24276CC9006D49FB /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8666C24276CC9006D49FB /* LandingView.swift */; };
+		B3A866702427863B006D49FB /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = B3A8666F2427863B006D49FB /* SwiftUIX */; };
 		B3EBBEB0242638F4007D5C36 /* ShopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEAF242638F4007D5C36 /* ShopsView.swift */; };
 		B3EBBEB2242645B6007D5C36 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB1242645B5007D5C36 /* API.swift */; };
 		B3EBBEB424264639007D5C36 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB324264639007D5C36 /* Shop.swift */; };
@@ -101,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A866702427863B006D49FB /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +249,9 @@
 			dependencies = (
 			);
 			name = "Stock Tracking";
+			packageProductDependencies = (
+				B3A8666F2427863B006D49FB /* SwiftUIX */,
+			);
 			productName = "Stock Tracking";
 			productReference = B357BEA32425F8F200002D6F /* Stock Tracking.app */;
 			productType = "com.apple.product-type.application";
@@ -297,6 +302,9 @@
 				Base,
 			);
 			mainGroup = B357BE9A2425F8F200002D6F;
+			packageReferences = (
+				B3A8666E2427863B006D49FB /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+			);
 			productRefGroup = B357BEA42425F8F200002D6F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -631,6 +639,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B3A8666E2427863B006D49FB /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B3A8666F2427863B006D49FB /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3A8666E2427863B006D49FB /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B357BE9B2425F8F200002D6F /* Project object */;
 }

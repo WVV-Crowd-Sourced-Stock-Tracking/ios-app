@@ -15,7 +15,6 @@ struct ShopList: View {
                 }
                 Spacer()
                     .frame(maxHeight: .infinity)
-                
             }
         }
         .onAppear {

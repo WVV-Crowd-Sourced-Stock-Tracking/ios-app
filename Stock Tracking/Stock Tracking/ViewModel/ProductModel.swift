@@ -1,7 +1,7 @@
 import SwiftUI
 
 class ProductModel: ObservableObject, Identifiable {
-    @Published var id: UUID = .init()
+    @Published var id: Int = 0
     @Published var name: String
     @Published var emoji: String
     @Published var availability: Availability

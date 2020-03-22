@@ -36,6 +36,34 @@ struct API {
             .decode(type: [Shop].self, decoder: JSONDecoder.standard)
 			.eraseToAnyPublisher()
 	}
+    
+    static func sendUpdate(for products: [ProductModel], in shop: Shop) -> AnyPublisher<(), Swift.Error> {
+        let url = URL(string: "https://wvvcrowdmarket.herokuapp.com/ws/rest/market/transmit")!
+        
+        let updates: [ProductUpdate] = products.compactMap { product in
+            if let availability = product.selectedAvailability {
+                return ProductUpdate(marketId: shop.id.hashValue,
+                                     productId: product.id,
+                                     quantity: availability.quantity)
+            }
+            return nil
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try! JSONEncoder.standard.encode(updates.first!)
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .map { _ in () }
+            .mapError { $0 as Swift.Error }
+            .eraseToAnyPublisher()
+    }
+}
+
+struct ProductUpdate: Codable {
+    let marketId: Int
+    let productId: Int
+    let quantity: Int
 }
 
 extension JSONDecoder {
@@ -43,5 +71,14 @@ extension JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
+    }
+}
+
+
+extension JSONEncoder {
+    static var standard: JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        return encoder
     }
 }

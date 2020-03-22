@@ -19,7 +19,6 @@ struct LandingView: View {
             if self.index == 2 {
                 self.title
             }
-//            Spacer()
             
             VStack(spacing: 0) {
                 PageView(pageIndex: $index) {
