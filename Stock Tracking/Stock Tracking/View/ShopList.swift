@@ -19,6 +19,14 @@ struct ShopList: View {
         }
         .onAppear {
             self.model.fetchLocation()
+            let center = UNUserNotificationCenter.current()
+            let options: UNAuthorizationOptions = [.alert, .sound];
+            center.requestAuthorization(options: options) {
+                (granted, error) in
+                if !granted {
+                    print("Something went wrong")
+                }
+            }
             UIScrollView.appearance().backgroundColor = UIColor.systemGroupedBackground
         }
     }

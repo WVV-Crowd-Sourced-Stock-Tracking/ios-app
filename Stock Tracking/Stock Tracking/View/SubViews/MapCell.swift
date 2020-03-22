@@ -16,7 +16,7 @@ struct MapCell: View {
         NavigationLink(destination: ShopMap(model: self.model)) {
             VStack {
                 HStack {
-                    Text("Map")
+                    Text(.mapTitle)
                         .font(.system(size: 21, weight: .bold, design: .default))
                         .foregroundColor(.primary)
                     Spacer()

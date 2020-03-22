@@ -54,10 +54,10 @@ struct ShopCell: View {
                             Group {
                                 if self.model.isOpen != nil {
                                     if self.model.isOpen! {
-                                        Text("Open Now")
+                                        Text(.shopOpen)
                                             .foregroundColor(.full)
                                     } else {
-                                        Text("Closed")
+                                        Text(.shopClosed)
                                             .foregroundColor(.empty)
                                     }
                                 }
@@ -77,9 +77,9 @@ struct ShopCell: View {
                         }
                         Spacer()
                     }
-                    Text("Last refresh today at 13:40")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+//                    Text("Last refresh today at 13:40")
+//                        .font(.caption)
+//                        .foregroundColor(.secondary)
                 }
                 .padding(.trailing)
             }
@@ -90,7 +90,7 @@ struct ShopCell: View {
                             .font(.headline)
                             .foregroundColor(.white)
                         
-                        Text("Update Stock")
+                        Text(.shopEdit)
                             .font(.headline)
                             .foregroundColor(.white)
                     }

@@ -29,29 +29,29 @@ enum Availability {
         }
     }
     
-    var text: String {
+    var text: LocalizedStringKey {
         switch self {
         case .full:
-            return "available"
+            return .fullTitle
         case .mid:
-            return "almost sold out"
+            return .midTitle
         case .empty:
-            return "sold out"
+            return .emptyTitle
         case .unknown:
-            return "unknown"
+            return .unknownTitle
         }
     }
     
-    var shortText: String {
+    var shortText: LocalizedStringKey {
         switch self {
         case .full:
-            return "available"
+            return .fullShort
         case .mid:
-            return "few left"
+            return .midShort
         case .empty:
-            return "sold out"
+            return .emptyShort
         case .unknown:
-            return "unknown"
+            return .unknownShort
         }
     }
     

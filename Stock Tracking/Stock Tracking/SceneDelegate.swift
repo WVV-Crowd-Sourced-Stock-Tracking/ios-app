@@ -44,21 +44,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
 		
 
 		// Ntoifcation Request
-		let center = UNUserNotificationCenter.current()
-		let options: UNAuthorizationOptions = [.alert, .badge, .sound];
-		center.requestAuthorization(options: options) {
-		  (granted, error) in
-			if !granted {
-			  print("Something went wrong")
-			}
-		}
+	
 		
-		center.getNotificationSettings { (settings) in
-		  if settings.authorizationStatus != .authorized {
-			// Notifications not allowed
-		  }
-		}
-		
+//		center.getNotificationSettings { (settings) in
+//		  if settings.authorizationStatus != .authorized {
+//			// Notifications not allowed
+//		  }
+//		}
+//		
 		
 		
         // Create the SwiftUI view that provides the window contents.

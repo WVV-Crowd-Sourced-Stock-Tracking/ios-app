@@ -134,20 +134,20 @@ struct ShopDetailView: View {
             )
         }
         .alert(item: self.$model.error) { error in
-            Alert(title: Text("Something went wrong..."),
+            Alert(title: Text(.errorTitle),
                   message: Text(error.localizedDescription),
                   dismissButton: .cancel())
         }
         .navigationBarTitle(self.model.name)
     }
     
-    var buttonTitle: String {
+    var buttonTitle: LocalizedStringKey {
         if self.model.isLoading {
-            return "Sending Update..."
+            return .shopSending
         } else if self.isEditing {
-            return "Send Update"
+            return .shopSend
         } else {
-            return "Update Stock"
+            return .shopEdit
         }
     }
     
@@ -176,7 +176,7 @@ struct ShopDetailView: View {
             
             VStack(spacing: 12) {
                 HStack(spacing: 12) {
-                    Text("Products")
+                    Text(.shopProductsTitle)
                         .font(.system(size: 21, weight: .bold, design: .default))
                     Spacer()
                     if self.isEditing {
@@ -188,7 +188,7 @@ struct ShopDetailView: View {
                         .frame(width: 180)
                     }
                     if !self.isEditing {
-                        Text("Availability")
+                        Text(.shopProductsAvailability)
                             .font(.headline)
                             .foregroundColor(.secondary)
                     }

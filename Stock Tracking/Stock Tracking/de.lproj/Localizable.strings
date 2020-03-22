@@ -1,0 +1,61 @@
+/* 
+  Localizable.strings
+  Stock Tracking
+
+  Created by Leo Mehlig on 22.03.20.
+  Copyright © 2020 wIrvsvirus. All rights reserved.
+*/
+
+"onboardin.1.title" = "Was ist da?";
+
+"onboardin.2.title" = "Bleibe Sicher!";
+
+"onboardin.3.title" = "Helfe anderen!";
+
+"onboardin.1.subtitle" = "Schau von zuhause was in dem Supermarkt noch vorrätig ist";
+
+"onboardin.2.subtitle" = "Verhindere unnötigen Einkäufe und vermeide sozialen Kontakt";
+
+"onboardin.3.subtitle" = "Bestätige und aktualisiere den Warenbestand und helfe somit anderen gesund zu bleiben";
+
+
+"onboarding.continue" = "Weiter";
+
+"onboarding.start" = "Los Gehts";
+
+"shops.title" = "Läden";
+
+
+"shop.edit" = "Bestand aktualisiere";
+
+"shop.send" = "Bestand senden";
+
+"shop.sending" = "Bestand sendet...";
+
+"shop.product.title" = "Produkte";
+
+"shop.product.availability" = "Verfügbarkeit";
+
+"shop.open" = "Geöffnet";
+
+"shop.closed" = "Geschlossen";
+"map.title" = "Karte";
+
+
+"error.title" = "Etwas ist schief gegangen...";
+
+"full.title" = "verfügbar";
+
+"mid.title" =  "fast ausverkauft";
+
+"empty.title" = "ausverkauft";
+
+"unknown.title" = "unbekannt";
+
+"full.short" = "verfügbar";
+
+"mid.short" =  "fast leer";
+
+"empty.short" = "leer";
+
+"unknown.short" = "unbekannt";

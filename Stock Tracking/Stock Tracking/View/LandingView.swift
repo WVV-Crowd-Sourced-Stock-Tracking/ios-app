@@ -22,13 +22,13 @@ struct LandingView: View {
             
             VStack(spacing: 0) {
                 PageView(pageIndex: $index) {
-                    IntroView(title: "See what’s still in stock before leaving your home",
+                    IntroView(title: .onboarding1Subtitle,
                               image: "onboarding1")
                     
-                    IntroView(title: "Avoid unnecessary trips to the supermarkt to limit your social contact",
+                    IntroView(title: .onboarding2Subtitle,
                               image: "onboarding2")
                     
-                    IntroView(title: "Confirm and update the stock of the store and help others stay health",
+                    IntroView(title: .onboarding3Subtitle,
                               image: "onboarding3")
                     
                 }
@@ -59,26 +59,26 @@ struct LandingView: View {
         .padding()
     }
     
-    var buttonText: String {
+    var buttonText: LocalizedStringKey {
         switch self.index {
         case 0, 1:
-            return "Continue"
+            return .onboardingContinue
         case 2:
-            return "Start Exploring"
+            return .onboardingStart
         default:
             return ""
         }
     }
     
     var title: some View {
-        let title: String
+        let title: LocalizedStringKey
         switch self.index {
         case 0:
-            title = "What’s left?"
+            title = .onboarding1Title
         case 1:
-            title = "Stay Safe!"
+            title = .onboarding2Title
         case 2:
-            title = "Help others!"
+            title = .onboarding3Title
         default:
             title = ""
         }
@@ -91,7 +91,7 @@ struct LandingView: View {
 }
 
 struct IntroView: View {
-    let title: String
+    let title: LocalizedStringKey
     let image: String
     
     var body: some View {

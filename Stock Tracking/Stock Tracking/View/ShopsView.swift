@@ -22,11 +22,11 @@ struct ShopsView: View {
         NavigationView {
 			ShopList(model: self.model)
 				.alert(item: self.$model.error) { error in
-					Alert(title: Text("Something went wrong..."),
+                    Alert(title: Text(.errorTitle),
 						  message: Text(error.localizedDescription),
 						  dismissButton: .cancel())
 				}
-				.navigationBarTitle("Shops")
+            .navigationBarTitle(.shopsTitle)
 				.navigationBarItems(trailing: HStack(spacing: 15) {
 					Button(action: {
 						self.showFilter.toggle()
