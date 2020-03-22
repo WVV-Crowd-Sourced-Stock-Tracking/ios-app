@@ -7,74 +7,72 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct ShopsView: View {
     @EnvironmentObject var model: ShopsModel
-	@EnvironmentObject var categorys: Categorys
-	
-	@State var showShowingList = false
-	@State var showFilter = false
-	
-	let center = UNUserNotificationCenter.current()
-	let content = UNMutableNotificationContent()
-		
+    @EnvironmentObject var categorys: Categorys
+    
+    @State var showShowingList = false
+    @State var showFilter = false
+    
+    let center = UNUserNotificationCenter.current()
+    let content = UNMutableNotificationContent()
+    
     var body: some View {
         NavigationView {
-			ShopList(model: self.model)
-				.alert(item: self.$model.error) { error in
+            ShopList(model: self.model)
+                .alert(item: self.$model.error) { error in
                     Alert(title: Text(.errorTitle),
-						  message: Text(error.localizedDescription),
-						  dismissButton: .cancel())
-				}
+                          message: Text(error.localizedDescription),
+                          dismissButton: .cancel())
+            }
             .navigationBarTitle(.shopsTitle)
-				.navigationBarItems(trailing: HStack(spacing: 15) {
-					Button(action: {
-						self.showFilter.toggle()
-					}) {
-						Image(systemName: "line.horizontal.3.decrease.circle").imageScale(.large)
-					}.sheet(isPresented: self.$showFilter, content: {
-						VStack() {
-							FilterView(allCategory: self.categorys)
-						}
-					})
-
-					Button(action: {
-						self.showShowingList.toggle()
-					}) {
-						Image(systemName: "bag.fill").imageScale(.large)
-					}.sheet(isPresented: self.$showShowingList, content: {
-						VStack() {
-							ShopingList(shopList: self.model, categorys: self.categorys)
-						}
-					})
-					
-					Button(action: {
-						self.sendNotification()
-					}) {
-						Text("Notification")
-					}
-				})
+            .navigationBarItems(trailing:
+                HStack(spacing: 26) {
+                    Button(action: {
+                        self.showFilter = true
+                    }) {
+                        Image(systemName: "line.horizontal.3.decrease.circle")
+                            .font(.system(size: 26, weight: .bold, design: .rounded))
+                    }
+                    .sheet(isPresented: self.$showFilter) {
+                        FilterView(allCategory: self.categorys)
+                    }
+                    
+                    Button(action: {
+                        self.showShowingList = true
+                    }) {
+                        Image(systemName: "cart")
+                            .font(.system(size: 26, weight: .bold, design: .rounded))
+                    }
+                    .sheet(isPresented: self.$showShowingList) {
+                        ShopingList(shopList: self.model,
+                                    categorys: self.categorys)
+                    }
+                }
+            )
         }
     }
-	
-	func sendNotification() {
-		let notificationContent = UNMutableNotificationContent()
-		notificationContent.title = "Test"
-		notificationContent.body = "Test body"
-		notificationContent.badge = NSNumber(value: 3)
-
-		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,
-														repeats: false)
-		let request = UNNotificationRequest(identifier: "testNotification",
-											content: notificationContent,
-											trigger: trigger)
-		
-		center.add(request) { (error) in
-			if let error = error {
-				print("Notification Error: ", error)
-			}
-		}
-	}
+    
+    func sendNotification() {
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Test"
+        notificationContent.body = "Test body"
+        notificationContent.badge = NSNumber(value: 3)
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,
+                                                        repeats: false)
+        let request = UNNotificationRequest(identifier: "testNotification",
+                                            content: notificationContent,
+                                            trigger: trigger)
+        
+        center.add(request) { (error) in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
+        }
+    }
 }
 
 struct ShopsView_Previews: PreviewProvider {

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Stock_Tracking
+@testable import WhatsLeft_
 
 class Stock_TrackingTests: XCTestCase {
 

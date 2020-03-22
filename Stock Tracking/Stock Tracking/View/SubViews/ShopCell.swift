@@ -43,14 +43,6 @@ struct ShopCell: View {
                                 .font(.system(size: 21, weight: .bold, design: .default))
                                 .foregroundColor(.primary)
                             Spacer()
-                        }
-                        HStack {
-                            Text(self.model.address + " • " + self.model.distanceString)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
-                        HStack {
                             Group {
                                 if self.model.isOpen != nil {
                                     if self.model.isOpen! {
@@ -62,7 +54,12 @@ struct ShopCell: View {
                                     }
                                 }
                             }
-                            
+                            .font(.footnote)
+                        }
+                        HStack {
+                            Text(self.model.address + " • " + self.model.distanceString)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
                             Spacer()
                         }
                     }
@@ -104,7 +101,7 @@ struct ShopCell: View {
         .padding()
         .background(Color.white)
         .cornerRadius(10)
-        .padding()
+        .padding(.horizontal)
     }
 }
 
@@ -138,9 +135,11 @@ struct ShopCell_Previews: PreviewProvider {
         VStack {
             Spacer()
             ShopCell(model:  ShopModel(name: "Rewe",
+                                       isClose: true,
                                        location: Location(latitude: 52.481998, longitude: 13.432388),
                                        address: "Herrfurtplatz 12, Berlin",
                                        distance: 100,
+                                       isOpen: true,
                                        shopAvailability: 44,
                                        products: [
                                         ProductModel(name: "Milch", emoji: "🥛", availability: .full),

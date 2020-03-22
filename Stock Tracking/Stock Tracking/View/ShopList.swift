@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import SwiftUIX
 
 struct ShopList: View {
     
@@ -8,13 +9,20 @@ struct ShopList: View {
     
     var body: some View {
         ScrollView {
-            VStack {
-                MapCell(model: self.model)
-                ForEach(self.model.shops) { shop in
-                    ShopCell(model: shop)
+            VStack(spacing: 16) {
+                if !self.model.isLocationErrorVisisble {
+                    MapCell(model: self.model)
+                    if self.model.isLoading {
+                        ActivityIndicator()
+                            .style(.large)
+                            .tintColor(.accent)
+                    }
+                    ForEach(self.model.shops) { shop in
+                        ShopCell(model: shop)
+                    }
+                } else {
+                    LocationErrorView()
                 }
-                Spacer()
-                    .frame(maxHeight: .infinity)
             }
         }
         .onAppear {

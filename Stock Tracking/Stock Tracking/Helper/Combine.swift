@@ -1,4 +1,5 @@
 import Combine
+import SwiftUI
 
 extension Publisher where Self.Failure == Never {
     public func assignWeak<Root>(to keyPath: ReferenceWritableKeyPath<Root, Self.Output>, on object: Root) -> AnyCancellable where Root: AnyObject {
@@ -31,5 +32,13 @@ extension Publisher {
         filter { $0 != nil }
             .map { $0! }
             .eraseToAnyPublisher()
+    }
+    
+    public func set<Value, Root>(_ keyPath: ReferenceWritableKeyPath<Root, Value>, on object: Root, to value: Value) -> AnyPublisher<Output, Failure> {
+        map {
+            object[keyPath: keyPath] = value
+            return $0
+        }
+        .eraseToAnyPublisher()
     }
 }

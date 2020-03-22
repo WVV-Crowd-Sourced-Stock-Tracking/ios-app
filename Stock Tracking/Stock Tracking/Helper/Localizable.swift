@@ -35,4 +35,9 @@ extension LocalizedStringKey {
     static var midShort: LocalizedStringKey = "mid.short"
     static var emptyShort: LocalizedStringKey = "empty.short"
     static var unknownShort: LocalizedStringKey = "unknown.short"
+    
+    static var locationErrorTitle: LocalizedStringKey = "location.error.title"
+    static var locationErrorBody: LocalizedStringKey = "location.error.body"
+    static var locationErrorButton: LocalizedStringKey = "location.error.button"
+
 }

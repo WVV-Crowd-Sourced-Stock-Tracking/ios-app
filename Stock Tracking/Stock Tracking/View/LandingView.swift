@@ -102,6 +102,8 @@ struct IntroView: View {
                 .multilineTextAlignment(.center)
             
             Image(self.image)
+                .resizable()
+                .scaledToFit()
                 .frame(maxHeight: 250)
         }
     }

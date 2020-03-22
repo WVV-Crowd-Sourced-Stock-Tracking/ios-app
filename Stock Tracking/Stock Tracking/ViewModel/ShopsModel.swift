@@ -26,6 +26,10 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var error: API.Error?
     
+    @Published var isLocationErrorVisisble: Bool = false
+    
+    @Published var isLoading: Bool = false
+    
     private var locationManager = CLLocationManager()
     private var shopTask: AnyCancellable?
     
@@ -41,6 +45,7 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     self.region
             })
             .filterNil()
+            .set(\.isLoading, on: self, to: true)
             .flatMap {
                 API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius)
                     .map { $0.map { ShopModel(shop: $0) } }
@@ -51,6 +56,7 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
             
         .receive(on: RunLoop.main)
+        .set(\.isLoading, on: self, to: false)
         .map {
             $0.sorted(by: { $0.shopAvailability > $1.shopAvailability })
         }
@@ -62,7 +68,6 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             return
         }
         guard CLLocationManager.locationServicesEnabled() else {
-            print("Location Servics not enabled!!1")
             return
         }
         self.locationManager.delegate = self
@@ -81,6 +86,15 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.region = MKCoordinateRegion(center: location.coordinate,
                                          latitudinalMeters: 1000,
                                          longitudinalMeters: 1000)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways, .notDetermined:
+            self.isLocationErrorVisisble = false
+        default:
+            self.isLocationErrorVisisble = true
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
