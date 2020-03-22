@@ -69,7 +69,8 @@ struct ShopCell: View {
                                 AvailabilityView(availability: product.availability)
                                     .frame(height: 12)
                                 Text(product.name)
-                                    .font(.system(size: 11, weight: .bold, design: .default))
+                                    .font(.system(size: 10, weight: .bold, design: .default))
+                                    .foregroundColor(.secondary)
                             }
                         }
                         Spacer()

@@ -26,6 +26,7 @@ class FilterProduct: ObservableObject, Identifiable {
         self.isSelected = UserDefaults.standard.bool(forKey: "filter_\(product.id)")
     }
 }
+
 struct FilterView: View {
     @State var products: [FilterProduct] = [ProductModel].all.map { FilterProduct(product: $0) }
     

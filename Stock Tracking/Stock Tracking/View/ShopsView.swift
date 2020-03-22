@@ -35,21 +35,22 @@ struct ShopsView: View {
                     }) {
                         Image(systemName: "line.horizontal.3.decrease.circle")
                             .font(.system(size: 26, weight: .medium, design: .rounded))
+                            .foregroundColor(.accent)
                     }
                     .sheet(isPresented: self.$showFilter) {
                         FilterView()
                     }
                     
-                    Button(action: {
-                        self.showShowingList = true
-                    }) {
-                        Image(systemName: "cart")
-                            .font(.system(size: 26, weight: .medium, design: .rounded))
-                    }
-                    .sheet(isPresented: self.$showShowingList) {
-                        ShopingList(shopList: self.model,
-                                    categorys: self.categorys)
-                    }
+//                    Button(action: {
+//                        self.showShowingList = true
+//                    }) {
+//                        Image(systemName: "cart")
+//                            .font(.system(size: 26, weight: .medium, design: .rounded))
+//                    }
+//                    .sheet(isPresented: self.$showShowingList) {
+//                        ShopingList(shopList: self.model,
+//                                    categorys: self.categorys)
+//                    }
                 }
             )
         }
