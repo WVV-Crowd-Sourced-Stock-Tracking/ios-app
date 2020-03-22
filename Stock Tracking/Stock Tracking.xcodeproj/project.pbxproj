@@ -34,6 +34,9 @@
 		B357BED82426274F00002D6F /* ShopMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED72426274F00002D6F /* ShopMap.swift */; };
 		B357BEDA242629CB00002D6F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BED9242629CB00002D6F /* Location.swift */; };
 		B37445612426712400A25159 /* MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37445602426712400A25159 /* MapKit.swift */; };
+		B3A8666A24276CBF006D49FB /* PageDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8666824276CBF006D49FB /* PageDots.swift */; };
+		B3A8666B24276CBF006D49FB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8666924276CBF006D49FB /* PageView.swift */; };
+		B3A8666D24276CC9006D49FB /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8666C24276CC9006D49FB /* LandingView.swift */; };
 		B3EBBEB0242638F4007D5C36 /* ShopsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEAF242638F4007D5C36 /* ShopsView.swift */; };
 		B3EBBEB2242645B6007D5C36 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB1242645B5007D5C36 /* API.swift */; };
 		B3EBBEB424264639007D5C36 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EBBEB324264639007D5C36 /* Shop.swift */; };
@@ -83,6 +86,9 @@
 		B357BED72426274F00002D6F /* ShopMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMap.swift; sourceTree = "<group>"; };
 		B357BED9242629CB00002D6F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		B37445602426712400A25159 /* MapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKit.swift; sourceTree = "<group>"; };
+		B3A8666824276CBF006D49FB /* PageDots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDots.swift; sourceTree = "<group>"; };
+		B3A8666924276CBF006D49FB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		B3A8666C24276CC9006D49FB /* LandingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		B3EBBEAF242638F4007D5C36 /* ShopsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsView.swift; sourceTree = "<group>"; };
 		B3EBBEB1242645B5007D5C36 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B3EBBEB324264639007D5C36 /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
@@ -119,6 +125,9 @@
 				B3EBBEAF242638F4007D5C36 /* ShopsView.swift */,
 				B31E0EE62426AD0900B61480 /* ShopDetailView.swift */,
 				568E1E6B2426B97E009E3C5A /* FilterView.swift */,
+				B3A8666824276CBF006D49FB /* PageDots.swift */,
+				B3A8666924276CBF006D49FB /* PageView.swift */,
+				B3A8666C24276CC9006D49FB /* LandingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,6 +334,8 @@
 			files = (
 				B31E0EE72426AD0900B61480 /* ShopDetailView.swift in Sources */,
 				56850D282426166C0088F434 /* ViewModel.swift in Sources */,
+				B3A8666D24276CC9006D49FB /* LandingView.swift in Sources */,
+				B3A8666A24276CBF006D49FB /* PageDots.swift in Sources */,
 				B3EBBEB824264E27007D5C36 /* ShopsModel.swift in Sources */,
 				B357BECC2426217300002D6F /* Colors.swift in Sources */,
 				56850D2F24261B690088F434 /* MapView.swift in Sources */,
@@ -347,6 +358,7 @@
 				B357BEC92426063700002D6F /* ShopList.swift in Sources */,
 				56850D2A242616810088F434 /* TabBarView.swift in Sources */,
 				B37445612426712400A25159 /* MapKit.swift in Sources */,
+				B3A8666B24276CBF006D49FB /* PageView.swift in Sources */,
 				B31E0EE52426967B00B61480 /* MapCell.swift in Sources */,
 				56850D26242616630088F434 /* Model.swift in Sources */,
 				56850D35242635F30088F434 /* AddToShopingList.swift in Sources */,

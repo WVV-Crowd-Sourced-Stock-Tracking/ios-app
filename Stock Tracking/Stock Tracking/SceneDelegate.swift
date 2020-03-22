@@ -9,35 +9,53 @@
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
 
     var window: UIWindow?
+    
+    let category = Categorys(list: [
+        CategoryModel(name: "Lebensmittel", products: [
+            CategoryProduct(product: ProductModel(name: "Milch", emoji: "🥛", availability: .empty), selected: false),
+            CategoryProduct(product: ProductModel(name: "Bread", emoji: "🍞", availability: .empty), selected: false),
+            CategoryProduct(product: ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty), selected: false)
+        ]),
+        CategoryModel(name: "Produkte", products: [
+            CategoryProduct(product: ProductModel(name: "Klopapier", emoji: "🥛", availability: .empty), selected: false),
+            CategoryProduct(product: ProductModel(name: "Seifen", emoji: "🍞", availability: .empty), selected: false)
+        ])
+    ])
 
-
+    func show<V: View>(view: V) {
+        self.window?.rootViewController = UIHostingController(rootView: view)
+    }
+    
+    func showMain() {
+        self.show(view: ContentView()
+            .environmentObject(category)
+        )
+    }
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-		let category = Categorys(list: [
-			CategoryModel(name: "Lebensmittel", products: [
-				CategoryProduct(product: ProductModel(name: "Milch", emoji: "🥛", availability: .empty), selected: false),
-				CategoryProduct(product: ProductModel(name: "Bread", emoji: "🍞", availability: .empty), selected: false),
-				CategoryProduct(product: ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty), selected: false)
-			]),
-			CategoryModel(name: "Produkte", products: [
-				CategoryProduct(product: ProductModel(name: "Klopapier", emoji: "🥛", availability: .empty), selected: false),
-				CategoryProduct(product: ProductModel(name: "Seifen", emoji: "🍞", availability: .empty), selected: false)
-			])
-		])
+		
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView().environmentObject(category)
+        let root: UIViewController
+        if !UserDefaults.standard.bool(forKey: "isOnboardingCompleted") {
+            root = UIHostingController(rootView: LandingView()
+                .environmentObject(self))
+        } else {
+            root = UIHostingController(rootView: ContentView().environmentObject(category))
+        }
+
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            window.rootViewController = root
             self.window = window
             window.makeKeyAndVisible()
         }

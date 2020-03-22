@@ -11,8 +11,7 @@ import SwiftUI
 struct TabBarView: View {
     var body: some View {
         ShopsView()
-                 .environmentObject(ShopsModel(shops: .preview))
-				.environmentObject(ShopsModel())
+                 .environmentObject(ShopsModel())
 //		TabView {
 //			VStack() {
 //                ShopsView()
