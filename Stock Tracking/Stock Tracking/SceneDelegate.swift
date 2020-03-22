@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
 
 		// Ntoifcation Request
 		let center = UNUserNotificationCenter.current()
-		let options: UNAuthorizationOptions = [.alert, .sound];
+		let options: UNAuthorizationOptions = [.alert, .badge, .sound];
 		center.requestAuthorization(options: options) {
 		  (granted, error) in
 			if !granted {
