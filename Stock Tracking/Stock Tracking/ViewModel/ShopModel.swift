@@ -85,12 +85,12 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         let region = CLCircularRegion(center: centerLoc, radius: 2000.0, identifier: self.id)
         region.notifyOnEntry = true
         region.notifyOnExit = true
-        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+//        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
         
-        let request = UNNotificationRequest(identifier: self.id,
-                                            content: content,
-                                            trigger: trigger)
-        center.add(request)
+//        let request = UNNotificationRequest(identifier: self.id,
+//                                            content: content,
+//                                            trigger: trigger)
+//        center.add(request)
     }
 }
 

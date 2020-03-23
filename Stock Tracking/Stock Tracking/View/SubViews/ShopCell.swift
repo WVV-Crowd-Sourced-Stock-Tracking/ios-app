@@ -100,7 +100,7 @@ struct ShopCell: View {
             }
         }
         .padding()
-        .background(Color.white)
+		.background(Color.secondarySystemBackground)
         .cornerRadius(10)
         .padding(.horizontal)
     }

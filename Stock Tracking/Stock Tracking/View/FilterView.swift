@@ -28,8 +28,9 @@ class FilterProduct: ObservableObject, Identifiable {
 }
 
 struct FilterView: View {
+	@Binding var show: Bool
     @State var products: [FilterProduct] = [ProductModel].all.map { FilterProduct(product: $0) }
-    
+	
     var body: some View {
         NavigationView {
             List {
@@ -38,7 +39,15 @@ struct FilterView: View {
                 }
             }
             .navigationBarTitle(.filterTitle)
+			.navigationBarItems(trailing: VStack() {
+				Button(action: {
+					self.show.toggle()
+				}) {
+					Text("Fertig")
+				}
+			})
         }
+		.navigationViewStyle(StackNavigationViewStyle())
         .onDisappear {
             NotificationCenter.default.post(name: .reloadShops, object: nil)
         }
@@ -83,6 +92,6 @@ struct FilterCell: View {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView()
+		FilterView(show: .constant(true))
     }
 }

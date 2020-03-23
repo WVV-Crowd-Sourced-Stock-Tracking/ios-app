@@ -38,7 +38,7 @@ struct ShopsView: View {
                             .foregroundColor(.accent)
                     }
                     .sheet(isPresented: self.$showFilter) {
-                        FilterView()
+						FilterView(show: self.$showFilter)
                     }
                     
 //                    Button(action: {
@@ -53,7 +53,7 @@ struct ShopsView: View {
 //                    }
                 }
             )
-        }
+		}.navigationViewStyle(StackNavigationViewStyle())
     }
     
     func sendNotification() {

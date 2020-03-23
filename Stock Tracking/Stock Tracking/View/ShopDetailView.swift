@@ -171,7 +171,7 @@ struct ShopDetailView: View {
                     self.map
                 }
             }
-            .background(Color.white)
+            .background(Color.secondarySystemBackground)
             .cornerRadius(10)
             .padding()
             
@@ -236,7 +236,7 @@ struct ShopDetailView: View {
                         }
                     }
                 }
-                .background(Color.white)
+                .background(Color.secondarySystemBackground)
                 .cornerRadius(10)
                 .padding(.horizontal)
             }
