@@ -11,13 +11,14 @@
 
 **WhatsLeft is an crowd-sourced solution to see what supermarkets have in stock.**
 
-The iOS app uses SwiftUI and Combine and was written in less then 48 hours as part of [#WirvsVirusHack](https://wirvsvirushackathon.org), a hackathon organized by the german goverment to find solution to problems in the corona crisis.
+Die iOS-App verwendet SwiftUI und Combine und wurde in weniger als 48 Stunden als Teil von [#WirvsVirusHack](https://wirvsvirushackathon.org) geschrieben, einem Hackathon, der von der deutschen Regierung organisiert wurde, um eine Lösung für die Probleme in der Koronakrise zu finden.
 
-You can vote for our project by liking the:
+Sie können für unser Projekt abstimmen, liken sie dafür unser Video:
 [![Youtube-Video](./img/video.png)](https://www.youtube.com/watch?v=2uvcPGzixnA&feature=emb_title)
 
 ## Weitere Dokumentationen: 
 
+- [Allgemeine Infos](https://devpost.com/software/17_stock_tracking_crowd)
 - [Web App](https://github.com/WVV-Crowd-Sourced-Stock-Tracking/Web) 
 - [Android App](https://github.com/WVV-Crowd-Sourced-Stock-Tracking/Android-App)
 - [Rest Api / Backend](https://github.com/WVV-Crowd-Sourced-Stock-Tracking/Backend)
