@@ -82,15 +82,18 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         content.categoryIdentifier = "alarm"
         
         let centerLoc = CLLocationCoordinate2D.init(location: location)
-        let region = CLCircularRegion(center: centerLoc, radius: 2000.0, identifier: self.id)
+        let region = CLCircularRegion(center: centerLoc, radius: 50.0, identifier: self.id)
         region.notifyOnEntry = true
         region.notifyOnExit = true
-//        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
-        
-//        let request = UNNotificationRequest(identifier: self.id,
-//                                            content: content,
-//                                            trigger: trigger)
-//        center.add(request)
+
+		#if targetEnvironment(macCatalyst)
+		#else
+			let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+			let request = UNNotificationRequest(identifier: self.id,
+												content: content,
+												trigger: trigger)
+			center.add(request)
+		#endif
     }
 }
 
