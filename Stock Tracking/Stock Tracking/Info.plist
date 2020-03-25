@@ -17,12 +17,14 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>6</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We use your location to provide you with shops close to you.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to provide you with shops close to you.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We use your location to provide you with shops close to you.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
