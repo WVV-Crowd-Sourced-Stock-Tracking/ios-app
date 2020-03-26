@@ -3,7 +3,6 @@ osx_image: xcode11.3
 git:
   submodules: false
 script:
-  - git clone https://$CI_USER_TOKEN@github.com/leoMehlig/whatsleft-certs.git
   - bundle exec fastlane beta
 before_install:
   # - ssh-keyscan github.com >> ~/.ssh/known_hosts

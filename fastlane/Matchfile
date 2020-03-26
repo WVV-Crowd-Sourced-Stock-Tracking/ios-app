@@ -1,4 +1,4 @@
-git_url("git@github.com:leoMehlig/whatsleft-certs.git")
+git_url("https://github.com/leoMehlig/whatsleft-certs.git")
 
 storage_mode("git")
 
