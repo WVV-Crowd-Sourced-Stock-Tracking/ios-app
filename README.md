@@ -8,6 +8,7 @@
 ![SwiftUI](https://img.shields.io/badge/ui-swiftui-blue.svg?style=flat)
 ![macOS](https://img.shields.io/badge/os-macOS-green.svg?style=flat)
 ![iOS](https://img.shields.io/badge/os-iOS-green.svg?style=flat)
+[![Build Status](https://travis-ci.com/WVV-Crowd-Sourced-Stock-Tracking/ios-app.svg?branch=master)](https://travis-ci.com/WVV-Crowd-Sourced-Stock-Tracking/ios-app)
 
 **WhatsLeft is a crowd-sourced solution to see which items grocery stores have left in stock.**
 

@@ -33,7 +33,9 @@ platform :ios do
     )
 
     build_app(scheme: "Stock Tracking")
-    upload_to_testflight(distribute_external: true, groups: "Hackathon")
+    if git_branch == 'master' && ENV['TRAVIS_PULL_REQUEST'] == 'false'
+      upload_to_testflight(distribute_external: true, groups: "Hackathon")
+    end
   end
 
   lane :icon do
