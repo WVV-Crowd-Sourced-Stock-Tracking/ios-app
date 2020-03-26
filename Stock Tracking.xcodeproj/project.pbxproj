@@ -488,7 +488,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Stock Tracking/WhatsLeft?.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Tracking/Preview Content\"";
 				DEVELOPMENT_TEAM = P459Y32P65;
@@ -514,9 +514,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Stock Tracking/WhatsLeft?.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Stock Tracking/Preview Content\"";
 				DEVELOPMENT_TEAM = P459Y32P65;
@@ -528,7 +528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wirvsvirushackathon.corna-store";
 				PRODUCT_NAME = "WhatsLeft?";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development org.wirvsvirushackathon.corna-store 1585169286";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.wirvsvirushackathon.corna-store";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
