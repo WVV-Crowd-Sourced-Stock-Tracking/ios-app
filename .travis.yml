@@ -3,6 +3,7 @@ osx_image: xcode11.3
 git:
   submodules: false
 script:
+  - git clone git@github.com:leoMehlig/whatsleft-certs.git
   - bundle exec fastlane beta
 before_install:
   - echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netr
