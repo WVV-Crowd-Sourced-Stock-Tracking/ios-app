@@ -3,10 +3,10 @@ osx_image: xcode11.3
 git:
   submodules: false
 script:
-  - git clone git@github.com:leoMehlig/whatsleft-certs.git
+  - git clone https://$CI_USER_TOKEN@github.com/leoMehlig/whatsleft-certs.git
   - bundle exec fastlane beta
 before_install:
-  - ssh-keyscan github.com >> ~/.ssh/known_hosts
+  # - ssh-keyscan github.com >> ~/.ssh/known_hosts
   - echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netr
 notifications:
   email: false
