@@ -5,15 +5,16 @@ struct ShopResponse: Codable, Equatable {
 }
 
 struct ShopRequest: Codable, Equatable {
-    let gps_length: Double
-    let gps_width: Double
+    let longitude: Double
+    let latitude: Double
     let radius: Double
 }
+
 struct Shop: Codable, Equatable {
-    let id: Int
-    let name: String
-    let lat: String
-    let lng: String
+    let marketId: Int
+    let marketName: String
+    let latitude: String
+    let longitude: String
     let street: String
     let distance: String
     let open: Bool?
@@ -21,7 +22,8 @@ struct Shop: Codable, Equatable {
 }
 
 struct Product: Codable, Equatable {
-    let id: Int
-    let name: String
-    let availability: Int
+    let productId: Int
+    let productName: String
+    let availability: Int?
+    let emoji: String
 }

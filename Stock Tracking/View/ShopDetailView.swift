@@ -43,16 +43,16 @@ class DetailModel: ObservableObject, LandmarkConvertible {
         ShopModel.distanceFormatter.string(from: Measurement(value: self.distance, unit: UnitLength.meters))
     }
     
-    init(shop: Shop) {
+    init(shop: Shop, products: [ProductModel]) {
         self.shop = shop
-        self.id = shop.id.description
-        self.name = shop.name
+        self.id = shop.marketId.description
+        self.name = shop.marketName
         self.distance = round(Double(shop.distance)!)
         self.address = shop.street
         self.isOpen = shop.open
-        self.location = Location(latitude: Double(shop.lat)!, longitude: Double(shop.lng)!)
+        self.location = Location(latitude: Double(shop.latitude)!, longitude: Double(shop.longitude)!)
         self.region = MKCoordinateRegion(center: .init(location: self.location), latitudinalMeters: 1000, longitudinalMeters: 1000)
-        self.products = .models(from: shop.products)
+        self.products = products
         self.isClose = Double(shop.distance)! <= 100
     }
     
@@ -310,7 +310,7 @@ struct AvailabilityLegend: View {
 struct ShopDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ShopDetailView(model: DetailModel(shop: [ShopModel].preview.first!.shop))
+            ShopDetailView(model: DetailModel(shop: [ShopModel].preview.first!.shop, products: .preview))
         }
     }
 }

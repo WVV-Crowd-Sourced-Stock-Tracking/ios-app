@@ -3,7 +3,10 @@ import SwiftUI
 enum Availability {
     case full, mid, empty, unknown
     
-    static func from(quantity: Int) -> Availability {
+    static func from(quantity: Int?) -> Availability {
+        guard let quantity = quantity else {
+            return .unknown
+        }
         switch quantity {
         case 0..<33:
             return .empty

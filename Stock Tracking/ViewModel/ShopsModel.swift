@@ -53,7 +53,10 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             .set(\.isLoading, on: self, to: true)
             .flatMap {
                 API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius)
-                    .map { $0.map { ShopModel(shop: $0) } }
+                    .combineLatest(API.allProducts)
+                    .map { shops, products in
+                        return shops.map { ShopModel(shop: $0, allProducts: products) }
+                }
                     .receive(on: RunLoop.main)
                     .mapError(API.Error.from(error:))
                     .assignError(to: \ShopsModel.error, on: self, replaceWith: [])
@@ -63,7 +66,8 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         .receive(on: RunLoop.main)
         .set(\.isLoading, on: self, to: false)
         .map {
-            $0.sorted(by: { $0.shopAvailability > $1.shopAvailability })
+            print($0.map { "\($0.shopAvailability) - \($0.name) - \($0.address)"})
+            return $0.sorted(by: { $0.shopAvailability > $1.shopAvailability })
         }
         .assignWeak(to: \ShopsModel.shops, on: self)        
     }

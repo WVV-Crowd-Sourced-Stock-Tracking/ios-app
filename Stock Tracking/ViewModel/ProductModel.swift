@@ -4,7 +4,7 @@ class ProductModel: ObservableObject, Identifiable {
     let id: Int
     @Published var name: String
     @Published var emoji: String
-    @Published var quantity: Int
+    @Published var quantity: Int?
     @Published var availability: Availability
     @Published var selectedAvailability: Availability?
     
@@ -16,25 +16,25 @@ class ProductModel: ObservableObject, Identifiable {
         self.emoji = emoji
         self.availability = availability
         self.quantity = availability.quantity
-        self.product = Product(id: id, name: name, availability: availability.quantity)
+        self.product = Product(productId: id, productName: name, availability: availability.quantity, emoji: emoji)
     }
     
     init(product: Product) {
-        self.id = product.id
-        self.name = product.name
+        self.id = product.productId
+        self.name = product.productName
         self.quantity = product.availability
-        self.availability = .from(quantity: Int(product.availability))
+        self.availability = .from(quantity: product.availability)
         self.product = product
-        self.emoji = ""
+        self.emoji = product.emoji
     }
     
 }
 
 
 extension Array where Element == ProductModel {
-    static func models(from products: [Product], with models: [ProductModel] = .sorted) -> [ProductModel] {
+    static func models(from products: [Product], with models: [ProductModel]) -> [ProductModel] {
         for model in models {
-            if let product = products.first(where: { $0.id == model.id }) {
+            if let product = products.first(where: { $0.productId == model.id }) {
                 model.quantity = product.availability
                 model.availability = .from(quantity: product.availability)
             }
@@ -42,10 +42,9 @@ extension Array where Element == ProductModel {
         return models
     }
     
-    static func shopScore(for products: [Product]) -> Double {
-        let filtered = [ProductModel].models(from: products, with: .filterd)
-            .filter { $0.availability != .unknown }
-            .map { $0.product.availability }
+    static func shopScore(for products: [Product], with all: [ProductModel]) -> Double {
+        let filtered = [ProductModel].models(from: products, with: .filterd(with: all))
+            .compactMap { $0.quantity }
         if filtered.isEmpty {
             return -1
         } else {
@@ -54,27 +53,27 @@ extension Array where Element == ProductModel {
         }
     }
     
-    static var filterd: [ProductModel] {
-        let filtered = [ProductModel].all
+    static func filterd(with all: [ProductModel]) -> [ProductModel] {
+        let filtered = all
             .map { FilterProduct(product: $0) }
             .filter { $0.isSelected }
             .map { $0.product }
         if filtered.isEmpty {
-            return .all
+            return all
         } else {
             return filtered
         }
     }
     
-    static var sorted: [ProductModel] {
-        [ProductModel].all
+    static func sorted(with all: [ProductModel]) -> [ProductModel] {
+            return all
             .map { FilterProduct(product: $0) }
             .sorted { !$0.isSelected || $0.isSelected == $1.isSelected }
             .reversed()
             .map { $0.product }
     }
     
-    static var all: [ProductModel] {
+    static var preview: [ProductModel] {
         [
             ProductModel(id: 47, name: "Klopapier", emoji: "🧻", availability: .unknown),
             ProductModel(id: 49, name: "Seife", emoji: "🧼", availability: .unknown),

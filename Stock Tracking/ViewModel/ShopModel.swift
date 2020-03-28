@@ -41,9 +41,10 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
          distance: Double,
          isOpen: Bool? = nil,
          shopAvailability: Double,
-         products: [ProductModel])  {
+         products: [Product])  {
         self.id = id.description
-        self.products = products
+        let productModel = products.map { ProductModel(product: $0) }
+        self.products = productModel
         self.location = location
         self.shopAvailability = shopAvailability
         self.isClose = isClose
@@ -51,19 +52,20 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         self.address = address
         self.isOpen = isOpen
         self.name = name
-        self.shop = Shop(id: id, name: name, lat: location.latitude.description, lng: location.longitude.description, street: address, distance: distance.description, open: isOpen, products: products.map { $0.product })
-    }
-    
-    init(shop: Shop) {
-        self.id = shop.id.description
-        self.products = .models(from: shop.products)
-        self.location = Location(latitude: Double(shop.lat)!, longitude: Double(shop.lng)!)
-        self.shopAvailability = [ProductModel].shopScore(for: shop.products)
+        self.shop = Shop(marketId: id, marketName: name, latitude: location.latitude.description, longitude: location.longitude.description, street: address, distance: distance.description, open: isOpen, products: products)
+}
+
+init(shop: Shop, allProducts: [Product]) {
+        self.id = shop.marketId.description
+        let productModels = allProducts.map { ProductModel(product: $0) }
+        self.products = .models(from: shop.products, with: .sorted(with: productModels))
+        self.location = Location(latitude: Double(shop.latitude)!, longitude: Double(shop.longitude)!)
+        self.shopAvailability = [ProductModel].shopScore(for: shop.products, with: productModels)
         self.isClose =  Double(shop.distance)! <= 100
         self.distance = round(Double(shop.distance)!)
         self.address = shop.street
         self.isOpen = shop.open
-        self.name = shop.name
+        self.name = shop.marketName
         self.shop = shop
     }
     
@@ -107,9 +109,9 @@ extension Array where Element == ShopModel {
                       distance: 500,
                       shopAvailability: 55,
                       products: [
-                        ProductModel(name: "Milch", emoji: "🥛", availability: .full),
-                        ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
-                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
+                        ProductModel(name: "Milch", emoji: "🥛", availability: .full).product,
+                        ProductModel(name: "Bread", emoji: "🍞", availability: .unknown).product,
+                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty).product,
             ]),
             ShopModel(name: "Lidl",
                       location: Location(latitude: 52.481998, longitude: 13.432388),
@@ -117,9 +119,9 @@ extension Array where Element == ShopModel {
                       distance: 500,
                       shopAvailability: 22,
                       products: [
-                        ProductModel(name: "Milch", emoji: "🥛", availability: .empty),
-                        ProductModel(name: "Bread", emoji: "🍞", availability: .empty),
-                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
+                        ProductModel(name: "Milch", emoji: "🥛", availability: .empty).product,
+                        ProductModel(name: "Bread", emoji: "🍞", availability: .empty).product,
+                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty).product,
             ]),
             ShopModel(name: "Aldi",
                       location: Location(latitude: 52.480135, longitude: 13.436681),
@@ -127,9 +129,9 @@ extension Array where Element == ShopModel {
                       distance: 500,
                       shopAvailability: 88,
                       products: [
-                        ProductModel(name: "Milch", emoji: "🥛", availability: .full),
-                        ProductModel(name: "Bread", emoji: "🍞", availability: .mid),
-                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .full),
+                        ProductModel(name: "Milch", emoji: "🥛", availability: .full).product,
+                        ProductModel(name: "Bread", emoji: "🍞", availability: .mid).product,
+                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .full).product,
             ]),
         ]
     }

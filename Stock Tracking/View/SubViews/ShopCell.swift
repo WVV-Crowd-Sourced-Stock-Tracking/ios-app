@@ -24,12 +24,12 @@ struct ShopCell: View {
     
     var detail: some View {
         LazyView {
-            ShopDetailView(model: DetailModel(shop: self.model.shop))
+            ShopDetailView(model: DetailModel(shop: self.model.shop, products: self.model.products))
         }
     }
     var editDetail: some View {
         LazyView {
-            ShopDetailView(model: DetailModel(shop: self.model.shop), isEditing: true)
+            ShopDetailView(model: DetailModel(shop: self.model.shop, products: self.model.products), isEditing: true)
         }
     }
     
@@ -143,14 +143,14 @@ struct ShopCell_Previews: PreviewProvider {
                                        isOpen: true,
                                        shopAvailability: 44,
                                        products: [
-                                        ProductModel(name: "Milch", emoji: "🥛", availability: .full),
-                                        ProductModel(name: "Bread", emoji: "🍞", availability: .unknown),
-                                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty),
+                                        ProductModel(name: "Milch", emoji: "🥛", availability: .full).product,
+                                        ProductModel(name: "Bread", emoji: "🍞", availability: .unknown).product,
+                                        ProductModel(name: "Toilet Paper", emoji: "🧻", availability: .empty).product,
             ]))
             
             HStack {
                 Spacer()
-                AvailabilityButton(product: [ProductModel].all.first!,
+                AvailabilityButton(product: [ProductModel].preview.first!,
                                    availability: .mid)
                     .frame(width: 60, height: 36)
                 Spacer()

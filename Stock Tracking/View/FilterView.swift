@@ -9,10 +9,11 @@
 import SwiftUI
 
 class FilterProduct: ObservableObject, Identifiable {
-    @Published var isSelected: Bool {
-        didSet {
-            UserDefaults.standard.set(self.isSelected, forKey: "filter_\(self.product.id)")
-        }
+    @Published var isSelected: Bool
+    
+    func toggle() {
+        self.isSelected.toggle()
+        UserDefaults.standard.set(self.isSelected, forKey: "filter_\(self.id)")
     }
     
     let product: ProductModel
@@ -29,7 +30,7 @@ class FilterProduct: ObservableObject, Identifiable {
 
 struct FilterView: View {
 	@Binding var show: Bool
-    @State var products: [FilterProduct] = [ProductModel].all.map { FilterProduct(product: $0) }
+    @State var products: [FilterProduct] = []
 	
     var body: some View {
         NavigationView {
@@ -43,13 +44,22 @@ struct FilterView: View {
 				Button(action: {
 					self.show.toggle()
 				}) {
-					Text("Fertig")
+                    Text("Fertig")
+                        .font(.headline)
+                        .foregroundColor(.accent)
 				}
 			})
         }
 		.navigationViewStyle(StackNavigationViewStyle())
         .onDisappear {
             NotificationCenter.default.post(name: .reloadShops, object: nil)
+        }
+        .onReceive(API.allProducts
+        .replaceError(with: [])
+        .receive(on: RunLoop.main)) { all in
+            if self.products.isEmpty {
+                self.products = all.map { FilterProduct(product: ProductModel(product: $0)) }
+            }
         }
     }
 }
@@ -83,7 +93,7 @@ struct FilterCell: View {
         .padding(8)
         .onTapGesture {
             withAnimation {
-                self.product.isSelected.toggle()
+                self.product.toggle()
             }
         }
         
