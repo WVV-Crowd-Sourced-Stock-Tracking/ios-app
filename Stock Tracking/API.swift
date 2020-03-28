@@ -28,7 +28,10 @@ struct API {
         }
     }
     
-    static func fetchStores(at location: Location, with radius: Double) -> AnyPublisher<[Shop], Swift.Error> {
+    static func fetchStores<Root>(at location: Location,
+                                  with radius: Double,
+                                  isLoading: ReferenceWritableKeyPath<Root, Bool>,
+                                  on root: Root) -> AnyPublisher<[Shop], Swift.Error> {
         let url = URL(string: "https://wvv2.herokuapp.com/ws/rest/market/scrape")!
         
         var request = URLRequest(url: url)
@@ -37,12 +40,12 @@ struct API {
         let body = ShopRequest(longitude: location.longitude, latitude: location.latitude, radius: radius)
         request.httpBody = try! JSONEncoder.standard.encode(body)
         print(String(data: request.httpBody!, encoding: .utf8)!)
-
+        
+        root[keyPath: isLoading] = true
 		return URLSession.shared.dataTaskPublisher(for: request)
+            .set(isLoading, on: root, to: false)
             .map(\.data)
-//            .map { String(data: $0, encoding: .utf8)! }
-//            .print()
-//            .map { $0.data(using: .utf8)! }
+            .cache(for: "market.scrape")
             .decode(type: ShopResponse.self, decoder: JSONDecoder.standard)
             .map(\.supermarket)
 			.eraseToAnyPublisher()
@@ -80,11 +83,10 @@ struct API {
          request.httpMethod = "POST"
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
+            .cache(for: "product.scrape")
             .decode(type: ProductResponse.self, decoder: JSONDecoder.standard)
             .print()
             .map(\.product)
-//            .share()
-
             .eraseToAnyPublisher()
     }
     

@@ -50,9 +50,8 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     self.region
             })
             .filterNil()
-            .set(\.isLoading, on: self, to: true)
             .flatMap {
-                API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius)
+                API.fetchStores(at: Location(coordinate: $0.center), with: $0.span.radius, isLoading: \.isLoading, on: self)
                     .combineLatest(API.allProducts)
                     .map { shops, products in
                         return shops.map { ShopModel(shop: $0, allProducts: products) }
@@ -64,11 +63,7 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
             
         .receive(on: RunLoop.main)
-        .set(\.isLoading, on: self, to: false)
-        .map {
-            print($0.map { "\($0.shopAvailability) - \($0.name) - \($0.address)"})
-            return $0.sorted(by: { $0.shopAvailability > $1.shopAvailability })
-        }
+        .map { $0.sorted(by: { $0.shopAvailability > $1.shopAvailability }) }
         .assignWeak(to: \ShopsModel.shops, on: self)        
     }
 

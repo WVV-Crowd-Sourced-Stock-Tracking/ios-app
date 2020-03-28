@@ -36,8 +36,10 @@ extension Publisher {
     
     public func set<Value, Root>(_ keyPath: ReferenceWritableKeyPath<Root, Value>, on object: Root, to value: Value) -> AnyPublisher<Output, Failure> {
         map {
-            withAnimation {
-                object[keyPath: keyPath] = value
+            DispatchQueue.main.async {
+                withAnimation {
+                    object[keyPath: keyPath] = value
+                }
             }
             return $0
         }
