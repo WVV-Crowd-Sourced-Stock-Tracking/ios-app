@@ -75,7 +75,8 @@ init(shop: Shop, allProducts: [Product]) {
         let center = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
-        content.title = String(format: NSLocalizedString("notification.title", comment: ""), self.name)
+        let format = NSLocalizedString("notification.title", comment: "")
+        content.title = String(format: format, self.name)
         content.body = NSLocalizedString("notification.body", comment: "")
         
         let centerLoc = CLLocationCoordinate2D.init(location: location)
