@@ -83,6 +83,12 @@ struct API {
         
         products.forEach { $0.sendSelected() }
         
+        guard !updates.isEmpty else {
+            return Just(())
+                .setFailureType(to: Swift.Error.self)
+                .eraseToAnyPublisher()
+        }
+        
         let url = URL(string: "https://wvv2.herokuapp.com/ws/rest/market/transmit")!
         
         var request = URLRequest(url: url)

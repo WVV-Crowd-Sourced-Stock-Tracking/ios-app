@@ -74,3 +74,5 @@
 "notification.body" = "Please enter the current stock and help other stay safe!";
 
 "done.text" = "Done";
+
+"thanks.text" = "Thanks for your help!";

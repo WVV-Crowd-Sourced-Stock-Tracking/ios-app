@@ -74,3 +74,5 @@
 "notification.body" = "Bitte trage den aktuellen Bestand ein und hilf anderen gesund zu bleiben!";
 
 "done.text" = "Fertig";
+
+"thanks.text" = "Danke für Deine Hilfe!";

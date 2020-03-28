@@ -31,8 +31,17 @@ class DetailModel: ObservableObject, LandmarkConvertible {
     
     @Published var isClose: Bool
     
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = false {
+        didSet {
+            if !self.isLoading && oldValue {
+                self.isThanksDisplayed = true
+            }
+        }
+    }
     
+    @Published var isThanksDisplayed: Bool = false
+
+
     @Published var error: API.Error?
     
     let shop: Shop
@@ -75,6 +84,7 @@ struct ShopDetailView: View {
     var model: DetailModel
     
     @State var isEditing: Bool = false
+    @State var isThanksDisplayed: Bool = false
     
     var body: some View {
         VStack {
@@ -99,9 +109,17 @@ struct ShopDetailView: View {
             }) {
                 HStack {
                     if !self.model.isLoading {
-                        Image(systemName: self.isEditing ? "icloud.and.arrow.up.fill" : "tray.full.fill")
-                            .font(.headline)
-                            .foregroundColor(.white)
+                        Group {
+                            if self.isThanksDisplayed {
+                                Image(systemName: "heart.fill")
+                            } else if self.isEditing {
+                                Image(systemName: "icloud.and.arrow.up.fill")
+                            } else {
+                                Image(systemName: "tray.full.fill")
+                            }
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
                     }
                     
                     if self.model.isLoading {
@@ -133,6 +151,22 @@ struct ShopDetailView: View {
                     Color.grouped
                 }
             )
+                .background(
+            ConfettiView(contents: [
+                   .image(UIImage(named: "heart")!, UIColor.empty),
+                   .image(UIImage(named: "heart")!, UIColor.mid),
+                   .image(UIImage(named: "heart")!, UIColor.accent),
+                   .image(UIImage(named: "heart")!, UIColor.full),
+               ], isEmitting: $isThanksDisplayed)
+                   .frame(maxWidth: .infinity, maxHeight: .infinity)
+            )
+        }
+            .onReceive(self.model.$isThanksDisplayed) { thanks in // workaround
+                if thanks {
+                    withAnimation {
+                        self.isThanksDisplayed = thanks
+                    }
+                }
         }
         .alert(item: self.$model.error) { error in
             Alert(title: Text(.errorTitle),
@@ -143,7 +177,9 @@ struct ShopDetailView: View {
     }
     
     var buttonTitle: LocalizedStringKey {
-        if self.model.isLoading {
+        if self.isThanksDisplayed {
+            return .thanksText
+        } else if self.model.isLoading {
             return .shopSending
         } else if self.isEditing {
             return .shopSend

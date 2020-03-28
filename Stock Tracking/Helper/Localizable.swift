@@ -42,4 +42,7 @@ extension LocalizedStringKey {
     static var filterTitle: LocalizedStringKey = "filter.title"
     
     static var doneButton: LocalizedStringKey = "done.text"
+    
+    static var thanksText: LocalizedStringKey = "thanks.text"
+
 }

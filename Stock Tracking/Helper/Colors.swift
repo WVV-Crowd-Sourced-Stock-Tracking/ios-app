@@ -14,4 +14,5 @@ extension UIColor {
     static var mid = UIColor(named: "mid")!
     static var empty = UIColor(named: "empty")!
     static var unknown = UIColor(named: "unknown")!
+    static var accent = UIColor(named: "accent")!
 }
