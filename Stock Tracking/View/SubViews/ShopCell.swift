@@ -36,50 +36,55 @@ struct ShopCell: View {
     var body: some View {
         VStack(spacing: 20) {
             NavigationLink(destination: self.detail) {
-                VStack(spacing: 16) {
-                    VStack(spacing: 8) {
-                        HStack {
-                            Text(self.model.name)
-                                .font(.system(size: 21, weight: .bold, design: .default))
-                                .foregroundColor(.primary)
-                            Spacer()
-                            Group {
-                                if self.model.isOpen != nil {
-                                    if self.model.isOpen! {
-                                        Text(.shopOpen)
-                                            .foregroundColor(.full)
-                                    } else {
-                                        Text(.shopClosed)
-                                            .foregroundColor(.empty)
+                HStack {
+                    VStack(spacing: 16) {
+                        VStack(spacing: 8) {
+                            HStack {
+                                Text(self.model.name)
+                                    .font(.system(size: 21, weight: .bold, design: .default))
+                                    .foregroundColor(.primary)
+                                Spacer()
+                                Group {
+                                    if self.model.isOpen != nil {
+                                        if self.model.isOpen! {
+                                            Text(.shopOpen)
+                                                .foregroundColor(.full)
+                                        } else {
+                                            Text(.shopClosed)
+                                                .foregroundColor(.empty)
+                                        }
                                     }
                                 }
+                                .font(.footnote)
                             }
-                            .font(.footnote)
+                            HStack {
+                                Text(self.model.address + " • " + self.model.distanceString)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                            }
                         }
-                        HStack {
-                            Text(self.model.address + " • " + self.model.distanceString)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                        HStack(spacing: 20) {
+                            ForEach(self.model.products.prefix(3)) { product in
+                                HStack(spacing: 4) {
+                                    AvailabilityView(availability: product.availability)
+                                        .frame(height: 12)
+                                    Text(product.name)
+                                        .font(.system(size: 10, weight: .bold, design: .default))
+                                        .foregroundColor(.secondary)
+                                }
+                            }
                             Spacer()
                         }
+                        //                    Text("Last refresh today at 13:40")
+                        //                        .font(.caption)
+                        //                        .foregroundColor(.secondary)
                     }
-                    HStack(spacing: 20) {
-                        ForEach(self.model.products.prefix(3)) { product in
-                            HStack(spacing: 4) {
-                                AvailabilityView(availability: product.availability)
-                                    .frame(height: 12)
-                                Text(product.name)
-                                    .font(.system(size: 10, weight: .bold, design: .default))
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        Spacer()
-                    }
-//                    Text("Last refresh today at 13:40")
-//                        .font(.caption)
-//                        .foregroundColor(.secondary)
+                    .padding(.trailing)
+                    Image(systemName: "chevron.right")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
                 }
-                .padding(.trailing)
             }
             if self.model.isClose {
                 NavigationLink(destination: self.editDetail) {

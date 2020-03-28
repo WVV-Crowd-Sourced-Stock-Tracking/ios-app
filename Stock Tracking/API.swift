@@ -26,6 +26,21 @@ struct API {
             }
         }
         
+        var localizedDescription: String {
+            switch self {
+            case .noConnection:
+                return "no_connection"
+            case .serverError:
+                return "server_error"
+            case .notFound:
+                return "not_found"
+            case .location(_):
+                return "Unable to determine location."
+            case .other(let error):
+                return "\(error)"
+            }
+        }
+        
         static func from(error: Swift.Error) -> Error {
             return .other(error)
         }
@@ -46,6 +61,9 @@ struct API {
 		return URLSession.shared.dataTaskPublisher(for: request)
             .set(isLoading, on: root, to: false)
             .map(\.data)
+            .map { String(data: $0, encoding: .utf8)! }
+             .print()
+             .map { $0.data(using: .utf8)! }
             .decode(type: ShopResponse.self, decoder: JSONDecoder.standard)
             .cache(for: "market.scrape")
             .map(\.supermarket)
@@ -55,7 +73,7 @@ struct API {
     static func sendUpdate(for products: [ProductModel], in shop: Shop) -> AnyPublisher<(), Swift.Error> {
         
         let updates: [ProductUpdate] = products.compactMap { product in
-            if let availability = product.selectedAvailability, !product.wasSent {
+            if let availability = product.selectedAvailability, product.sentAvaiablility != availability {
                 return ProductUpdate(marketId: shop.marketId,
                                      productId: product.id,
                                      availability: availability.quantity)
@@ -63,7 +81,7 @@ struct API {
             return nil
         }
         
-        products.forEach { $0.saveSelected() }
+        products.forEach { $0.sendSelected() }
         
         let url = URL(string: "https://wvv2.herokuapp.com/ws/rest/market/transmit")!
         

@@ -15,7 +15,7 @@ class ProductModel: ObservableObject, Identifiable {
     @Published var availability: Availability
     @Published var selectedAvailability: Availability?
     
-    var wasSent: Bool = false
+    var sentAvaiablility: Availability?
     
     let product: Product
     let key: String
@@ -42,17 +42,17 @@ class ProductModel: ObservableObject, Identifiable {
         if let selected = UserDefaults.standard.object(forKey: self.key) as? Int {
             self.selectedAvailability = .from(quantity: selected)
             self.availability = .from(quantity: selected)
-            self.wasSent = true
+            self.sentAvaiablility = self.selectedAvailability
         }
     }
     
-    func saveSelected() {
-        guard let selected = self.selectedAvailability?.quantity else {
+    func sendSelected() {
+        guard let selected = self.selectedAvailability else {
             return
         }
-        self.availability = .from(quantity: selected)
-        UserDefaults.standard.set(selected, forKey: self.key)
-        self.wasSent = true
+        self.availability = selected
+        UserDefaults.standard.set(selected.quantity, forKey: self.key)
+        self.sentAvaiablility = selected
     }
     
 }
