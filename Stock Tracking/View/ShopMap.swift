@@ -20,7 +20,7 @@ struct ShopMap: View {
                 selected: self.$model.selectedShop,
                 region: self.$model.region) { shop in
                     HStack(spacing: 12) {
-                        ForEach(shop.products.prefix(5)) { product in
+                        ForEach(shop.products.prefix(3)) { product in
                             HStack(spacing: 6) {
                                 AvailabilityView(availability: product.availability)
                                     .frame(height: 16)

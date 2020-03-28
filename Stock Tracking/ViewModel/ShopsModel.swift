@@ -76,7 +76,7 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
-        
+        self.locationManager.distanceFilter = 500
         self.locationManager.startUpdatingLocation()
     }
     
@@ -84,13 +84,13 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         guard let location = locations.last else {
             return
         }
-        
-        self.locationManager.stopUpdatingLocation()
-        
+    
         self.region = MKCoordinateRegion(center: location.coordinate,
                                          latitudinalMeters: 1000,
                                          longitudinalMeters: 1000)
     }
+    
+
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -102,6 +102,6 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+//        self.error = .location(error)
     }
 }

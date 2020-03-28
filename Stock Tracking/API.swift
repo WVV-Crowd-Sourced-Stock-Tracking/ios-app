@@ -8,6 +8,7 @@ struct API {
         case noConnection
         case serverError
         case notFound
+        case location(Swift.Error)
         case other(Swift.Error)
         
         var id: String {
@@ -18,6 +19,8 @@ struct API {
                 return "server_error"
             case .notFound:
                 return "not_found"
+            case .location(_):
+                return "Unable to determine location."
             case .other(let error):
                 return error.localizedDescription
             }
@@ -45,8 +48,11 @@ struct API {
 		return URLSession.shared.dataTaskPublisher(for: request)
             .set(isLoading, on: root, to: false)
             .map(\.data)
-            .cache(for: "market.scrape")
+            .map { String(data: $0, encoding: .utf8)! }
+            .print()
+            .map { $0.data(using: .utf8)! }
             .decode(type: ShopResponse.self, decoder: JSONDecoder.standard)
+            .cache(for: "market.scrape")
             .map(\.supermarket)
 			.eraseToAnyPublisher()
 	}
@@ -68,7 +74,6 @@ struct API {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder.standard.encode(BulkUpdate(bulk: updates))
-        print(String.init(data: request.httpBody!, encoding: .utf8)!)
         return URLSession.shared.dataTaskPublisher(for: request)
             .map { String.init(data: $0.data, encoding: .utf8)! }
             .print()
@@ -85,7 +90,6 @@ struct API {
             .map(\.data)
             .cache(for: "product.scrape")
             .decode(type: ProductResponse.self, decoder: JSONDecoder.standard)
-            .print()
             .map(\.product)
             .eraseToAnyPublisher()
     }

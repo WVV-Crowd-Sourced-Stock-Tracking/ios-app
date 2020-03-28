@@ -18,11 +18,12 @@ struct Cache {
         
     }
     
-    static func load(for key: String) -> AnyPublisher<Data, Never> {
+    static func load<T: Codable>(for key: String, of type: T.Type) -> AnyPublisher<T, Never> {
         do {
             let url = Cache.url(for: key)
             let data = try Data(contentsOf: url)
-            return Just(data)
+            let object = try JSONDecoder.standard.decode(T.self, from: data)
+            return Just(object)
                 .eraseToAnyPublisher()
         } catch {
             return Empty()
@@ -30,16 +31,18 @@ struct Cache {
         }
     }
     
-    static func save(_ data: Data, for key: String) {
+    static func save<T: Codable>(_ object: T, for key: String) {
         let url = Cache.url(for: key)
-        try? data.write(to: url)
+        if let data = try? JSONEncoder.standard.encode(object) {
+            try? data.write(to: url)
+        }
     }
 }
 
-extension Publisher where Output == Data {
+extension Publisher where Output: Codable {
     func cache(for key: String) -> AnyPublisher<Output, Failure> {
         self.handleEvents(receiveOutput: { Cache.save($0, for: key) })
-            .merge(with: Cache.load(for: key).setFailureType(to: Failure.self))
+            .merge(with: Cache.load(for: key, of: Output.self).setFailureType(to: Failure.self))
             .eraseToAnyPublisher()
     }
 }
