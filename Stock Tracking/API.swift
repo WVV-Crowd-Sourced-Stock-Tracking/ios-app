@@ -42,15 +42,10 @@ struct API {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let body = ShopRequest(longitude: location.longitude, latitude: location.latitude, radius: radius)
         request.httpBody = try! JSONEncoder.standard.encode(body)
-        print(String(data: request.httpBody!, encoding: .utf8)!)
-        
         root[keyPath: isLoading] = true
 		return URLSession.shared.dataTaskPublisher(for: request)
             .set(isLoading, on: root, to: false)
             .map(\.data)
-            .map { String(data: $0, encoding: .utf8)! }
-            .print()
-            .map { $0.data(using: .utf8)! }
             .decode(type: ShopResponse.self, decoder: JSONDecoder.standard)
             .cache(for: "market.scrape")
             .map(\.supermarket)
@@ -75,8 +70,6 @@ struct API {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder.standard.encode(BulkUpdate(bulk: updates))
         return URLSession.shared.dataTaskPublisher(for: request)
-            .map { String.init(data: $0.data, encoding: .utf8)! }
-            .print()
             .map { _ in () }
             .mapError { $0 as Swift.Error }
             .eraseToAnyPublisher()
@@ -88,8 +81,8 @@ struct API {
          request.httpMethod = "POST"
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .cache(for: "product.scrape")
             .decode(type: ProductResponse.self, decoder: JSONDecoder.standard)
+            .cache(for: "product.scrape")
             .map(\.product)
             .eraseToAnyPublisher()
     }
