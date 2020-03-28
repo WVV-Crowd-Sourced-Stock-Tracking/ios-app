@@ -69,10 +69,12 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
             
         .receive(on: RunLoop.main)
-        .map { $0.sorted(by: { $0.shopAvailability > $1.shopAvailability }) }
+        .map {
+            $0.sorted()
+        }
         .assignWeak(to: \ShopsModel.shops, on: self)        
     }
-
+    
     func fetchLocation() {
         guard self.region == nil else {
             return

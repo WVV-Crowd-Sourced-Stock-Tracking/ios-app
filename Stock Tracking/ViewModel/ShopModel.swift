@@ -96,6 +96,11 @@ init(shop: Shop, allProducts: [Product]) {
 }
 
 extension Array where Element == ShopModel {
+    
+    func sorted() -> [ShopModel] {
+        return self.sorted(by: { $0.shopAvailability > $1.shopAvailability })
+        .sorted(by: { $0.isClose && $0.isClose != $1.isClose })
+    }
     static var preview: [ShopModel] {
         return [
             ShopModel(name: "Rewe",
