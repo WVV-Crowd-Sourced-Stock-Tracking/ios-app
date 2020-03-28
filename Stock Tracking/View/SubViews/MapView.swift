@@ -91,7 +91,7 @@ struct MapView<Landmark: LandmarkConvertible, Content: View>: UIViewRepresentabl
             self.control.region = mapView.region
         }
         
-        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
             if let annotation = view.annotation as? LandmarkAnnotation {
                 self.control.selectedLandmark = self.control.landmarks.first(where: { $0.id == annotation.id })
             }

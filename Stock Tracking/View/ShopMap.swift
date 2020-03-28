@@ -15,6 +15,12 @@ struct ShopMap: View {
     @ObservedObject
     var model: ShopsModel
     
+    var detail: some View {
+          LazyView {
+            ShopDetailView(model: DetailModel(shop: self.model.selectedShop!.shop, products: self.model.selectedShop!.products))
+          }
+      }
+    
     var body: some View {
         MapView(self.$model.shops,
                 selected: self.$model.selectedShop,
@@ -30,9 +36,15 @@ struct ShopMap: View {
                         }
                         Spacer()
                     }
+                    .frame(maxWidth: .infinity)
+                    .background(Color.clear)
                     .padding(.vertical, 4)
         }
-        .edgesIgnoringSafeArea(.all)
+        .background(
+            NavigationLink(destination: self.detail, isActive: self.$model.hasSelection, label: { EmptyView() })
+                .opacity(0)
+        )
+            .edgesIgnoringSafeArea(.all)
         .onAppear {
             self.model.fetchLocation()
         }

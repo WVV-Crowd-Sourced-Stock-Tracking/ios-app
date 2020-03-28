@@ -27,7 +27,13 @@ class ShopsModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var cellRegion: MKCoordinateRegion?
     
-    @Published var selectedShop: ShopModel?
+    @Published var selectedShop: ShopModel? {
+        didSet {
+            self.hasSelection = true
+        }
+    }
+    
+    @Published var hasSelection: Bool = false
     
     @Published var error: API.Error?
     
