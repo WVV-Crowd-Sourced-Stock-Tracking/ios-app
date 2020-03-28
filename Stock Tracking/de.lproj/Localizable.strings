@@ -67,3 +67,8 @@
 "location.error.button" = "Ortungsdienste aktivieren";
 
 "filter.title" = "Was brauchst du?";
+
+
+"notification.title" = "Bist du im %@?";
+
+"notification.body" = "Bitte trage den aktuellen Bestand ein und hilf anderen gesund zu bleiben!"

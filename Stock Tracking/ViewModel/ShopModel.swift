@@ -79,14 +79,13 @@ init(shop: Shop, allProducts: [Product]) {
         let center = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
-        content.title = self.name
-        content.body = "Run! This zone is dangerous! :o"
-        content.categoryIdentifier = "alarm"
+        content.title = String(format: NSLocalizedString("notification.title", comment: ""), self.name)
+        content.body = NSLocalizedString("notification.body", comment: "")
         
         let centerLoc = CLLocationCoordinate2D.init(location: location)
         let region = CLCircularRegion(center: centerLoc, radius: 50.0, identifier: self.id)
         region.notifyOnEntry = true
-        region.notifyOnExit = true
+        region.notifyOnExit = false
 
 		#if targetEnvironment(macCatalyst)
 		#else
