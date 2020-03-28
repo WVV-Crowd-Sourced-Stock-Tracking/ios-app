@@ -71,10 +71,6 @@ init(shop: Shop, allProducts: [Product]) {
     
     var color: UIColor { Availability.from(quantity: Int(self.shopAvailability)).uiColor }
 	
-	// Notification
-	let NotificationCenter = UNUserNotificationCenter.current()
-	let NotificationContent = UNMutableNotificationContent()
-	
 	func registerGeofence() {
         let center = UNUserNotificationCenter.current()
         

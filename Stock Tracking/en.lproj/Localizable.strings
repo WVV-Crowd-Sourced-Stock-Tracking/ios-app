@@ -68,3 +68,7 @@
 "location.error.button" = "Enable Location Service";
 
 "filter.title" = "What do you need?";
+
+"notification.title" = "Are you at %@?";
+
+"notification.body" = "Please enter the current stock and help other stay safe!";
