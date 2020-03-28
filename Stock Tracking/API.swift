@@ -55,13 +55,15 @@ struct API {
     static func sendUpdate(for products: [ProductModel], in shop: Shop) -> AnyPublisher<(), Swift.Error> {
         
         let updates: [ProductUpdate] = products.compactMap { product in
-            if let availability = product.selectedAvailability {
+            if let availability = product.selectedAvailability, !product.wasSent {
                 return ProductUpdate(marketId: shop.marketId,
                                      productId: product.id,
                                      availability: availability.quantity)
             }
             return nil
         }
+        
+        products.forEach { $0.saveSelected() }
         
         let url = URL(string: "https://wvv2.herokuapp.com/ws/rest/market/transmit")!
         

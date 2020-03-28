@@ -40,4 +40,6 @@ extension LocalizedStringKey {
     static var locationErrorBody: LocalizedStringKey = "location.error.body"
     static var locationErrorButton: LocalizedStringKey = "location.error.button"
     static var filterTitle: LocalizedStringKey = "filter.title"
+    
+    static var doneButton: LocalizedStringKey = "done.text"
 }

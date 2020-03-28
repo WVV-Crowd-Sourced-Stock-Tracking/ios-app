@@ -1,14 +1,24 @@
 import SwiftUI
 
+let formatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    return formatter
+}()
+
 class ProductModel: ObservableObject, Identifiable {
     let id: Int
+    
     @Published var name: String
     @Published var emoji: String
     @Published var quantity: Int?
     @Published var availability: Availability
     @Published var selectedAvailability: Availability?
     
+    var wasSent: Bool = false
+    
     let product: Product
+    let key: String
     
     init(id: Int = 0, name: String, emoji: String, availability: Availability) {
         self.id = id
@@ -17,15 +27,32 @@ class ProductModel: ObservableObject, Identifiable {
         self.availability = availability
         self.quantity = availability.quantity
         self.product = Product(productId: id, productName: name, availability: availability.quantity, emoji: emoji)
+        self.key = ""
     }
     
-    init(product: Product) {
+
+    init(product: Product, shopId: Int) {
         self.id = product.productId
         self.name = product.productName
         self.quantity = product.availability
         self.availability = .from(quantity: product.availability)
         self.product = product
         self.emoji = product.emoji
+        self.key = "product_\(shopId)_\(product.productId)_\(formatter.string(from: Date()))"
+        if let selected = UserDefaults.standard.object(forKey: self.key) as? Int {
+            self.selectedAvailability = .from(quantity: selected)
+            self.availability = .from(quantity: selected)
+            self.wasSent = true
+        }
+    }
+    
+    func saveSelected() {
+        guard let selected = self.selectedAvailability?.quantity else {
+            return
+        }
+        self.availability = .from(quantity: selected)
+        UserDefaults.standard.set(selected, forKey: self.key)
+        self.wasSent = true
     }
     
 }

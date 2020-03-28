@@ -43,7 +43,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
          shopAvailability: Double,
          products: [Product])  {
         self.id = id.description
-        let productModel = products.map { ProductModel(product: $0) }
+        let productModel = products.map { ProductModel(product: $0, shopId: id) }
         self.products = productModel
         self.location = location
         self.shopAvailability = shopAvailability
@@ -57,7 +57,7 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
 
 init(shop: Shop, allProducts: [Product]) {
         self.id = shop.marketId.description
-        let productModels = allProducts.map { ProductModel(product: $0) }
+    let productModels = allProducts.map { ProductModel(product: $0, shopId: shop.marketId) }
         self.products = .models(from: shop.products, with: .sorted(with: productModels))
         self.location = Location(latitude: Double(shop.latitude)!, longitude: Double(shop.longitude)!)
         self.shopAvailability = [ProductModel].shopScore(for: shop.products, with: productModels)

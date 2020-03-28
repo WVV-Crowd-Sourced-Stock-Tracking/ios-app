@@ -44,7 +44,7 @@ struct FilterView: View {
 				Button(action: {
 					self.show.toggle()
 				}) {
-                    Text("Fertig")
+                    Text(.doneButton)
                         .font(.headline)
                         .foregroundColor(.accent)
 				}
@@ -58,7 +58,7 @@ struct FilterView: View {
         .replaceError(with: [])
         .receive(on: RunLoop.main)) { all in
             if self.products.isEmpty {
-                self.products = all.map { FilterProduct(product: ProductModel(product: $0)) }
+                self.products = all.map { FilterProduct(product: ProductModel(product: $0, shopId: 0)) }
             }
         }
     }
