@@ -3,6 +3,8 @@ osx_image: xcode11.3
 git:
   submodules: false
 script:
-  - bundle exec fastlane beta
+- bundle exec fastlane beta
 notifications:
   email: false
+  slack:
+    secure: SkYEDchiZpSY73ZB+/bv7iBw6lyd8uTAeAJcQfuHQXxTg39OxIrzElw4ssCiFg0rH9tXYzpXILB058m24MuwS7RvYFPAhz2JmPadeAhwoBJsRkculNOvpdCYdqg0jQ6VToLEtDUXeacMSpmxNA96/ZphTZI0+w4gjWsOW3tpu4+z18pTuYJkxInkC9N2rwwgZIXELuWURHS0Rd+nL7rwzsR5dgywovks/tn2omj5l6lIY9/WTEIxiu7ap22n8wTCLjqRr3/F0MiZWpYP+gOK9E+sn+0TIQnNBCjHRlBiR+A9LLlBLce75C6aIcSggbPC7piUIab512/luccKmSjEB2X9yP7WtqsYB0L/otpdTgDjFNMWtPFzxBdfuJbVOm24lL8resuBqvfWoPp+h4AiL6x7i+q2VewB/hu8BWsiTNJGN9kJcT2avKzMmMFQnpMvKt7tmyhDFee1nS02fkZtWf/9NzIKwveZtXitV3hjByT5D4UBZUUk3SIGAxbErlo3/eHicWXlTvv2yu6YeXBkdFnMSlkFB3WxBgdTfKFFXdXnjGtB0/ZIrtbfnFZB8SOb1H3Po2gUP/nuMXNlcF0ADbl1XQVzsCcp5PB94pPC1xqlbI2KaJqyelEEt5xTf7kJWUH0Suh4eMXYRGkdDZh8A9WEC5rnwmj3eKBrJLPa97Y=
