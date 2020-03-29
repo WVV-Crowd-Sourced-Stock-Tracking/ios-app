@@ -16,6 +16,8 @@ struct ShopsView: View {
     @State var showShowingList: Bool = false
     @State var showFilter = false
     
+    @State var filterCount = UserDefaults.standard.integer(forKey: "filter.count")
+    
     let center = UNUserNotificationCenter.current()
     let content = UNMutableNotificationContent()
     
@@ -27,6 +29,9 @@ struct ShopsView: View {
                           message: Text(error.localizedDescription),
                           dismissButton: .cancel())
             }
+            .onReceive(NotificationCenter.default.publisher(for: .reloadShops)) { _ in
+                self.filterCount = UserDefaults.standard.integer(forKey: "filter.count")
+            }
             .navigationBarTitle(.shopsTitle)
             .navigationBarItems(trailing:
                 HStack(spacing: 36) {
@@ -34,8 +39,27 @@ struct ShopsView: View {
                         self.showFilter = true
                     }) {
                         Image(systemName: "line.horizontal.3.decrease.circle")
+                            .resizable()
                             .font(.system(size: 26, weight: .medium, design: .rounded))
                             .foregroundColor(.accent)
+                            .padding(6)
+                            .overlay(
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                        Text("\(filterCount)")
+                                            .font(.system(size: 11, weight: .bold, design: .default))
+                                            .foregroundColor(.white)
+                                        .padding(4)
+                                        .background(
+                                            Circle()
+                                                .foregroundColor(.empty)
+                                        )
+                                    }
+                                    Spacer()
+                                }
+                                .opacity(filterCount > 0 ? 1 : 0)
+                        )
                     }
                     .sheet(isPresented: self.$showFilter) {
 						FilterView()

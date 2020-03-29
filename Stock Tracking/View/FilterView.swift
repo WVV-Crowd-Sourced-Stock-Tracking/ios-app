@@ -87,6 +87,8 @@ struct FilterView: View {
                                 UIScrollView.appearance().backgroundColor = UIColor.systemBackground
             }
                 .onDisappear {
+                    let filterCount = self.products.filter { $0.isSelected }.count
+                    UserDefaults.standard.set(filterCount, forKey: "filter.count")
                     NotificationCenter.default.post(name: .reloadShops, object: nil)
             }
             .onReceive(API.allProducts

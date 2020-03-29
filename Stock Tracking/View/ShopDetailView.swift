@@ -148,7 +148,6 @@ struct ShopDetailView: View {
                                    startPoint: .top,
                                    endPoint: .bottom)
                         .frame(height: 20)
-                    Color.grouped
                     Color.grouped.edgesIgnoringSafeArea(.all)
                 }
             )
