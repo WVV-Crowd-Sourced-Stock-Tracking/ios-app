@@ -67,6 +67,7 @@ init(shop: Shop, allProducts: [Product]) {
         self.isOpen = shop.open
         self.name = shop.marketName
         self.shop = shop
+    
     }
     
     var color: UIColor { Availability.from(quantity: Int(self.shopAvailability)).uiColor }

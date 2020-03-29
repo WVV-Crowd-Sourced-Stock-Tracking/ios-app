@@ -29,7 +29,7 @@ platform :ios do
     sync_code_signing(
       type: 'appstore', 
       readonly: true,
-      git_url: "https://#{ENV['CI_USER_TOKEN']}@github.com/leoMehlig/whatsleft-certs.git",
+      git_url: "https://#{ENV['CI_USER_TOKEN']}@github.com/leoMehlig/certificates.git",
     )
 
     build_app(scheme: "Stock Tracking")

@@ -19,6 +19,7 @@
 		B31E0EE52426967B00B61480 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31E0EE42426967A00B61480 /* MapCell.swift */; };
 		B31E0EE72426AD0900B61480 /* ShopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31E0EE62426AD0900B61480 /* ShopDetailView.swift */; };
 		B35265342430D69C00BCEBF0 /* Leo.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B35265332430D69C00BCEBF0 /* Leo.gpx */; };
+		B35265362430E65200BCEBF0 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35265352430E65200BCEBF0 /* Calendar.swift */; };
 		B357BEA72425F8F200002D6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA62425F8F200002D6F /* AppDelegate.swift */; };
 		B357BEA92425F8F200002D6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEA82425F8F200002D6F /* SceneDelegate.swift */; };
 		B357BEAB2425F8F200002D6F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357BEAA2425F8F200002D6F /* ContentView.swift */; };
@@ -65,6 +66,7 @@
 		B31E0EE42426967A00B61480 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		B31E0EE62426AD0900B61480 /* ShopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailView.swift; sourceTree = "<group>"; };
 		B35265332430D69C00BCEBF0 /* Leo.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Leo.gpx; sourceTree = "<group>"; };
+		B35265352430E65200BCEBF0 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		B357BEA32425F8F200002D6F /* WhatsLeft?.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhatsLeft?.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B357BEA62425F8F200002D6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B357BEA82425F8F200002D6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				B3EBBEB924265BC0007D5C36 /* Combine.swift */,
 				B3A8667824278E80006D49FB /* Localizable.swift */,
 				B3DD3CF7242F99AD00A8820E /* Cache.swift */,
+				B35265352430E65200BCEBF0 /* Calendar.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				B3DD3CFC242FD86800A8820E /* ConfettiView.swift in Sources */,
 				B357BED6242625EB00002D6F /* Availability.swift in Sources */,
 				B357BED2242625BE00002D6F /* ShopModel.swift in Sources */,
+				B35265362430E65200BCEBF0 /* Calendar.swift in Sources */,
 				B357BECE2426255400002D6F /* ShopCell.swift in Sources */,
 				B357BEC92426063700002D6F /* ShopList.swift in Sources */,
 				56850D2A242616810088F434 /* TabBarView.swift in Sources */,
@@ -502,7 +506,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Stock Tracking/WhatsLeft?.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development: Leonard Mehlig (WFREXQ7K36)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
@@ -516,7 +521,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wirvsvirushackathon.corna-store";
 				PRODUCT_NAME = "WhatsLeft?";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development org.wirvsvirushackathon.corna-store 1585169286";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development org.wirvsvirushackathon.corna-store";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -530,7 +535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Stock Tracking/WhatsLeft?.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Leo Mehlig (P459Y32P65)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 8;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
