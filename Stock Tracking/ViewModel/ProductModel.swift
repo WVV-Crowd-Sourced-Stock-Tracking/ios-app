@@ -103,12 +103,12 @@ extension Array where Element == ProductModel {
     static var preview: [ProductModel] {
         [
             ProductModel(id: 47, name: "Klopapier", emoji: "🧻", availability: .unknown),
-            ProductModel(id: 49, name: "Seife", emoji: "🧼", availability: .unknown),
+            ProductModel(id: 49, name: "Seife", emoji: "🧼", availability: .full),
             ProductModel(id: 48, name: "Desinfektionsm.", emoji: "🦠", availability: .unknown),
-            ProductModel(id: 162, name: "Nudeln", emoji: "🍝", availability: .unknown),
+            ProductModel(id: 162, name: "Nudeln", emoji: "🍝", availability: .empty),
             ProductModel(id: 53, name: "Mehl", emoji: "🌾", availability: .unknown),
             ProductModel(id: 201, name: "Reis", emoji: "🍚", availability: .unknown),
-            ProductModel(id: 96, name: "Fleisch", emoji: "🥩", availability: .unknown),
+            ProductModel(id: 96, name: "Fleisch", emoji: "🥩", availability: .mid),
             ProductModel(id: 26, name: "Fish", emoji: "🐟", availability: .unknown),
             ProductModel(id: 267, name: "Tofu", emoji: "🌱", availability: .unknown),
             ProductModel(id: 290, name: "Gemüse", emoji: "🍅", availability: .unknown),

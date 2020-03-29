@@ -13,12 +13,21 @@ struct ShopRequest: Codable, Equatable {
 struct Shop: Codable, Equatable {
     let marketId: Int
     let marketName: String
-    let latitude: String
-    let longitude: String
-    let street: String
+    let latitude: String?
+    let longitude: String?
+    let street: String!
     let distance: String
     let open: Bool?
     let products: [Product]
+    let periods: [Period]
+}
+
+struct Period: Codable, Equatable {
+    let openDayId: Int
+    let openTime: String
+    
+    let closeDayId: Int
+    let closeTime: String
 }
 
 struct Product: Codable, Equatable {

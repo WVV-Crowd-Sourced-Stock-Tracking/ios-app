@@ -37,7 +37,7 @@ struct MapCell: View {
                 }
                 .frame(height: 150)
             }
-			.background(Color.tertiarySystemBackground)
+            .background(Color.tertiarySystemBackground)
             .cornerRadius(10)
             .padding()
         }

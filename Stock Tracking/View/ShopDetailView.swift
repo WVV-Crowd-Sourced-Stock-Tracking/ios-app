@@ -59,7 +59,7 @@ class DetailModel: ObservableObject, LandmarkConvertible {
         self.distance = round(Double(shop.distance)!)
         self.address = shop.street
         self.isOpen = shop.open
-        self.location = Location(latitude: Double(shop.latitude)!, longitude: Double(shop.longitude)!)
+        self.location = Location(latitude: Double(shop.latitude!)!, longitude: Double(shop.longitude!)!)
         self.region = MKCoordinateRegion(center: .init(location: self.location), latitudinalMeters: 1000, longitudinalMeters: 1000)
         self.products = products
         self.isClose = Double(shop.distance)! <= 100
@@ -149,6 +149,7 @@ struct ShopDetailView: View {
                                    endPoint: .bottom)
                         .frame(height: 20)
                     Color.grouped
+                    Color.grouped.edgesIgnoringSafeArea(.all)
                 }
             )
                 .background(
@@ -225,9 +226,13 @@ struct ShopDetailView: View {
                         .frame(width: 180)
                     }
                     if !self.isEditing {
-                        Text(.shopProductsAvailability)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
+                        HStack {
+                            Text(.shopProductsAvailability)
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
+                        .frame(width: 148)
                     }
                 }
                 .frame(height: 28)
@@ -244,14 +249,22 @@ struct ShopDetailView: View {
                                 }
                                 Text(product.name)
                                     .font(.headline)
+                                    .minimumScaleFactor(0.8)
+                                    .lineLimit(1)
                                 Spacer()
                                 if !self.isEditing {
-                                    Text(product.availability.text)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                        .transition(.opacity)
-                                    AvailabilityView(availability: product.availability)
-                                        .frame(height: 20)
+//                                    HStack {
+                                        AvailabilityView(availability: product.availability)
+                                            .frame(height: 12)
+                                    HStack {
+                                        Text(product.availability.text)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                            .transition(.opacity)
+                                        Spacer()
+                                    }
+                                            .frame(width: 120)
+//                                    }
                                 }
                                 if self.isEditing {
                                     HStack(spacing: 4) {
@@ -260,7 +273,6 @@ struct ShopDetailView: View {
                                         AvailabilityButton(product: product, availability: .full)
                                     }
                                     .frame(width: 180)
-                                    
                                 }
                                 
                             }
@@ -309,19 +321,16 @@ struct AvailabilityButton: View {
                 self.availability.color
                     .opacity(0.3)
                     .cornerRadius(4)
-//                    .frame(height: 36)
                 Circle()
                     .stroke(self.availability.color, lineWidth: 2)
-                    .modifier(GlowModifier())
                     .overlay(
                         Circle()
                             .fill(self.availability.color)
-                            .modifier(GlowModifier())
                             .padding(3)
                             .opacity(product.selectedAvailability == self.availability ? 1 : 0)
                         
                 )
-                    .frame(height: 16)
+                    .frame(height: 12)
             }
         }
     }
@@ -337,7 +346,7 @@ struct AvailabilityLegend: View {
                 .opacity(0.3)
                 .cornerRadius(4)
             Text(self.availability.shortText)
-                .font(.system(size: 11, weight: .bold, design: .default))
+                .font(.system(size: 10, weight: .bold, design: .default))
                 .multilineTextAlignment(.center)
         }
     }
@@ -346,7 +355,7 @@ struct AvailabilityLegend: View {
 struct ShopDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ShopDetailView(model: DetailModel(shop: [ShopModel].preview.first!.shop, products: .preview))
+            ShopDetailView(model: DetailModel(shop: [ShopModel].preview.first!.shop, products: .preview), isEditing: false)
         }
     }
 }

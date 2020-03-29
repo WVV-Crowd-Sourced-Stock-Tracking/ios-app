@@ -38,7 +38,7 @@ struct ShopsView: View {
                             .foregroundColor(.accent)
                     }
                     .sheet(isPresented: self.$showFilter) {
-						FilterView(show: self.$showFilter)
+						FilterView()
                     }
                     
 //                    Button(action: {

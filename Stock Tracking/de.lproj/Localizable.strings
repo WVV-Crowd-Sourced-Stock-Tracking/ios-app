@@ -23,7 +23,7 @@
 
 "onboarding.start" = "Los Gehts";
 
-"shops.title" = "Läden";
+"shops.title" = "Supermärkte";
 
 
 "shop.edit" = "Bestand aktualisiere";
@@ -34,7 +34,7 @@
 
 "shop.product.title" = "Produkte";
 
-"shop.product.availability" = "Verfügbarkeit";
+"shop.product.availability" = "Bestand";
 
 "shop.open" = "Geöffnet";
 
@@ -66,7 +66,7 @@
 
 "location.error.button" = "Ortungsdienste aktivieren";
 
-"filter.title" = "Was brauchst du?";
+"filter.title" = "Produkte";
 
 
 "notification.title" = "Bist du im %@?";
@@ -76,3 +76,7 @@
 "done.text" = "Fertig";
 
 "thanks.text" = "Danke für Deine Hilfe!";
+
+"filter.button" = "Supermärkte anzeigen";
+
+"filter.clear" = "Filter löschen";

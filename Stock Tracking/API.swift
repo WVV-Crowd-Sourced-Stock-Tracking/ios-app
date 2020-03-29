@@ -57,6 +57,7 @@ struct API {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let body = ShopRequest(longitude: location.longitude, latitude: location.latitude, radius: radius)
         request.httpBody = try! JSONEncoder.standard.encode(body)
+        print(String(data: request.httpBody!, encoding: .utf8)!)
         root[keyPath: isLoading] = true
 		return URLSession.shared.dataTaskPublisher(for: request)
             .set(isLoading, on: root, to: false)
@@ -67,6 +68,7 @@ struct API {
             .decode(type: ShopResponse.self, decoder: JSONDecoder.standard)
             .cache(for: "market.scrape")
             .map(\.supermarket)
+            .map { $0.filter { $0.latitude != nil }}
 			.eraseToAnyPublisher()
 	}
     

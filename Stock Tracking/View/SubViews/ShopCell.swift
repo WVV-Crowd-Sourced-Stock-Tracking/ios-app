@@ -132,7 +132,7 @@ struct AvailabilityView: View {
         Circle()
             .foregroundColor(self.availability.color)
             .aspectRatio(1, contentMode: .fit)
-            .modifier(GlowModifier())
+//            .modifier(GlowModifier())
     }
 }
 
@@ -162,6 +162,7 @@ struct ShopCell_Previews: PreviewProvider {
             }
             Spacer()
         }
+        .background(Color.grouped)
         
     }
 }

@@ -52,14 +52,14 @@ class ShopModel: ObservableObject, Identifiable, LandmarkConvertible {
         self.address = address
         self.isOpen = isOpen
         self.name = name
-        self.shop = Shop(marketId: id, marketName: name, latitude: location.latitude.description, longitude: location.longitude.description, street: address, distance: distance.description, open: isOpen, products: products)
+        self.shop = Shop(marketId: id, marketName: name, latitude: location.latitude.description, longitude: location.longitude.description, street: address, distance: distance.description, open: isOpen, products: products, periods: [])
 }
 
 init(shop: Shop, allProducts: [Product]) {
         self.id = shop.marketId.description
     let productModels = allProducts.map { ProductModel(product: $0, shopId: shop.marketId) }
         self.products = .models(from: shop.products, with: .sorted(with: productModels))
-        self.location = Location(latitude: Double(shop.latitude)!, longitude: Double(shop.longitude)!)
+        self.location = Location(latitude: Double(shop.latitude!)!, longitude: Double(shop.longitude!)!)
         self.shopAvailability = [ProductModel].shopScore(for: shop.products, with: productModels)
         self.isClose =  Double(shop.distance)! <= 100
         self.distance = round(Double(shop.distance)!)

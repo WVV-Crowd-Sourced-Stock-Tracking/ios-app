@@ -35,7 +35,7 @@
 
 "shop.product.title" = "Products";
 
-"shop.product.availability" = "Availability";
+"shop.product.availability" = "Stock";
 
 "shop.open" = "Open Now";
 
@@ -67,7 +67,7 @@
 
 "location.error.button" = "Enable Location Service";
 
-"filter.title" = "What do you need?";
+"filter.title" = "Products";
 
 "notification.title" = "Are you at %@?";
 
@@ -76,3 +76,8 @@
 "done.text" = "Done";
 
 "thanks.text" = "Thanks for your help!";
+
+"filter.button" = "Show Stores";
+
+"filter.clear" = "Clear filter";
+ 
